@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.nolat</groupId>
-	<artifactId>ScalaFalldown</artifactId>
+	<artifactId>CastleForge</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Scala Falldown</name>
-	<url>https://github.com/Talon876/Falldown</url>
+	<name>CastleForge</name>
+	<url>https://github.com/Talon876/CastleForge</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
