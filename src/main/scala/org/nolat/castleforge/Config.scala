@@ -5,8 +5,8 @@ import org.newdawn.slick.Color
 import org.newdawn.slick.Image
 
 object Config {
-  val Title = "Falldown"
-  val Resolution = new Point(800, 600)
+  val Title = "CastleForge"
+  val Resolution = new Point(1280, 720)
   val Fullscreen = false
 
   val Difficulty = 5
@@ -18,8 +18,8 @@ object Config {
   val WallSpawn = 800
 
   var WallTexture: Image = null
-  var Background: Image=null
-  var PlayerTexture: Image=null
+  var Background: Image = null
+  var PlayerTexture: Image = null
 
   def init() = {
     WallTexture = new Image("images/wallsegment.png")
