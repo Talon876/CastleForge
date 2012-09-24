@@ -17,3 +17,4 @@ build
 .classpath
 .project
 .settings
+.cache
