@@ -17,13 +17,9 @@ object Config {
   val Gravity = 1.75f
   val WallSpawn = 800
 
-  var WallTexture: Image = null
-  var Background: Image = null
-  var PlayerTexture: Image = null
+  var TitleScreenBackground: Image = null
 
   def init() = {
-    WallTexture = new Image("images/wallsegment.png")
-    Background = new Image("images/background.jpg")
-    PlayerTexture = new Image("images/ball.png")
+    TitleScreenBackground = new Image("images/background.png")
   }
 }
