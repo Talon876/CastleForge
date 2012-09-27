@@ -20,6 +20,6 @@ object Config {
   var TitleScreenBackground: Image = null
 
   def init() = {
-    TitleScreenBackground = new Image("images/background.png")
+    TitleScreenBackground = new Image("images/titlescreen.png")
   }
 }
