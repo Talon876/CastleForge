@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+    <animation name="active">
+        <start>0</start>
+    </animation>
+    <animation name="inactive">
+        <start>1</start>
+    </animation>
+</animations>

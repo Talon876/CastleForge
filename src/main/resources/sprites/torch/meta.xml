@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+    <animation name="off">
+        <start>0</start>
+    </animation>
+    <animation name="low">
+        <start>1</start>
+    </animation>
+    <animation name="medium">
+        <start>2</start>
+    </animation>
+    <animation name="high">
+        <start>3</start>
+    </animation>
+</animations>

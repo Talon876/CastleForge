@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+    <animation name="default">
+        <start>0</start>
+    </animation>
+    <animation name="shadow">
+        <start>1</start>
+    </animation>
+</animations>

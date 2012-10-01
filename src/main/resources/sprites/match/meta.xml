@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+    <animation name="one">
+        <start>0</start>
+    </animation>
+    <animation name="few">
+        <start>1</start>
+    </animation>
+    <animation name="many">
+        <start>2</start>
+    </animation>
+    <animation name="alot">
+        <start>3</start>
+    </animation>
+</animations>

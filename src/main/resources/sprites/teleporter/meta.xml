@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+    <animation name="bidirectional">
+        <start>0</start>
+        <end>3</end>
+        <fps>8</fps>
+        <loop>true</loop>
+    </animation>
+    <animation name="sender">
+        <start>4</start>
+        <end>7</end>
+        <fps>8</fps>
+        <loop>true</loop>
+    </animation>
+    <animation name="receiver">
+        <start>8</start>
+        <end>11</end>
+        <fps>8</fps>
+        <loop>true</loop>
+    </animation>
+</animations>

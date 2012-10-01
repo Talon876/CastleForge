@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+    <animation name="diamond">
+        <start>0</start>
+    </animation>
+    <animation name="star">
+        <start>1</start>
+    </animation>
+    <animation name="pentagon">
+        <start>2</start>
+    </animation>
+    <animation name="triangle">
+        <start>3</start>
+    </animation>
+    <animation name="diamond_shadow">
+        <start>4</start>
+    </animation>
+    <animation name="star_shadow">
+        <start>5</start>
+    </animation>
+    <animation name="pentagon_shadow">
+        <start>6</start>
+    </animation>
+    <animation name="triangle_shadow">
+        <start>7</start>
+    </animation>
+</animations>

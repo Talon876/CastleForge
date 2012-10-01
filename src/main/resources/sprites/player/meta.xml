@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+    <animation name="walking_down">
+        <start>0</start>
+        <end>3</end>
+        <fps>8</fps>
+    </animation>
+    <animation name="walking_up">
+        <start>4</start>
+        <end>7</end>
+        <fps>8</fps>
+    </animation>
+    <animation name="walking_left">
+        <start>8</start>
+        <end>11</end>
+        <fps>8</fps>
+    </animation>
+    <animation name="walking_right">
+        <start>12</start>
+        <end>15</end>
+        <fps>8</fps>
+    </animation>
+</animations>
