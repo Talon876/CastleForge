@@ -33,7 +33,7 @@ object NativeExtractor {
         }
       }
     } catch {
-      case e: Exception => e.printStackTrace()
+      case e: Exception => //e.printStackTrace()
     }
     nativeDirPath
   }

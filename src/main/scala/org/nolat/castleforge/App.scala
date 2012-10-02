@@ -17,6 +17,7 @@ object App {
     try {
       val app = new AppGameContainer(new CastleForge(APPNAME + " - " + VERSION))
       app.setDisplayMode(Config.Resolution.getX(), Config.Resolution.getY(), Config.Fullscreen)
+      app.setShowFPS(false)
       app.start()
     } catch {
       case e: SlickException => e.printStackTrace()

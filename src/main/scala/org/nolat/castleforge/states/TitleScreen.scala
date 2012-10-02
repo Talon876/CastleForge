@@ -39,9 +39,11 @@ class TitleScreen extends BasicGameState {
   override def keyReleased(key: Int, c: Char) {
     println(key + " " + c)
     if (key == Input.KEY_RETURN) {
-      val target = game.getState(MainMenuScreen.ID)
+      //val target = game.getState(MainMenuScreen.ID)
 
       game.enterState(MainMenuScreen.ID, new EmptyTransition(), new EmptyTransition())
+    } else if (key == Input.KEY_F9) {
+      game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
     }
   }
 }
