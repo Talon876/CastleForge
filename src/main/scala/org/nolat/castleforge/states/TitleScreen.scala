@@ -31,15 +31,13 @@ class TitleScreen extends BasicGameState {
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
-    Config.TitleScreenBackground.draw(0, 0, Config.Resolution.getX, Config.Resolution.getY)
-    g.setColor(Color.white)
-    g.drawString("Press enter", 600, 380)
+    Config.TitleScreenBackground.draw(0, 0)
+    Config.UIFont.drawString(600, 300, "Press enter")
   }
 
   override def keyReleased(key: Int, c: Char) {
     println(key + " " + c)
     if (key == Input.KEY_RETURN) {
-      //val target = game.getState(MainMenuScreen.ID)
 
       game.enterState(MainMenuScreen.ID, new EmptyTransition(), new EmptyTransition())
     } else if (key == Input.KEY_F9) {
