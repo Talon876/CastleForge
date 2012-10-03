@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
+	<xs:complexType name="CastleForgeItemType">
+		<xs:sequence>
+			<xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="param" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+					</xs:sequence>
+					<xs:attribute name="type" type="xs:string" use="required" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="positiveDecimal">
+		<xs:restriction base="xs:decimal">
+			<xs:minExclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="castle">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="meta">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="collapse"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="author">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="collapse"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="description" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="roomlayout">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="row" minOccurs="1" maxOccurs="unbounded">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="collapse"/>
+										<xs:pattern value="([0-4])+"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="rows" type="xs:positiveInteger" use="required"/>
+						<xs:attribute name="cols" type="xs:positiveInteger" use="required"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="state" minOccurs="1" maxOccurs="2">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="map">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="row" minOccurs="1" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="tile" minOccurs="1" maxOccurs="unbounded" type="CastleForgeItemType"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="inventory" minOccurs="0" type="CastleForgeItemType"/>
+						</xs:sequence>
+						<xs:attribute name="id" type="xs:nonNegativeInteger" use="required"/>
+					</xs:complexType>
+					<xs:unique name="stateId"> 
+						<xs:selector xpath="."/> 
+						<xs:field xpath="@id"/> 
+					</xs:unique> 
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="version" type="positiveDecimal" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

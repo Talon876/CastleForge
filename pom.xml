@@ -144,6 +144,22 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.scalaxb</groupId>
+				<artifactId>scalaxb-maven-plugin</artifactId>
+				<configuration>
+					<packageName>org.nolat.castleforge.xml</packageName>
+					<xsdDirectory>${project.basedir}/src/main/resources/xsd</xsdDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>scalaxb</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<configuration>
