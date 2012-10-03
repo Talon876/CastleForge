@@ -6,12 +6,18 @@ import javax.xml.transform.stream.StreamSource
 import java.io.File
 import org.apache.commons.io.FileUtils
 import java.io.InputStream;
+import org.nolat.castleforge.Config
 
 object SpriteLoad {
+  def loadSprite(file: File): Animations = {
+    loadSprite(file, Config.animationXsd)
+  }
+
   def loadSprite(file: File, schema: InputStream): Animations = {
     val source = FileUtils.openInputStream(file)
     loadSprite(source, schema)
   }
+
   def loadSprite(stream: InputStream, xsdStream: InputStream): Animations = {
     val factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
     val schema = factory.newSchema(new StreamSource(xsdStream))

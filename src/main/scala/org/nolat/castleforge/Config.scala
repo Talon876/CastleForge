@@ -21,11 +21,11 @@ object Config {
   val Title = "CastleForge"
   val Resolution = new Point(1280, 720)
   val Fullscreen = false
-
   val TileWidth = 64
   val TileHeight = 64
-
-  private val augustaFont = Font.createFont(Font.TRUETYPE_FONT, Config.getClass().getResourceAsStream("/fonts/Augusta.ttf"))
+  private val augustaFont = Font.createFont(Font.TRUETYPE_FONT, Config.getClass.getResourceAsStream("/fonts/Augusta.ttf"))
+  val animationXsd = Config.getClass.getResourceAsStream("/xml/CastleForgeSprite.xsd")
+  val mapXsd = Config.getClass.getResourceAsStream("/xml/CastleForgeMap.xsd")
 
   var UIFont: TrueTypeFont = null
   var TitleScreenBackground: Image = null
