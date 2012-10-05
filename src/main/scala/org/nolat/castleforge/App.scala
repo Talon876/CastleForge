@@ -20,7 +20,8 @@ object App {
       app.setShowFPS(false)
       app.start()
     } catch {
-      case e: SlickException => e.printStackTrace()
+      case e: SlickException => println(e.getMessage())
+      case x: Exception => println(x.getMessage())
     }
   }
 }
