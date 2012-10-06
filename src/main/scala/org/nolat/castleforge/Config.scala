@@ -1,12 +1,14 @@
 package org.nolat.castleforge
 
 import java.awt.Font
-
 import org.lwjgl.util.Point
 import org.newdawn.slick.Image
 import org.newdawn.slick.TrueTypeFont
 import org.nolat.castleforge.graphics.Sprite
 import org.nolat.castleforge.graphics.Sprites
+import org.nolat.castleforge.graphics.Loader
+import org.nolat.castleforge.graphics.AnimationData
+import org.newdawn.slick.SpriteSheet
 
 object Config {
   val Title = "CastleForge"
@@ -22,15 +24,15 @@ object Config {
   var UIFont: TrueTypeFont = null
   var TitleScreenBackground: Image = null
 
-  val spriteList = List("teleporter", "checkpoint")
-
-  var sprites: Map[String, Sprite] = null
+  var animationData: Map[String, Map[String, AnimationData]] = null
+  var spritesheets: Map[String, SpriteSheet] = null
 
   def init() = {
     TitleScreenBackground = new Image("images/titlescreen.png")
     UIFont = new TrueTypeFont(augustaFont.deriveFont(Font.PLAIN, 48), true)
 
-    sprites = Sprites.values.map { sprite => (sprite.toString, new Sprite(sprite)) } toMap
+    animationData = Sprites.values.map { sprite => (sprite.toString, Loader.getAnimData(sprite)) }.toMap
+    spritesheets = Sprites.values.map { sprite => (sprite.toString, Loader.getSpriteSheet(sprite)) }.toMap
 
   }
 }

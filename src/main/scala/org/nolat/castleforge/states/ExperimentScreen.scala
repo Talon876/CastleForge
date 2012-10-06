@@ -12,34 +12,58 @@ import org.nolat.castleforge.graphics.Loader
 import org.newdawn.slick.Input
 import org.nolat.castleforge.graphics.Sprite
 import org.nolat.castleforge.graphics.Sprites
+import scala.collection.mutable.MutableList
 
 object ExperimentScreen {
   val ID = 3
 }
 class ExperimentScreen extends BasicGameState {
-
   var game: StateBasedGame = null
+  var sprites: MutableList[Sprite] = new MutableList[Sprite]()
 
   override def getID = ExperimentScreen.ID
 
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
-    Config
+
+    Sprites.values.foreach { spriteName =>
+      sprites.+=(new Sprite(spriteName))
+    }
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
-    if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
-      Config.sprites("teleporter").setAnimation("bidirectional")
+    if (container.getInput().isKeyPressed(Input.KEY_1)) {
+
+    } else if (container.getInput().isKeyPressed(Input.KEY_2)) {
+
+    } else if (container.getInput().isKeyPressed(Input.KEY_3)) {
+
     }
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     g.setBackground(Color.black)
     g.setColor(Color.white)
-    g.drawString("Experiment Screen", 5, 10)
-    Config.sprites(Sprites.teleporter).getAnimation().draw(100, 100)
-    Config.sprites(Sprites.teleporter).setAnimation("bidirectional")
-    Config.sprites(Sprites.teleporter).getAnimation().draw(100, 200)
+    for (y <- 0 to 10) {
+      for (x <- 0 to 18) {
+        sprites(4).setAnimation("type1")
+        sprites(4).getAnimation.draw(x * Config.TileWidth, y * Config.TileHeight)
+      }
+    }
+    var c = 0
+    for (y <- 0 to 10 by 2) {
+      for (x <- 0 to 18) {
+        //floor.getAnimation.draw(x * Config.TileWidth, y * Config.TileHeight)
+
+        if (c < sprites.size) {
+          sprites(c).animationList.foreach { animation =>
+            sprites(c).setAnimation(animation)
+            sprites(c).getAnimation.draw(x * Config.TileWidth, (y + sprites(c).animationList.indexOf(animation)) * Config.TileHeight)
+          }
+        }
+        c += 1
+      }
+    }
   }
 
   override def keyReleased(key: Int, c: Char) {

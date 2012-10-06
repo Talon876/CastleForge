@@ -10,7 +10,6 @@ object App {
   val APPNAME = "CastleForge"
 
   def main(args: Array[String]) = {
-    println("Scala Version")
     val nativeDir = NativeExtractor.extractNatives()
     println("Set org.lwjgl.librarypath to " + nativeDir)
     System.setProperty("org.lwjgl.librarypath", nativeDir)

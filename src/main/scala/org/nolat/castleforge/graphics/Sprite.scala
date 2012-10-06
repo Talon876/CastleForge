@@ -1,10 +1,12 @@
 package org.nolat.castleforge.graphics
 
 import org.newdawn.slick.Animation
+import org.nolat.castleforge.Config
 object Sprites extends Enumeration {
   type Sprite = Value
   val checkpoint = Value("checkpoint")
   val crystal_ball = Value("crystal_ball")
+  val door = Value("door")
   val endpoint = Value("endpoint")
   val floor = Value("floor")
   val ice = Value("ice")
@@ -23,10 +25,11 @@ object Sprites extends Enumeration {
 }
 
 class Sprite(name: String) {
-  private val animDataMap = Loader.getAnimData(name)
-  private val spriteSheet = Loader.getSpriteSheet(name)
+  private val animDataMap = Config.animationData(name)
+  private val spriteSheet = Config.spritesheets(name)
 
-  private val animationList = animDataMap.keys.toList
+  val animationList = animDataMap.keys.toList
+  animationList.foreach(animation => println("Loaded animation " + animation + " for sprite " + name))
   private var currentAnimation = animationList(0)
 
   private def animationData = animDataMap(currentAnimation)
@@ -42,20 +45,20 @@ class Sprite(name: String) {
     Array.fill(numberOfFrames)(1000 / animationData.fps)
   }
 
-  println("width in tiles: " + spriteSheet.getHorizontalCount())
-  println("height in tiles: " + spriteSheet.getVerticalCount())
-  animationList.foreach { animation =>
-    currentAnimation = animation
-    println("Set currentAnimation for " + name + " to " + currentAnimation)
-    println(numberOfFrames + " frames of animation at " + animationData.fps + " fps")
-    println("Start frame coords: " + startFrame)
-    println("End frame coords: " + endFrame)
-    calculateFrameArray.foreach(x => print(x + " ")); println
-    calculateFpsArray.foreach(x => print(x + " "))
-    println()
-  }
-
-  val animations = animationList.map { animation =>
+  //  println("width in tiles: " + spriteSheet.getHorizontalCount())
+  //  println("height in tiles: " + spriteSheet.getVerticalCount())
+  //  animationList.foreach { animation =>
+  //    currentAnimation = animation
+  //    println("Set currentAnimation for " + name + " to " + currentAnimation)
+  //    println(numberOfFrames + " frames of animation at " + animationData.fps + " fps")
+  //    println("Start frame coords: " + startFrame)
+  //    println("End frame coords: " + endFrame)
+  //    calculateFrameArray.foreach(x => print(x + " ")); println
+  //    calculateFpsArray.foreach(x => print(x + " "))
+  //    println()
+  //  }
+  //
+  private val animations = animationList.map { animation =>
     currentAnimation = animation
     (animation, new Animation(spriteSheet, calculateFrameArray, calculateFpsArray))
   }.toMap
@@ -65,6 +68,9 @@ class Sprite(name: String) {
   }
 
   def setAnimation(newAnimation: String) = {
+    if (!animations.contains(newAnimation)) {
+      println("Warning! " + newAnimation + " doesn't exist for the sprite " + name + ". Check the meta.xml")
+    }
     currentAnimation = newAnimation
   }
 

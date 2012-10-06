@@ -25,8 +25,6 @@ object Loader {
       val loop = anim.loop.getOrElse(false)
       (name, AnimationData(start, end, fps, loop))
     }.toMap
-
-    animationMap.foreach(println)
     animationMap
   }
 
