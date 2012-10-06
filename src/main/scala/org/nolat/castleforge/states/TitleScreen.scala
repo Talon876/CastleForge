@@ -11,6 +11,7 @@ import org.newdawn.slick.state.transition.CrossStateTransition
 import org.newdawn.slick.state.GameState
 import org.newdawn.slick.state.transition.EmptyTransition
 import org.nolat.castleforge.Config
+import org.nolat.castleforge.tools.CodeTimer
 
 object TitleScreen {
   val ID = 1
@@ -24,6 +25,7 @@ class TitleScreen extends BasicGameState {
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
     Config.init()
+    CodeTimer.finish()
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {

@@ -1,9 +1,9 @@
 package org.nolat.castleforge
-import java.io.IOException;
-import java.util.Properties;
-
-import org.newdawn.slick.AppGameContainer;
+import java.io.IOException
+import java.util.Properties
+import org.newdawn.slick.AppGameContainer
 import org.newdawn.slick.SlickException;
+import org.nolat.castleforge.tools.CodeTimer
 object App {
 
   val VERSION = "1.0-SNAPSHOT"
@@ -13,6 +13,7 @@ object App {
     val nativeDir = NativeExtractor.extractNatives()
     println("Set org.lwjgl.librarypath to " + nativeDir)
     System.setProperty("org.lwjgl.librarypath", nativeDir)
+    CodeTimer.start()
     try {
       val app = new AppGameContainer(new CastleForge(APPNAME + " - " + VERSION))
       app.setDisplayMode(Config.Resolution.getX(), Config.Resolution.getY(), Config.Fullscreen)

@@ -29,7 +29,7 @@ class Sprite(name: String) {
   private val spriteSheet = Config.spritesheets(name)
 
   val animationList = animDataMap.keys.toList
-  animationList.foreach(animation => println("Loaded animation " + animation + " for sprite " + name))
+  //animationList.foreach(animation => println("Loaded animation " + animation + " for sprite " + name))
   private var currentAnimation = animationList(0)
 
   private def animationData = animDataMap(currentAnimation)
@@ -41,23 +41,11 @@ class Sprite(name: String) {
     animationData.start.to(animationData.end).map(frame =>
       List(frameNumberToFrameCoords(frame)_1, frameNumberToFrameCoords(frame)_2)).toList.flatten.toArray[Int]
   }
+
   private def calculateFpsArray: Array[Int] = {
     Array.fill(numberOfFrames)(1000 / animationData.fps)
   }
 
-  //  println("width in tiles: " + spriteSheet.getHorizontalCount())
-  //  println("height in tiles: " + spriteSheet.getVerticalCount())
-  //  animationList.foreach { animation =>
-  //    currentAnimation = animation
-  //    println("Set currentAnimation for " + name + " to " + currentAnimation)
-  //    println(numberOfFrames + " frames of animation at " + animationData.fps + " fps")
-  //    println("Start frame coords: " + startFrame)
-  //    println("End frame coords: " + endFrame)
-  //    calculateFrameArray.foreach(x => print(x + " ")); println
-  //    calculateFpsArray.foreach(x => print(x + " "))
-  //    println()
-  //  }
-  //
   private val animations = animationList.map { animation =>
     currentAnimation = animation
     (animation, new Animation(spriteSheet, calculateFrameArray, calculateFpsArray))

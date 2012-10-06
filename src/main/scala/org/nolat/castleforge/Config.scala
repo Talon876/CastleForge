@@ -9,6 +9,8 @@ import org.nolat.castleforge.graphics.Sprites
 import org.nolat.castleforge.graphics.Loader
 import org.nolat.castleforge.graphics.AnimationData
 import org.newdawn.slick.SpriteSheet
+import scala.collection.parallel.immutable.ParMap
+import org.nolat.castleforge.xml.SpriteLoad
 
 object Config {
   val Title = "CastleForge"
@@ -31,7 +33,14 @@ object Config {
     TitleScreenBackground = new Image("images/titlescreen.png")
     UIFont = new TrueTypeFont(augustaFont.deriveFont(Font.PLAIN, 48), true)
 
-    animationData = Sprites.values.map { sprite => (sprite.toString, Loader.getAnimData(sprite)) }.toMap
+    val parmap = Sprites.values.par.map { sprite =>
+      val img = new Image("sprites/" + sprite + "/" + sprite + ".png")
+      //new SpriteSheet("sprites/" + sprite + "/" + sprite + ".png", 64, 64)
+    }.toList
+
+    parmap.foreach(println(_))
+
+    animationData = Sprites.values.par.map { sprite => (sprite.toString, Loader.getAnimData(sprite)) }.seq.toMap
     spritesheets = Sprites.values.map { sprite => (sprite.toString, Loader.getSpriteSheet(sprite)) }.toMap
 
   }

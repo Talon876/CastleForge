@@ -8,7 +8,6 @@ import org.newdawn.slick.SpriteSheet
 object Loader {
 
   def getAnimData(spriteName: String): Map[String, AnimationData] = {
-    val image = new Image("sprites/" + spriteName + "/" + spriteName + ".png")
     val meta = SpriteLoad.loadSprite(getClass.getResourceAsStream("/sprites/" + spriteName + "/meta.xml"))
 
     val animationMap = meta.animation.map { anim =>
