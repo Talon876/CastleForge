@@ -4,12 +4,12 @@ import scala.collection.mutable.ArrayBuffer
 
 class Item {
 	var itemType : String = ""
-	var params : ArrayBuffer[String] = null
+	var params : ArrayBuffer[String] = new ArrayBuffer
 	
-	def this(item: org.nolat.castleforge.xml.Item)
+	def this(iType : String, param : ArrayBuffer[String])
 	{
 	  this()
-	  itemType = item.typeValue;
-	  params = ArrayBuffer(item.param : _*)
+	  itemType = iType
+	  params = param
 	}
 }

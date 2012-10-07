@@ -1,12 +1,12 @@
 package org.nolat.castleforge.castle
 
 class Tile {
-	var item : Item = null;
+	var item : Item = new Item();
 	
-	def this(tile: org.nolat.castleforge.xml.CastleForgeItemType)
+	def this(tile: Item)
 	{
 	  this()
-	  item = new Item(tile.item(0))
+	  item = item
 	}
 	
 	//Implicit conversion to inventory if necessary later

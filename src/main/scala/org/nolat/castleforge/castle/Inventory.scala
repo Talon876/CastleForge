@@ -4,9 +4,9 @@ import scala.collection.mutable.ArrayBuffer
 
 class Inventory extends ArrayBuffer[Item]{
   
-  def this(i : org.nolat.castleforge.xml.CastleForgeItemType)
+  def this(items : Seq[Item])
   {
     this()
-    this.appendAll(i.item.map(it => new Item()))
+    this.appendAll(items)
   }
 }

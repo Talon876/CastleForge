@@ -12,6 +12,7 @@ import org.nolat.castleforge.graphics.Loader
 import org.newdawn.slick.Input
 import org.nolat.castleforge.graphics.Sprite
 import org.nolat.castleforge.graphics.Sprites
+import org.nolat.castleforge.castle.Castle
 
 object ExperimentScreen {
   val ID = 3
@@ -19,17 +20,20 @@ object ExperimentScreen {
 class ExperimentScreen extends BasicGameState {
 
   var game: StateBasedGame = null
-
+  var testCastle: Castle = null
   override def getID = ExperimentScreen.ID
 
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
+    testCastle = org.nolat.castleforge.xml.MapLoad.loadMap(getClass.getResourceAsStream("/xsd/ExampleMap.xml"), Config.mapXsd, false)
     Config
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
-      Config.sprites("teleporter").setAnimation("bidirectional")
+      Config.sprites(Sprites.teleporter).setAnimation("bidirectional")
+      testCastle.name = "This is a test"
+      org.nolat.castleforge.xml.MapSave.save(testCastle, Config.WorkingDirectory + "/maps/", false)
     }
   }
 
@@ -38,8 +42,9 @@ class ExperimentScreen extends BasicGameState {
     g.setColor(Color.white)
     g.drawString("Experiment Screen", 5, 10)
     Config.sprites(Sprites.teleporter).getAnimation().draw(100, 100)
-    Config.sprites(Sprites.teleporter).setAnimation("bidirectional")
+    //Config.sprites(Sprites.teleporter).setAnimation("bidirectional")
     Config.sprites(Sprites.teleporter).getAnimation().draw(100, 200)
+    g.drawString(testCastle.name, 30,30)
   }
 
   override def keyReleased(key: Int, c: Char) {
