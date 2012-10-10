@@ -13,8 +13,9 @@ import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.Buffer
 import org.nolat.castleforge.castle.Tile
 import org.nolat.castleforge.castle.Inventory
-import org.nolat.castleforge.castle.{Castle => CastleStructure}
-import org.nolat.castleforge.castle.{Item => CastleItem}
+import org.nolat.castleforge.castle.{ Castle => CastleStructure }
+import org.nolat.castleforge.castle.{ Item => CastleItem }
+import org.nolat.castleforge.castle.ItemFactory
 
 object MapLoad {
   def loadMap(file: File, isEditor: Boolean): CastleStructure = {
@@ -31,16 +32,14 @@ object MapLoad {
     val schema = factory.newSchema(new StreamSource(xsdStream))
 
     val xml = new SchemaAwareFactoryAdapter(schema).load(stream)
-    var xmlCastle : Castle = null
-    try
-    {
-    	xmlCastle = scalaxb.fromXML[Castle](xml)
-    	createCastle(xmlCastle, isEditor)
-    }
-    catch
-    {
-      case e: Exception => println(e.getMessage() + e.getStackTrace().map(ex => println(ex.toString())))
-      throw new Exception()
+    var xmlCastle: Castle = null
+    try {
+      xmlCastle = scalaxb.fromXML[Castle](xml)
+      createCastle(xmlCastle, isEditor)
+    } catch {
+      case e: Exception =>
+        println(e.getMessage() + e.getStackTrace().map(ex => println(ex.toString())))
+        throw new Exception()
     }
   }
 
@@ -51,60 +50,50 @@ object MapLoad {
     castle.rows = castleXML.roomlayout.rows.intValue
     castle.cols = castleXML.roomlayout.cols.intValue
     castle.roomLayout = seqStr2ABInt(castleXML.roomlayout.row)
-    if(isEditor) //the editor should always get the original layout of the castle
+    if (isEditor) //the editor should always get the original layout of the castle
     {
-    	castle.map = castle.originalState
-    	castle.inventory = itemType2Inventory(castleXML.state(0).inventory.orNull) //it will load the inventory of the original state
-    }
-    else
-    {
-	    if(castleXML.state.length == 1)
-	    {
-		    castle.map = castle.originalState
-		    castle.inventory = itemType2Inventory(castleXML.state(0).inventory.orNull)
-	    }
-	    else
-	    {
-		    castle.map = mapType2ABTile(castleXML.state(1).map)
-		    castle.inventory = itemType2Inventory(castleXML.state(1).inventory.orNull)
-	    }
+      castle.map = castle.originalState
+      castle.inventory = itemType2Inventory(castleXML.state(0).inventory.orNull) //it will load the inventory of the original state
+    } else {
+      if (castleXML.state.length == 1) {
+        castle.map = castle.originalState
+        castle.inventory = itemType2Inventory(castleXML.state(0).inventory.orNull)
+      } else {
+        castle.map = mapType2ABTile(castleXML.state(1).map)
+        castle.inventory = itemType2Inventory(castleXML.state(1).inventory.orNull)
+      }
     }
     castle
   }
 
   private def seqStr2ABInt(str: Seq[String]): ArrayBuffer[ArrayBuffer[Int]] = {
-    ArrayBuffer(str.map(s => ArrayBuffer(s.map(c =>  (c - '0')): _*)): _*) //http://stackoverflow.com/questions/6238353/scala-int-value-of-string-characters#comment7272535_6238411
+    ArrayBuffer(str.map(s => ArrayBuffer(s.map(c => (c - '0')): _*)): _*) //http://stackoverflow.com/questions/6238353/scala-int-value-of-string-characters#comment7272535_6238411
 
   }
 
   private def mapType2ABTile(map: MapType): ArrayBuffer[ArrayBuffer[Tile]] = {
-    ArrayBuffer(map.row.map(r => ArrayBuffer(r.tile.map(t => itemType2Tile(t)): _*) ): _* )
+    ArrayBuffer(map.row.map(r => ArrayBuffer(r.tile.map(t => itemType2Tile(t)): _*)): _*)
   }
-  
-  private def itemType2Tile(t :CastleForgeItemType) : Tile ={
-    if(t.item != null && t.item.length > 0)
-    {
-    	new Tile(item2Item(t.item(0)))
-    }
-    else
+
+  private def itemType2Tile(t: CastleForgeItemType): Tile = {
+    if (t.item != null && t.item.length > 0) {
+      new Tile() //TODO make this work
+    } else
       new Tile()
   }
-  private def item2Item(i : Item) :CastleItem = {
-    new CastleItem(i.typeValue,ArrayBuffer(i.param : _*))
+  private def item2Item(i: Item): CastleItem = {
+    ItemFactory.createItem(i.typeValue, i.param.toList)
   }
-  private def itemType2Inventory(inven : CastleForgeItemType) : Inventory =
-  {
-    if(inven != null)
+  private def itemType2Inventory(inven: CastleForgeItemType): Inventory =
     {
-      return new Inventory(itemType2Items(inven))
+      if (inven != null) {
+        return new Inventory(itemType2Items(inven))
+      } else {
+        return new Inventory()
+      }
     }
-    else
+  private def itemType2Items(itemType: CastleForgeItemType): Seq[CastleItem] =
     {
-      return new Inventory()
+      itemType.item.map(i => item2Item(i))
     }
-  }
-  private def itemType2Items(itemType: CastleForgeItemType) : Seq[CastleItem] =
-  {
-    itemType.item.map(i => item2Item(i))
-  }
 }

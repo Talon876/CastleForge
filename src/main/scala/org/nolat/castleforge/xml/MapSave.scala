@@ -3,10 +3,11 @@ package org.nolat.castleforge.xml
 import java.io.File
 import scala.xml.XML
 import org.nolat.castleforge.castle.{ Castle => CastleStructure }
-import org.nolat.castleforge.castle.{ Item => CastleItem }
 import org.nolat.castleforge.castle.Tile
 import org.nolat.castleforge.castle.Inventory
 import scala.collection.mutable.ArrayBuffer
+import org.nolat.castleforge.castle.{ Item => CastleItem }
+import org.nolat.castleforge.castle.ItemFactory
 
 object MapSave {
   private def save(castle: Castle, saveDirectory: String) =
@@ -35,7 +36,7 @@ object MapSave {
 	   * and will not write out a checkpoint state (1)
 	   */
       state = List[State](new State(AB2State(castle.map), inv2ItemType(castle.inventory), 0))
-      saveCastle(castle, savePath, state)//TODO: change to using online database later
+      saveCastle(castle, savePath, state) //TODO: change to using online database later
     } else {
       /*
 	   * This is used when saving a checkpoint while playing through a castle
@@ -45,7 +46,7 @@ object MapSave {
       state = List[State](new State(AB2State(castle.originalState), None, 0), new State(AB2State(castle.map), inv2ItemType(castle.inventory), 1))
       saveCastle(castle, savePath, state)
     }
-    
+
   }
   private def AB2Roomlayout(buffer: ArrayBuffer[ArrayBuffer[Int]]): Seq[String] = {
     buffer.map(row => new String(row.map(i => (i + '0').toChar).toArray))
@@ -59,10 +60,11 @@ object MapSave {
     new Row(seq.map(t => tile2CastleForgeItemType(t)): _*)
   }
   private def tile2CastleForgeItemType(tile: Tile): CastleForgeItemType = {
-    new CastleForgeItemType(item2Item(tile.item))
+    null
+    //new CastleForgeItemType(item2Item(tile.item))
   }
   private def item2Item(item: CastleItem): Item = {
-    new Item(item.params, item.itemType)
+    new Item(item.getParamList, item.getItemType)
   }
   private def inv2ItemType(inv: Inventory): Option[CastleForgeItemType] = {
     Option[CastleForgeItemType](new CastleForgeItemType(inv.map(i => item2Item(i)): _*))

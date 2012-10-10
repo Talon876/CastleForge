@@ -1,15 +1,7 @@
 package org.nolat.castleforge.castle
 
-import scala.collection.mutable.ArrayBuffer
+abstract class Item {
 
-class Item {
-	var itemType : String = ""
-	var params : ArrayBuffer[String] = new ArrayBuffer
-	
-	def this(iType : String, param : ArrayBuffer[String])
-	{
-	  this()
-	  itemType = iType
-	  params = param
-	}
+  def getItemType: String = "n/a"
+  def getParamList: Seq[String] = Nil
 }
