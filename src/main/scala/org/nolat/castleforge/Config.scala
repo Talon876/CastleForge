@@ -19,6 +19,8 @@ object Config {
   val TileWidth = 64
   val TileHeight = 64
   val DefaultAnimFps = 10
+  val DefaultCastleSize = Tuple2[Int, Int](11,11)
+  val WorkingDirectory = System.getProperty("user.home") + "/." + App.APPNAME.toLowerCase
   private val augustaFont = Font.createFont(Font.TRUETYPE_FONT, Config.getClass.getResourceAsStream("/fonts/Augusta.ttf"))
   def animationXsd = getClass.getResourceAsStream("/xsd/CastleForgeSprite.xsd")
   def mapXsd = getClass.getResourceAsStream("/xsd/CastleForgeMap.xsd")

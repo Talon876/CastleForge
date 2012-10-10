@@ -12,7 +12,7 @@ import org.apache.commons.io.IOUtils
 
 object NativeExtractor {
   def extractNatives(): String = {
-    val nativeDirPath = System.getProperty("user.home") + "/." + App.APPNAME.toLowerCase + "/natives/" + App.VERSION + "/"
+    val nativeDirPath = Config.WorkingDirectory + "/natives/" + App.VERSION + "/"
     val nativeDir = new File(nativeDirPath)
     nativeDir.mkdirs()
     val pathToJar = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath()

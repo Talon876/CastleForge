@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<castle xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="CastleForgeMap.xsd" version="1.0">
+	<meta>
+		<name><![CDATA[Hello]]></name>
+		<author><![CDATA[Rockstar O'Malley]]></author>
+		<description><![CDATA[This is a
+Multilined test]]></description>
+	</meta>
+	<roomlayout rows="7" cols="7">
+		<row>1121111</row>
+		<row>1121111</row>
+		<row>2231111</row>
+		<row>1121111</row>
+		<row>1121111</row>
+		<row>1121111</row>
+		<row>1121111</row>
+	</roomlayout>
+	<!-- This is the room matrix used for the editor to know when it can safely 
+		delete doors, walls and such when rooms are removed this can go from 0 to 
+		5 (5 is a 4 insersection while being in an inital room -->
+	<state id="0">
+		<!-- inital -->
+		<map>
+			<row>
+				<!--0 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--1 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="spawn" />
+				</tile>
+				<tile>
+					<item type="door">
+						<param>0</param>
+						<!--lock = 1 unlock = 0 -->
+					</item>
+				</tile>
+				<tile />
+				<tile>
+					<!--Sign Text -->
+					<item type="sign">
+						<param><![CDATA[Hello
+This
+Is
+A
+Sign]]></param>
+					</item>
+				</tile>
+				<tile />
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--2 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="torch">
+						<!--lit = 1 unlit = 0 -->
+						<param>0</param>
+						<!--color -->
+						<param>Red</param>
+						<!--low = 0 medium = 1 high = 2 -->
+						<param>0</param>
+					</item>
+				</tile>
+				<tile />
+				<tile>
+					<item type="match">
+						<!--count -->
+						<param>1</param>
+
+					</item>
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--3 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile />
+				<tile>
+					<item type="door">
+						<!--lock = 1 unlock = 0 -->
+						<param>1</param>
+						<!--color of lock -->
+						<param>blue</param>
+						<!--shape of lock -->
+						<param>octagon</param>
+					</item>
+				</tile>
+				<tile />
+				<tile />
+				<tile />
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--4 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile />
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile />
+				<tile />
+				<tile />
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--5 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<!--Finish Message (optional) -->
+					<item type="finish">
+						<param><![CDATA[This
+Was
+A
+Triumph
+I am making a note here...]]></param>
+					</item>
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="checkpoint">
+						<!--whether the player has activated this checkpoint or not there can 
+							only be one active at a time -->
+						<param>0</param>
+					</item>
+				</tile>
+				<tile />
+				<tile>
+					<item type="key">
+						<!--color of key -->
+						<param>blue</param>
+						<!--shape of key -->
+						<param>octagon</param>
+						<!-- amount -->
+						<param>1</param>
+					</item>
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--6 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+		</map>
+		<inventory>
+
+		</inventory>
+	</state>
+	<state id="1">
+		<!--after checkpoint -->
+		<map>
+			<row>
+				<!--0 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--1 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="spawn" />
+				</tile>
+				<tile>
+					<item type="door">
+						<!--lock = 1 unlock = 0 -->
+						<param>0</param>
+					</item>
+				</tile>
+				<tile />
+				<tile>
+					<item type="sign">
+						<!--Sign Text -->
+						<param><![CDATA[Hello
+This
+Is
+A
+Sign]]></param>
+					</item>
+				</tile>
+				<tile />
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--2 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="torch">
+						<!--lit = 1 unlit = 0 -->
+						<param>0</param>
+						<!--color -->
+						<param>Red</param>
+						<!--low = 0 medium = 1 high = 2 -->
+						<param>0</param>
+					</item>
+				</tile>
+				<tile />
+				<tile />
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--3 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile />
+				<tile>
+					<item type="door">
+						<!--lock = 1 unlock = 0 -->
+						<param>1</param>
+						<!--color of lock -->
+						<param>blue</param>
+						<!--shape of lock -->
+						<param>octagon</param>
+					</item>
+				</tile>
+				<tile />
+				<tile />
+				<tile />
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--4 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile />
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile />
+				<tile />
+				<tile />
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--5 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="finish">
+						<!--Finish Message (optional) -->
+						<param><![CDATA[This
+Was
+A
+Triumph
+I am making a note here...]]></param>
+					</item>
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="checkpoint">
+						<!--whether the player has activated this checkpoint or not there can 
+							only be one active at a time -->
+						<param>1</param>
+					</item>
+				</tile>
+				<tile />
+				<tile />
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+			<row>
+				<!--6 -->
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+				<tile>
+					<item type="wall" />
+				</tile>
+			</row>
+		</map>
+		<inventory>
+			<item type="match">
+				<!--count -->
+				<param>1</param>
+			</item>
+			<item type="key">
+				<!--color of key -->
+				<param>blue</param>
+				<!--shape of key -->
+				<param>octagon</param>
+				<!-- amount -->
+				<param>1</param>
+			</item>
+		</inventory>
+	</state>
+</castle>
