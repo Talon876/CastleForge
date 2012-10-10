@@ -19,7 +19,7 @@ object Config {
   val TileWidth = 64
   val TileHeight = 64
   val DefaultAnimFps = 10
-  val DefaultCastleSize = Tuple2[Int, Int](11,11)
+  val DefaultCastleSize = Tuple2[Int, Int](11, 11)
   val WorkingDirectory = System.getProperty("user.home") + "/." + App.APPNAME.toLowerCase
   private val augustaFont = Font.createFont(Font.TRUETYPE_FONT, Config.getClass.getResourceAsStream("/fonts/Augusta.ttf"))
   def animationXsd = getClass.getResourceAsStream("/xsd/CastleForgeSprite.xsd")
@@ -35,14 +35,7 @@ object Config {
     TitleScreenBackground = new Image("images/titlescreen.png")
     UIFont = new TrueTypeFont(augustaFont.deriveFont(Font.PLAIN, 48), true)
 
-    val parmap = Sprites.values.par.map { sprite =>
-      val img = new Image("sprites/" + sprite + "/" + sprite + ".png")
-      //new SpriteSheet("sprites/" + sprite + "/" + sprite + ".png", 64, 64)
-    }.toList
-
-    parmap.foreach(println(_))
-
-    animationData = Sprites.values.par.map { sprite => (sprite.toString, Loader.getAnimData(sprite)) }.seq.toMap
+    animationData = Sprites.values.map { sprite => (sprite.toString, Loader.getAnimData(sprite)) }.toMap
     spritesheets = Sprites.values.map { sprite => (sprite.toString, Loader.getSpriteSheet(sprite)) }.toMap
 
   }
