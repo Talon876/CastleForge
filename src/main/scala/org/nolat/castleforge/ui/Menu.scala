@@ -1,7 +1,6 @@
 package org.nolat.castleforge.ui
 
 import scala.collection.mutable.MutableList
-
 import org.newdawn.slick.Color
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
@@ -9,6 +8,7 @@ import org.newdawn.slick.geom.Vector2f
 import org.newdawn.slick.state.StateBasedGame
 import org.nolat.castleforge.Config
 import org.newdawn.slick.Input
+import org.nolat.castleforge.graphics.Renderable
 
 class Menu(var position: Vector2f) extends Renderable {
   def this() = this(new Vector2f(0, 0))

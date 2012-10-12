@@ -11,6 +11,7 @@ import org.nolat.castleforge.graphics.AnimationData
 import org.newdawn.slick.SpriteSheet
 import scala.collection.parallel.immutable.ParMap
 import org.nolat.castleforge.xml.SpriteLoad
+import scala.util.Random
 
 object Config {
   val Title = "CastleForge"
@@ -20,6 +21,7 @@ object Config {
   val TileHeight = 64
   val DefaultAnimFps = 10
   val DefaultCastleSize = Tuple2[Int, Int](11, 11)
+  val random = new Random()
   val WorkingDirectory = System.getProperty("user.home") + "/." + App.APPNAME.toLowerCase
   private val augustaFont = Font.createFont(Font.TRUETYPE_FONT, Config.getClass.getResourceAsStream("/fonts/Augusta.ttf"))
   def animationXsd = getClass.getResourceAsStream("/xsd/CastleForgeSprite.xsd")

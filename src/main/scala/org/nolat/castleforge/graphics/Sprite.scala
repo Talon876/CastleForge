@@ -2,6 +2,7 @@ package org.nolat.castleforge.graphics
 
 import org.newdawn.slick.Animation
 import org.nolat.castleforge.Config
+import scala.collection.mutable.MutableList
 object Sprites extends Enumeration {
   type Sprite = Value
   val checkpoint = Value("checkpoint")
@@ -60,6 +61,31 @@ class Sprite(name: String) {
       println("Warning! " + newAnimation + " doesn't exist for the sprite " + name + ". Check the meta.xml")
     }
     currentAnimation = newAnimation
+  }
+
+  /**
+   * Sets animation to a random animation, each with equal probability
+   */
+  def setRandomAnimation() {
+    setRandomAnimation(Array.fill(animationList.size)(1f / animationList.size.toFloat).toList)
+  }
+
+  /**
+   * Sets animation to a random animation, with specified probability
+   * @param probabilities A list of floats which sum to 1, representing the probability that index will be chosen
+   * Ex: List(.40f, .55f, .05f) would indicate a 40% animation 0 is chosen, 55% animation 1 is chosen, and 5% animation 2 is chosen
+   */
+  def setRandomAnimation(probabilities: List[Float]) {
+    println("probabilities: " + probabilities)
+    println("animations: " + animationList)
+    //creates a list of 100 elements by filling up 100*p slots with whatever the index is
+    val probList = probabilities.zipWithIndex.map {
+      case (probability, index) => Array.fill((probability * 100).toInt)(index)
+    }.flatten
+    val frame = animationList(probList(Config.random.nextInt(probList.size)))
+    println("setting random frame: " + frame)
+    setAnimation(frame) //pick random element from list and set current animation to the animation corresponding with the index
+
   }
 
 }

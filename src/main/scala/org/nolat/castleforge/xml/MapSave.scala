@@ -6,8 +6,7 @@ import org.nolat.castleforge.castle.{ Castle => CastleStructure }
 import org.nolat.castleforge.castle.Tile
 import org.nolat.castleforge.castle.Inventory
 import scala.collection.mutable.ArrayBuffer
-import org.nolat.castleforge.castle.{ Item => CastleItem }
-import org.nolat.castleforge.castle.ItemFactory
+import org.nolat.castleforge.castle.items.{ Item => CastleItem }
 
 object MapSave {
   private def save(castle: Castle, saveDirectory: String) =

@@ -14,8 +14,7 @@ import scala.collection.mutable.Buffer
 import org.nolat.castleforge.castle.Tile
 import org.nolat.castleforge.castle.Inventory
 import org.nolat.castleforge.castle.{ Castle => CastleStructure }
-import org.nolat.castleforge.castle.{ Item => CastleItem }
-import org.nolat.castleforge.castle.ItemFactory
+import org.nolat.castleforge.castle.items.{ Item => CastleItem }
 
 object MapLoad {
   def loadMap(file: File, isEditor: Boolean): CastleStructure = {
@@ -82,7 +81,11 @@ object MapLoad {
       new Tile()
   }
   private def item2Item(i: Item): CastleItem = {
-    ItemFactory.createItem(i.typeValue, i.param.toList)
+    //Item(i.typeValue, i.param.toList)
+    CastleItem(i.typeValue, i.param.toList) match {
+      case Some(item) => item
+      case None => CastleItem("default", List("1", "2")).get //TODO figure out what to do for default
+    }
   }
   private def itemType2Inventory(inven: CastleForgeItemType): Inventory =
     {

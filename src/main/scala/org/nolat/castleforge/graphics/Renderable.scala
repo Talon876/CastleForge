@@ -1,4 +1,4 @@
-package org.nolat.castleforge.ui
+package org.nolat.castleforge.graphics
 
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.GameContainer
