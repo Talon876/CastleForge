@@ -76,14 +76,11 @@ class Sprite(name: String) {
    * Ex: List(.40f, .55f, .05f) would indicate a 40% animation 0 is chosen, 55% animation 1 is chosen, and 5% animation 2 is chosen
    */
   def setRandomAnimation(probabilities: List[Float]) {
-    println("probabilities: " + probabilities)
-    println("animations: " + animationList)
     //creates a list of 100 elements by filling up 100*p slots with whatever the index is
     val probList = probabilities.zipWithIndex.map {
       case (probability, index) => Array.fill((probability * 100).toInt)(index)
     }.flatten
     val frame = animationList(probList(Config.random.nextInt(probList.size)))
-    println("setting random frame: " + frame)
     setAnimation(frame) //pick random element from list and set current animation to the animation corresponding with the index
 
   }

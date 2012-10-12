@@ -20,7 +20,6 @@ object Item {
     }
   }
   def apply(itemType: String): Option[Item] = {
-    println("Constructing item: " + itemType)
     itemType match {
       case "ice" => Some(new Ice())
       case _ => None
