@@ -3,7 +3,7 @@ package org.nolat.castleforge.xml
 import java.io.File
 import scala.xml.XML
 import org.nolat.castleforge.castle.{ Castle => CastleStructure }
-import org.nolat.castleforge.castle.Tile
+import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.Inventory
 import scala.collection.mutable.ArrayBuffer
 import org.nolat.castleforge.castle.items.{ Item => CastleItem }
@@ -51,14 +51,14 @@ object MapSave {
     buffer.map(row => new String(row.map(i => (i + '0').toChar).toArray))
   }
 
-  private def AB2State(buffer: ArrayBuffer[ArrayBuffer[Tile]]): MapType = {
+  private def AB2State(buffer: ArrayBuffer[ArrayBuffer[Floor]]): MapType = {
     new MapType(buffer.map(row => seq2Row(row)): _*)
   }
 
-  private def seq2Row(seq: Seq[Tile]): Row = {
+  private def seq2Row(seq: Seq[Floor]): Row = {
     new Row(seq.map(t => tile2CastleForgeItemType(t)): _*)
   }
-  private def tile2CastleForgeItemType(tile: Tile): CastleForgeItemType = {
+  private def tile2CastleForgeItemType(tile: Floor): CastleForgeItemType = {
     null
     //new CastleForgeItemType(item2Item(tile.item))
   }

@@ -11,7 +11,7 @@ import scala.collection.mutable.MutableList
 import collection.breakOut
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.Buffer
-import org.nolat.castleforge.castle.Tile
+import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.Inventory
 import org.nolat.castleforge.castle.{ Castle => CastleStructure }
 import org.nolat.castleforge.castle.items.{ Item => CastleItem }
@@ -70,15 +70,15 @@ object MapLoad {
 
   }
 
-  private def mapType2ABTile(map: MapType): ArrayBuffer[ArrayBuffer[Tile]] = {
+  private def mapType2ABTile(map: MapType): ArrayBuffer[ArrayBuffer[Floor]] = {
     ArrayBuffer(map.row.map(r => ArrayBuffer(r.tile.map(t => itemType2Tile(t)): _*)): _*)
   }
 
-  private def itemType2Tile(t: CastleForgeItemType): Tile = {
+  private def itemType2Tile(t: CastleForgeItemType): Floor = {
     if (t.item != null && t.item.length > 0) {
-      new Tile() //TODO make this work
+      new Floor(None) //TODO make this work
     } else
-      new Tile()
+      new Floor(None)
   }
   private def item2Item(i: Item): CastleItem = {
     //Item(i.typeValue, i.param.toList)
