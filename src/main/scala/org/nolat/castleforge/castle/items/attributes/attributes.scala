@@ -3,7 +3,7 @@ package org.nolat.castleforge.castle.items.attributes
 import org.newdawn.slick.Color
 import javax.swing.JFrame
 
-abstract class Attribute {}
+trait Attribute {}
 
 object IDColor {
   val WHITE = Color.white
@@ -70,10 +70,10 @@ trait TorchState {
   var torchstate = TorchState.ON
 }
 
-object CheckpointState {
+object CheckPointState {
   val ACTIVE = true
   val INACTIVE = false
 }
-trait CheckpointState extends Attribute {
-  var checkpointstate = CheckpointState.INACTIVE
+trait CheckPointState extends Attribute {
+  var checkpointstate = CheckPointState.INACTIVE
 }
