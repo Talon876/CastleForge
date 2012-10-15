@@ -1,12 +1,11 @@
 package org.nolat.castleforge.castle.items
 object Item {
-  def apply(itemType: String, params: List[String]): Option[Item] = { //find better way to handle null/None
+  def apply(itemType: String, params: List[String]): Option[Item] = {
     itemType match {
       case "checkpoint" => None
       case "crystal_ball" => None
       case "door" => None
       case "endpoint" => None
-      case "floor" => None
       case "key" => None
       case "match" => None
       case "obstacle" => None
@@ -31,6 +30,5 @@ abstract class Item extends GameItem {
 
   def getItemType: String = "n/a"
   def getParamList: Seq[String] = Nil
-  //TODO create attributes
 
 }

@@ -19,6 +19,8 @@ object Config {
   val Fullscreen = false
   val TileWidth = 64
   val TileHeight = 64
+  val TileOffsetX = 8
+  val TileOffsetY = 8
   val DefaultAnimFps = 10
   val DefaultCastleSize = Tuple2[Int, Int](11, 11)
   val random = new Random()

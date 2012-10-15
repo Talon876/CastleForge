@@ -62,10 +62,20 @@ object MapSave {
     null
     //new CastleForgeItemType(item2Item(tile.item))
   }
-  private def item2Item(item: CastleItem): Item = {
-    new Item(item.getParamList, item.getItemType)
+  private def item2Item(item: Option[CastleItem]): Option[Item] = {
+    item match {
+      case Some(i) => Some(new Item(i.getParamList, i.getItemType))
+      case None => None
+    }
+
   }
   private def inv2ItemType(inv: Inventory): Option[CastleForgeItemType] = {
-    Option[CastleForgeItemType](new CastleForgeItemType(inv.map(i => item2Item(i)): _*))
+    //    match new CastleForgeItemType(inv.map(i => item2Item(i)): _*) {
+    //      
+    //    }'
+
+    //new CastleForgeItemType(item2Item(CastleItem("torch", Array("red"))))
+    None
+    //Option[CastleForgeItemType]()
   }
 }

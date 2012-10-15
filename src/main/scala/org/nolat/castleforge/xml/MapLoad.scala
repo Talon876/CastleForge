@@ -17,6 +17,7 @@ import org.nolat.castleforge.castle.{ Castle => CastleStructure }
 import org.nolat.castleforge.castle.items.{ Item => CastleItem }
 
 object MapLoad {
+
   def loadMap(file: File, isEditor: Boolean): CastleStructure = {
     loadMap(file, Config.mapXsd, isEditor)
   }
@@ -71,21 +72,33 @@ object MapLoad {
   }
 
   private def mapType2ABTile(map: MapType): ArrayBuffer[ArrayBuffer[Floor]] = {
-    ArrayBuffer(map.row.map(r => ArrayBuffer(r.tile.map(t => itemType2Tile(t)): _*)): _*)
+
+    val castle = map.row.zipWithIndex.map {
+      case (row, x) => row.tile.zipWithIndex.map {
+        case (tyle, y) => {
+          itemType2Tile(tyle, x, y)
+        }
+      }
+    }
+
+    //create arraybuffer of each row and each row is a seq of floor
+    val buffers = castle.map { row =>
+      ArrayBuffer(row: _*)
+    }
+    //create array buffer of the seq of rows
+    val result = ArrayBuffer(buffers: _*)
+    result
   }
 
-  private def itemType2Tile(t: CastleForgeItemType): Floor = {
+  private def itemType2Tile(t: CastleForgeItemType, x: Int, y: Int): Floor = {
     if (t.item != null && t.item.length > 0) {
-      new Floor(None) //TODO make this work
+      new Floor(None, x, y)
     } else
-      new Floor(None)
+      new Floor(None, x, y)
   }
-  private def item2Item(i: Item): CastleItem = {
+  private def item2Item(i: Item): Option[CastleItem] = {
     //Item(i.typeValue, i.param.toList)
-    CastleItem(i.typeValue, i.param.toList) match {
-      case Some(item) => item
-      case None => CastleItem("default", List("1", "2")).get //TODO figure out what to do for default
-    }
+    CastleItem(i.typeValue, i.param.toList)
   }
   private def itemType2Inventory(inven: CastleForgeItemType): Inventory =
     {
@@ -95,7 +108,7 @@ object MapLoad {
         return new Inventory()
       }
     }
-  private def itemType2Items(itemType: CastleForgeItemType): Seq[CastleItem] =
+  private def itemType2Items(itemType: CastleForgeItemType): Seq[Option[CastleItem]] =
     {
       itemType.item.map(i => item2Item(i))
     }
