@@ -17,6 +17,11 @@ class Door(var doorType: Int, _idColor: String, _shape: String) extends Item wit
   }
 
   sprite = new Sprite(getItemType)
+  doorType match {
+    case 0 => sprite.setAnimation("unlocked")
+    case 1 => sprite.setAnimation("locked")
+    case 2 => sprite.setAnimation("unlocked")
+  }
 
   override def getItemType = Sprites.door
 
