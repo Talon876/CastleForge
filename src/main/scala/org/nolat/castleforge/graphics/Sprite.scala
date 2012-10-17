@@ -59,8 +59,9 @@ class Sprite(name: String) {
   def setAnimation(newAnimation: String) = {
     if (!animations.contains(newAnimation)) {
       println("Warning! " + newAnimation + " doesn't exist for the sprite " + name + ". Check the meta.xml")
+    } else {
+      currentAnimation = newAnimation
     }
-    currentAnimation = newAnimation
   }
 
   /**

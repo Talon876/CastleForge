@@ -13,7 +13,11 @@ trait GameItem extends Renderable {
   var position: Vector2f = new Vector2f(0, 0)
   var color: Color = Color.white
 
+  override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+    if (sprite != null) sprite.getAnimation.update(delta)
+  }
+
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
-    sprite.getAnimation.draw(position.x, position.y, color)
+    if (sprite != null) sprite.getAnimation.draw(position.x, position.y, color)
   }
 }
