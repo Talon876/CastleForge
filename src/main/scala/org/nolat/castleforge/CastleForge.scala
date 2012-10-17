@@ -11,7 +11,7 @@ class CastleForge(title: String) extends StateBasedGame(title) {
   override def initStatesList(container: GameContainer) {
     addState(new TitleScreen())
     addState(new MainMenuScreen())
-    addState(new ExperimentScreen())
-    // addState(new ExperimentScreen())
+    //addState(new ExperimentScreen())
+     addState(new ExperimentScreen())
   }
 }

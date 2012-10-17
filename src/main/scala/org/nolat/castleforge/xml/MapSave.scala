@@ -59,23 +59,25 @@ object MapSave {
     new Row(seq.map(t => tile2CastleForgeItemType(t)): _*)
   }
   private def tile2CastleForgeItemType(tile: Floor): CastleForgeItemType = {
-    null
-    //new CastleForgeItemType(item2Item(tile.item))
-  }
-  private def item2Item(item: Option[CastleItem]): Option[Item] = {
-    item match {
-      case Some(i) => Some(new Item(i.getParamList, i.getItemType))
-      case None => None
+    tile.item match { 
+      case Some(i) => new CastleForgeItemType(item2Item(i)) //if the tile has an item save it
+      case None => new CastleForgeItemType() //save with a blank "inventory"
     }
+  }
+  private def item2Item(item: CastleItem): Item = {
+    new Item(item.getParamList, item.getItemType)
 
   }
   private def inv2ItemType(inv: Inventory): Option[CastleForgeItemType] = {
-    //    match new CastleForgeItemType(inv.map(i => item2Item(i)): _*) {
-    //      
-    //    }'
-
-    //new CastleForgeItemType(item2Item(CastleItem("torch", Array("red"))))
-    None
-    //Option[CastleForgeItemType]()
+    val sequence = List(inv.flatten.map {
+      item => item2Item(item)
+    }: _*)
+    
+    var items: Option[CastleForgeItemType] = None
+    if (sequence.length > 0) //not perfect scala but it needs to check if there are any actual items in the inventory
+    {
+      items = Some(new CastleForgeItemType(sequence: _*)) //save all valid items out
+    }
+    items
   }
 }

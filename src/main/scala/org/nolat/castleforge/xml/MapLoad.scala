@@ -91,13 +91,11 @@ object MapLoad {
   }
 
   private def itemType2Tile(t: CastleForgeItemType, x: Int, y: Int): Floor = {
-    if (t.item != null && t.item.length > 0) {
-      new Floor(None, x, y)
-    } else
-      new Floor(None, x, y)
+    val tileitem : Option[CastleItem] = itemType2Items(t)(0) //The floor tiles only use the first item in the "inventory"
+
+    new Floor(tileitem, x, y)
   }
   private def item2Item(i: Item): Option[CastleItem] = {
-    //Item(i.typeValue, i.param.toList)
     CastleItem(i.typeValue, i.param.toList)
   }
   private def itemType2Inventory(inven: CastleForgeItemType): Inventory =
