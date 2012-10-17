@@ -44,7 +44,8 @@ object MapLoad {
   }
 
   private def createCastle(castleXML: Castle, isEditor: Boolean): CastleStructure = {
-    val castle: CastleStructure = new CastleStructure(mapType2ABTile(castleXML.state(0).map))
+    val castle: CastleStructure = new CastleStructure(mapType2ABTile(castleXML.state(0).map)) //loads the 0 state as the original map so you can reset progress to default
+    //to support an initial inventory you would want to to add it to the castle currently the inventory will reset to blank
     castle.name = castleXML.meta.name;
     castle.authorName = castleXML.meta.author;
     castle.rows = castleXML.roomlayout.rows.intValue
@@ -53,14 +54,14 @@ object MapLoad {
     if (isEditor) //the editor should always get the original layout of the castle
     {
       castle.map = castle.originalState
-      castle.inventory = itemType2Inventory(castleXML.state(0).inventory.orNull) //it will load the inventory of the original state
+      castle.inventory = itemType2Inventory(castleXML.state(0).inventory) //it will load the inventory of the original state
     } else {
       if (castleXML.state.length == 1) {
         castle.map = castle.originalState
-        castle.inventory = itemType2Inventory(castleXML.state(0).inventory.orNull)
+        castle.inventory = itemType2Inventory(castleXML.state(0).inventory)
       } else {
         castle.map = mapType2ABTile(castleXML.state(1).map)
-        castle.inventory = itemType2Inventory(castleXML.state(1).inventory.orNull)
+        castle.inventory = itemType2Inventory(castleXML.state(1).inventory)
       }
     }
     castle
@@ -98,8 +99,12 @@ object MapLoad {
   private def item2Item(i: Item): Option[CastleItem] = {
     CastleItem(i.typeValue, i.param.toList)
   }
-  private def itemType2Inventory(inven: CastleForgeItemType): Inventory = {
-    return new Inventory(itemType2Items(inven))
+  private def itemType2Inventory(inven: Option[CastleForgeItemType]): Inventory = {
+    inven match
+    {
+      case Some(inv) => new Inventory(itemType2Items(inv))
+      case None => new Inventory()
+    }
   }
   private def itemType2Items(itemType: CastleForgeItemType): Seq[Option[CastleItem]] = {
     itemType.item.map(i => item2Item(i))
