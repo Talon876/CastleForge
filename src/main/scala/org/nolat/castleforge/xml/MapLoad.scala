@@ -91,23 +91,17 @@ object MapLoad {
   }
 
   private def itemType2Tile(t: CastleForgeItemType, x: Int, y: Int): Floor = {
-    val tileitem : Option[CastleItem] = itemType2Items(t)(0) //The floor tiles only use the first item in the "inventory"
+    val tileitem: Option[CastleItem] = itemType2Items(t)(0) //The floor tiles only use the first item in the "inventory"
 
     new Floor(tileitem, x, y)
   }
   private def item2Item(i: Item): Option[CastleItem] = {
     CastleItem(i.typeValue, i.param.toList)
   }
-  private def itemType2Inventory(inven: CastleForgeItemType): Inventory =
-    {
-      if (inven != null) {
-        return new Inventory(itemType2Items(inven))
-      } else {
-        return new Inventory()
-      }
-    }
-  private def itemType2Items(itemType: CastleForgeItemType): Seq[Option[CastleItem]] =
-    {
-      itemType.item.map(i => item2Item(i))
-    }
+  private def itemType2Inventory(inven: CastleForgeItemType): Inventory = {
+    return new Inventory(itemType2Items(inven))
+  }
+  private def itemType2Items(itemType: CastleForgeItemType): Seq[Option[CastleItem]] = {
+    itemType.item.map(i => item2Item(i))
+  }
 }
