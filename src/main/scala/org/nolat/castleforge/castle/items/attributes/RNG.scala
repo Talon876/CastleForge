@@ -1,4 +1,4 @@
-package org.nolat.castleforge.castle.items
+package org.nolat.castleforge.castle.items.attributes
 
 import scala.util.Random
 
