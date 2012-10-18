@@ -13,10 +13,23 @@ class Match(_quantity: Int) extends Item with Quantity {
   }
 
   sprite = new Sprite(getItemType)
+  sprite.setAnimation(getAnimationFromQuantity)
 
   override def getItemType = Sprites.matchh
 
   override def getParamList = {
     Seq(quantity.toString)
+  }
+
+  private def getAnimationFromQuantity = {
+    if (quantity >= 1 && quantity < 3) {
+      "one"
+    } else if (quantity >= 3 && quantity < 6) {
+      "few"
+    } else if (quantity >= 6 && quantity < 10) {
+      "many"
+    } else {
+      "alot"
+    }
   }
 }

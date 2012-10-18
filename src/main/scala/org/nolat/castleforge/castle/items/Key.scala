@@ -18,6 +18,8 @@ class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDCo
   }
 
   sprite = new Sprite(getItemType)
+  sprite.setAnimation(shape)
+  color = idcolor
 
   override def getItemType = Sprites.key
 

@@ -12,6 +12,7 @@ class SpawnPoint(isActive: Boolean) extends Item with CheckPointState {
     this(paramList(0).booleanOption.getOrElse(false))
   }
   sprite = new Sprite(getItemType)
+  sprite.setAnimation("default")
 
   override def getItemType = Sprites.spawnpoint
 

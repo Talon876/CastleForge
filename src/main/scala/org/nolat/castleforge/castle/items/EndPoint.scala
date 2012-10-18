@@ -12,6 +12,7 @@ class EndPoint(endText: String) extends Item with Readable {
   }
 
   sprite = new Sprite(getItemType)
+  sprite.setAnimation("default")
 
   override def getItemType = Sprites.endpoint
 

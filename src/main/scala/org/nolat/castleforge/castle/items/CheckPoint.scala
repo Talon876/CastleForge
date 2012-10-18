@@ -13,6 +13,7 @@ class CheckPoint(isActive: Boolean) extends Item with CheckPointState {
   }
 
   sprite = new Sprite(getItemType)
+  sprite.setAnimation(if (isActive) "active" else "inactive")
 
   override def getItemType = Sprites.checkpoint
 

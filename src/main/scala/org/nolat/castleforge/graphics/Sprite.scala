@@ -3,6 +3,7 @@ package org.nolat.castleforge.graphics
 import org.newdawn.slick.Animation
 import org.nolat.castleforge.Config
 import scala.collection.mutable.MutableList
+
 object Sprites extends Enumeration {
   type Sprite = Value
   val checkpoint = Value("checkpoint")
@@ -30,8 +31,8 @@ class Sprite(name: String) {
   private val spriteSheet = Config.spritesheets(name)
 
   val animationList = animDataMap.keys.toList
-  //animationList.foreach(animation => println("Loaded animation " + animation + " for sprite " + name))
-  private var currentAnimation = animationList(0)
+  //animationList.foreach(animation => println("Loading animation " + animation + " for sprite " + name))
+  private var currentAnimation = if (animationList.contains("default")) "default" else animationList(0)
 
   private def animationData = animDataMap(currentAnimation)
   private def numberOfFrames = (animationData.end - animationData.start) + 1
@@ -48,12 +49,17 @@ class Sprite(name: String) {
   }
 
   private val animations = animationList.map { animation =>
-    currentAnimation = animation
+    currentAnimation = animation //set currentAnimation so calculateFrameArray and calculateFpsArray are correct
     (animation, new Animation(spriteSheet, calculateFrameArray, calculateFpsArray))
   }.toMap
+  currentAnimation = if (animationList.contains("default")) "default" else animationList(0)
 
   def getAnimation(): Animation = {
     animations(currentAnimation)
+  }
+
+  def getAnimation(animationName: String): Animation = {
+    animations(animationName)
   }
 
   def setAnimation(newAnimation: String) = {
@@ -83,7 +89,8 @@ class Sprite(name: String) {
     }.flatten
     val frame = animationList(probList(Config.random.nextInt(probList.size)))
     setAnimation(frame) //pick random element from list and set current animation to the animation corresponding with the index
-
   }
+
+  override def toString() = currentAnimation
 
 }
