@@ -125,7 +125,10 @@ Sign]]></param>
 						<param>octagon</param>
 					</item>
 				</tile>
-				<tile />
+				<tile>
+					<item type="ice">
+					</item>
+				</tile>
 				<tile />
 				<tile />
 				<tile>

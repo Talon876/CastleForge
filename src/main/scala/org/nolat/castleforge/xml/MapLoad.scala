@@ -97,7 +97,12 @@ object MapLoad {
     new Floor(tileitem, x, y)
   }
   private def item2Item(i: Item): Option[CastleItem] = {
-    CastleItem(i.typeValue, i.param.toList)
+    i.param.isEmpty match
+    {
+      case false => CastleItem(i.typeValue, i.param.toList)
+      case true => CastleItem(i.typeValue)
+    }
+    
   }
   private def itemType2Inventory(inven: Option[CastleForgeItemType]): Inventory = {
     inven match
@@ -107,6 +112,10 @@ object MapLoad {
     }
   }
   private def itemType2Items(itemType: CastleForgeItemType): Seq[Option[CastleItem]] = {
-    itemType.item.map(i => item2Item(i))
+    itemType.item.isEmpty match
+    {
+      case false => itemType.item.map(i => item2Item(i))
+      case true => Seq(None)
+    } 
   }
 }

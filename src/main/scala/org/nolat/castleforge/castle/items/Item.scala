@@ -1,4 +1,5 @@
 package org.nolat.castleforge.castle.items
+
 object Item {
   def apply(itemType: String, params: List[String]): Option[Item] = {
     itemType match {
@@ -11,23 +12,22 @@ object Item {
       case "obstacle" => None
       case "pusher" => None
       case "sign" => None
-      case "spawnpoint" => None
       case "teleporter" => None
       case "torch" => None
-      case "wall" => None
       case _ => None
     }
   }
   def apply(itemType: String): Option[Item] = {
-    itemType match {
-      case "ice" => Some(new Ice())
-      case _ => None
-    }
+      itemType match {
+        case "ice" => Some(new Ice())
+        case "wall" => None
+        case "spawnpoint" => None
+        case _ => None
+      }
   }
 }
 
 abstract class Item extends GameItem {
-
   def getItemType: String = "n/a"
   def getParamList: Seq[String] = Nil
 
