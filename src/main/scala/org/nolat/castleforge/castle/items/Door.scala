@@ -13,7 +13,7 @@ class Door(var doorType: Int, _idColor: String, _shape: String) extends Item wit
   shape = Shape.fromString(_shape)
 
   def this(paramList: List[String]) = {
-    this(paramList(0).intOption.getOrElse(0), paramList(1), paramList(2))
+    this(paramList(0).intOption.getOrElse(0), "", "")
   }
 
   sprite = new Sprite(getItemType)

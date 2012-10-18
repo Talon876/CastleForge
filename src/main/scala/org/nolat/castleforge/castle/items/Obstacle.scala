@@ -6,7 +6,7 @@ import org.nolat.castleforge.graphics.Sprite
 
 class Obstacle(oType: String) extends Item {
 
-  def this(paramList: Array[String]) = {
+  def this(paramList: List[String]) = {
     this(paramList(0))
   }
 

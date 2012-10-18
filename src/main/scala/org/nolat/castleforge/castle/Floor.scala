@@ -29,7 +29,7 @@ class Floor(val item: Option[Item], val x: Int, val y: Int) extends Renderable {
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY)
     item match {
-      case Some(i) => i.render(container, game, g)
+      case Some(i) => i.sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY)
       case None =>
     }
   }
