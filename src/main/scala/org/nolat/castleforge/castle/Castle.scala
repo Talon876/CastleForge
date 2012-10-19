@@ -16,16 +16,14 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   var cols: Int = org.nolat.castleforge.Config.DefaultCastleSize._2
 
   val originalState: ArrayBuffer[ArrayBuffer[Floor]] = origState
-  var map: ArrayBuffer[ArrayBuffer[Floor]] = new ArrayBuffer()
   var inventory: Inventory = new Inventory()
 
   val tempPlayer = (3, 3)
-
-  def this(origState: ArrayBuffer[ArrayBuffer[Floor]], nam: String, authorNam: String, descript: String) {
-    this(origState)
-    name = nam
-    authorName = authorNam
-    description = descript
+  
+  private var _map: ArrayBuffer[ArrayBuffer[Floor]] = new ArrayBuffer()
+  def map = _map
+  def map_=(mp: ArrayBuffer[ArrayBuffer[Floor]]) {
+    _map = mp;
     //update all Floors in map so that they use this classes translate
     map.foreach { row =>
       row.foreach { floor =>
@@ -33,6 +31,15 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
       }
 
     }
+  }
+  
+
+  def this(origState: ArrayBuffer[ArrayBuffer[Floor]], nam: String, authorNam: String, descript: String) {
+    this(origState)
+    name = nam
+    authorName = authorNam
+    description = descript
+
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {

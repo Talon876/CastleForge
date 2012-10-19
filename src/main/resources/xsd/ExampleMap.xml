@@ -320,7 +320,9 @@ Sign]]></param>
 						<param>octagon</param>
 					</item>
 				</tile>
-				<tile />
+				<tile>
+					<item type="ice" />
+				</tile>
 				<tile />
 				<tile />
 				<tile>

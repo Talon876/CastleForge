@@ -26,7 +26,9 @@ object MapLoad {
     val source = FileUtils.openInputStream(file)
     loadMap(source, schema, isEditor)
   }
-
+  def loadMap(stream: InputStream, isEditor: Boolean): CastleStructure = {
+    loadMap(stream, Config.mapXsd, isEditor)
+  }
   def loadMap(stream: InputStream, xsdStream: InputStream, isEditor: Boolean): CastleStructure = {
     val factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
     val schema = factory.newSchema(new StreamSource(xsdStream))
@@ -75,8 +77,8 @@ object MapLoad {
   private def mapType2ABTile(map: MapType): ArrayBuffer[ArrayBuffer[Floor]] = {
 
     val castle = map.row.zipWithIndex.map {
-      case (row, x) => row.tile.zipWithIndex.map {
-        case (tyle, y) => {
+      case (row, y) => row.tile.zipWithIndex.map {
+        case (tyle, x) => {
           itemType2Tile(tyle, x, y)
         }
       }
@@ -97,25 +99,22 @@ object MapLoad {
     new Floor(tileitem, x, y)
   }
   private def item2Item(i: Item): Option[CastleItem] = {
-    i.param.isEmpty match
-    {
+    i.param.isEmpty match {
       case false => CastleItem(i.typeValue, i.param.toList)
       case true => CastleItem(i.typeValue)
     }
-    
+
   }
   private def itemType2Inventory(inven: Option[CastleForgeItemType]): Inventory = {
-    inven match
-    {
+    inven match {
       case Some(inv) => new Inventory(itemType2Items(inv))
       case None => new Inventory()
     }
   }
   private def itemType2Items(itemType: CastleForgeItemType): Seq[Option[CastleItem]] = {
-    itemType.item.isEmpty match
-    {
+    itemType.item.isEmpty match {
       case false => itemType.item.map(i => item2Item(i))
       case true => Seq(None)
-    } 
+    }
   }
 }

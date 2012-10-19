@@ -26,7 +26,7 @@ class ExperimentScreen extends BasicGameState {
 
   override def getID = ExperimentScreen.ID
 
-  lazy val castle = MapLoad.loadMap(new File("/Users/talon/.castleforge/maps/AllItems.xml"), false)
+  lazy val castle = MapLoad.loadMap(getClass.getResourceAsStream("/xsd/ExampleMap.xml"), false)
   lazy val tiles = List(
     new Floor(None, 0, 0),
     new Floor(Item("door", List("0")), 1, 0),
