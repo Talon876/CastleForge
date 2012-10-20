@@ -27,6 +27,48 @@ class ExperimentScreen extends BasicGameState {
   override def getID = ExperimentScreen.ID
 
   lazy val castle = MapLoad.loadMap(getClass.getResourceAsStream("/xsd/ExampleMap.xml"), false)
+  val items = List("checkpoint", "door",
+      "endpoint",
+      "key",
+      "match",
+      "obstacle",
+      "pusher",
+      "sign",
+      "spawnpoint",
+      "teleporter",
+      "torch",
+      "crystal_ball",
+      "ice",
+      "wall")
+  val colors = List(
+      "white",
+      "black",
+      "red",
+      "orange",
+      "yellow", 
+      "green",
+      "blue",
+      "purple")
+  val quantities = List ("0", 
+      "1",
+      "3", 
+      "5", 
+      "10",
+      "15", 
+      "20")
+  val shapes = List ("diamond",
+  "pentagon",
+  "triangle",
+  "star")
+  val luminosity = List("off",
+      "low",
+      "medium",
+      "high")
+      
+  val direction = List("north",
+      "west",
+      "south",
+      "east")
   lazy val tiles = List(
     new Floor(None, 0, 0),
     new Floor(Item("door", List("0")), 1, 0),
