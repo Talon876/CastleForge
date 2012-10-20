@@ -104,8 +104,8 @@ object Luminosity {
     lum.toLowerCase match {
       case "off" => OFF
       case "low" => LOW
-      case "MEDIUM" => MEDIUM
-      case "HIGH" => HIGH
+      case "medium" => MEDIUM
+      case "high" => HIGH
       case _ => OFF
     }
   }
