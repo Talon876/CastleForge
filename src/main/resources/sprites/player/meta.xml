@@ -20,4 +20,7 @@
         <end>15</end>
         <fps>8</fps>
     </animation>
+    <animation name="idle">
+        <start>0</start>
+    </animation>
 </animations>
