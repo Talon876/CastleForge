@@ -44,6 +44,8 @@ class TitleScreen extends BasicGameState {
       game.enterState(MainMenuScreen.ID, new EmptyTransition(), new EmptyTransition())
     } else if (key == Input.KEY_F9) {
       game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
+    } else if (key == Input.KEY_F10) {
+      game.enterState(ExperimentScreen2.ID, new EmptyTransition(), new EmptyTransition())
     }
   }
 }
