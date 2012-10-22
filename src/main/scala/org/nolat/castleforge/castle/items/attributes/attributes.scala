@@ -115,10 +115,10 @@ trait Luminosity extends Attribute {
 }
 
 object Direction {
-  val NORTH = scala.math.toRadians(90).toFloat
-  val WEST = scala.math.toRadians(180).toFloat
-  val SOUTH = scala.math.toRadians(270).toFloat
-  val EAST = scala.math.toRadians(0).toFloat
+  val WEST = 90 //scala.math.toRadians(90).toFloat
+  val SOUTH = 180 //scala.math.toRadians(180).toFloat
+  val EAST = 270 //scala.math.toRadians(270).toFloat
+  val NORTH = 0 //scala.math.toRadians(0).toFloat
 
   def fromString(dir: String) = {
     dir.toLowerCase match {
