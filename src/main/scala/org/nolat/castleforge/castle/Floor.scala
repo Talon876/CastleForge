@@ -8,6 +8,8 @@ import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
 import org.nolat.castleforge.Config
 import org.nolat.castleforge.graphics.Sprites
+import org.nolat.castleforge.castle.items.Pusher
+import org.nolat.castleforge.castle.items.attributes.Direction
 
 class Floor(val item: Option[Item], val x: Int, val y: Int) extends Renderable {
   var sprite = new Sprite(Sprites.floor)
@@ -31,9 +33,16 @@ class Floor(val item: Option[Item], val x: Int, val y: Int) extends Renderable {
 
     item match {
       case Some(i) => {
-        i.sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY, i.color)
+        if (i.isInstanceOf[Direction]) {
+          g.pushTransform()
+          g.rotate(x * Config.TileWidth + Config.TileOffsetX + Config.TileWidth / 2, y * Config.TileHeight + Config.TileOffsetY + Config.TileHeight / 2, i.asInstanceOf[Direction].direction)
+          i.sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY, i.color)
+          g.popTransform()
+        } else {
+          i.sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY, i.color)
+        }
       }
-      case None =>
+      case None => //don't draw
     }
   }
 

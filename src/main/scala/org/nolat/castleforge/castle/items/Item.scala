@@ -3,7 +3,6 @@ package org.nolat.castleforge.castle.items
 object Item {
   def apply(itemType: String, _params: List[String]): Option[Item] = {
     val params = _params.map(param => if (param == null) "" else param)
-    println("creating " + itemType + " with " + params)
     itemType match {
       case "checkpoint" => Some(new CheckPoint(params))
       case "door" => Some(new Door(params))
@@ -20,7 +19,6 @@ object Item {
     }
   }
   def apply(itemType: String): Option[Item] = {
-    println("creating " + itemType)
     itemType match {
       case "crystal_ball" => Some(new CrystalBall())
       case "ice" => Some(new Ice)
