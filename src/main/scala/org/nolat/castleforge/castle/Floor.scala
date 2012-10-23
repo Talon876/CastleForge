@@ -32,16 +32,17 @@ class Floor(var item: Option[Item], val x: Int, val y: Int) extends Renderable {
     sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY)
 
     item match {
-      case Some(i) => {
-        if (i.isInstanceOf[Direction]) {
-          g.pushTransform()
-          g.rotate(x * Config.TileWidth + Config.TileOffsetX + Config.TileWidth / 2, y * Config.TileHeight + Config.TileOffsetY + Config.TileHeight / 2, i.asInstanceOf[Direction].direction)
-          i.sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY, i.color)
-          g.popTransform()
-        } else {
-          i.sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY, i.color)
-        }
-      }
+      case Some(i) => i.render(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY, container, game, g)
+      //        {
+      //        if (i.isInstanceOf[Direction]) {
+      //          g.pushTransform()
+      //          g.rotate(x * Config.TileWidth + Config.TileOffsetX + Config.TileWidth / 2, y * Config.TileHeight + Config.TileOffsetY + Config.TileHeight / 2, i.asInstanceOf[Direction].direction)
+      //          i.sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY, i.color)
+      //          g.popTransform()
+      //        } else {
+      //          i.sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY, i.color)
+      //        }
+      //      }
       case None => //don't draw
     }
   }

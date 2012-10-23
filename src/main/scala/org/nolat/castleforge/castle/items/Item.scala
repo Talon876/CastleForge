@@ -1,11 +1,16 @@
 package org.nolat.castleforge.castle.items
 
+import org.newdawn.slick.state.StateBasedGame
+import org.newdawn.slick.GameContainer
+import org.newdawn.slick.Graphics
+
 object Item {
   def apply(itemType: String, _params: List[String]): Option[Item] = {
     val params = _params.map(param => if (param == null) "" else param)
     itemType match {
+
       case "checkpoint" => Some(new CheckPoint(params))
-      case "door" => Some(new Door(params))
+      case "door" => println(params); Some(new Door(params))
       case "endpoint" => Some(new EndPoint(params))
       case "key" => Some(new Key(params))
       case "match" => Some(new Match(params))
@@ -32,4 +37,7 @@ abstract class Item extends GameItem {
   def getItemType: String = "n/a"
   def getParamList: Seq[String] = Nil
 
+  def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {
+    this.sprite.getAnimation.draw(x, y, this.color)
+  }
 }

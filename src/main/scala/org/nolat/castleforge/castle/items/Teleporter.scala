@@ -19,6 +19,7 @@ class Teleporter(teleType: Int, _idcolor: String) extends Item with IDColor {
     case 1 => sprite.setAnimation("receiver")
     case 2 => sprite.setAnimation("bidirectional")
   }
+  color = idcolor
 
   override def getItemType = Sprites.teleporter
 

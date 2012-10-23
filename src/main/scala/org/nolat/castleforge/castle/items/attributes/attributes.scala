@@ -8,18 +8,16 @@ trait Attribute {}
 
 object IDColor {
   val WHITE = Color.white
-  val BLACK = Color.black
   val RED = Color.red
-  val ORANGE = Color.orange
+  val ORANGE = new Color(255, 158, 4)
   val YELLOW = Color.yellow
   val GREEN = Color.green
-  val BLUE = Color.blue
+  val BLUE = Color.cyan
   val PURPLE = new Color(208, 27, 224)
 
   def fromString(color: String) = {
     color.toLowerCase match {
       case "white" => WHITE
-      case "black" => BLACK
       case "red" => RED
       case "orange" => ORANGE
       case "yellow" => YELLOW
@@ -27,6 +25,18 @@ object IDColor {
       case "blue" => BLUE
       case "purple" => PURPLE
       case _ => WHITE
+    }
+  }
+
+  def toString(color: Color) = {
+    color match {
+      case WHITE => "white"
+      case RED => "red"
+      case ORANGE => "orange"
+      case YELLOW => "yellow"
+      case GREEN => "green"
+      case BLUE => "blue"
+      case PURPLE => "purple"
     }
   }
 }

@@ -48,7 +48,7 @@ class Sprite(name: String) {
     Array.fill(numberOfFrames)(1000 / animationData.fps)
   }
 
-  private val animations = animationList.map { animation =>
+  private val animations = animationList.map { animation: String =>
     currentAnimation = animation //set currentAnimation so calculateFrameArray and calculateFpsArray are correct
     (animation, new Animation(spriteSheet, calculateFrameArray, calculateFpsArray))
   }.toMap

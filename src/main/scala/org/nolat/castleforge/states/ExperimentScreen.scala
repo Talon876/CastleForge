@@ -19,6 +19,7 @@ import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.items._
 import scala.collection.mutable.ArrayBuffer
 import org.nolat.castleforge.castle.Castle
+import org.newdawn.slick.state.transition.EmptyTransition
 
 object ExperimentScreen {
   val ID = 3
@@ -38,7 +39,6 @@ object ExperimentScreen {
     "wall")
   val colors = List(
     "white",
-    "black",
     "red",
     "orange",
     "yellow",
@@ -117,7 +117,11 @@ class ExperimentScreen extends BasicGameState {
   }
 
   override def keyReleased(key: Int, c: Char) {
-
+    if (key == Input.KEY_F9) {
+      game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
+    } else if (key == Input.KEY_F10) {
+      game.enterState(ExperimentScreen2.ID, new EmptyTransition(), new EmptyTransition())
+    }
   }
   def list2Castle(items: List[Item]): Castle = {
     val floors: ArrayBuffer[ArrayBuffer[Floor]] = new ArrayBuffer[ArrayBuffer[Floor]]
@@ -138,7 +142,7 @@ class ExperimentScreen extends BasicGameState {
     while (lastRow.length < ExperimentScreen.castleWidth) {
       lastRow.append(new Floor(None, floors.length - 1, lastRow.length))
     }
-     new Castle(floors)
+    new Castle(floors)
   }
   def allCombinations(): List[Item] = {
     var list: ArrayBuffer[Item] = new ArrayBuffer[Item]
@@ -180,11 +184,11 @@ class ExperimentScreen extends BasicGameState {
 
   def createAllKeys(list: ArrayBuffer[Item]) {
     //ExperimentScreen.quantities.foreach { quan =>
-      ExperimentScreen.colors.foreach { clr =>
-        ExperimentScreen.shapes.foreach {
-          shp => list.append(new Key(clr, shp, 1))
-        }
+    ExperimentScreen.colors.foreach { clr =>
+      ExperimentScreen.shapes.foreach {
+        shp => list.append(new Key(clr, shp, 1))
       }
+    }
     //}
   }
 
