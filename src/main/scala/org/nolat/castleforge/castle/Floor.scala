@@ -9,7 +9,7 @@ import org.newdawn.slick.Graphics
 import org.nolat.castleforge.Config
 import org.nolat.castleforge.graphics.Sprites
 
-class Floor(val item: Option[Item], val x: Int, val y: Int) extends Renderable {
+class Floor(var item: Option[Item], val x: Int, val y: Int) extends Renderable {
   var sprite = new Sprite(Sprites.floor)
   sprite.setRandomAnimation(List(0.33f, 0.33f, 0.33f, 0.1f))
 
