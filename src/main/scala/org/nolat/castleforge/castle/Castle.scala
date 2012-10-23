@@ -14,15 +14,11 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   var roomLayout: ArrayBuffer[ArrayBuffer[Int]] = new ArrayBuffer()
   var rows: Int = org.nolat.castleforge.Config.DefaultCastleSize._1
   var cols: Int = org.nolat.castleforge.Config.DefaultCastleSize._2
-
   val originalState: ArrayBuffer[ArrayBuffer[Floor]] = origState
   var inventory: Inventory = new Inventory()
-
-  val tempPlayer = (3, 3)
-  
-  private var _map: ArrayBuffer[ArrayBuffer[Floor]] = new ArrayBuffer()
+  private var _map: ArrayBuffer[ArrayBuffer[Floor]] = null //position of this line of code matters it will be called again if put below map = originalMap
   def map = _map
-  def map_=(mp: ArrayBuffer[ArrayBuffer[Floor]]) {
+  def map_=(mp: ArrayBuffer[ArrayBuffer[Floor]]) = {
     _map = mp;
     //update all Floors in map so that they use this classes translate
     map.foreach { row =>
@@ -32,7 +28,15 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
 
     }
   }
-  
+
+  map = originalState.clone //needed to set initial map
+		  					//TODO: check to make sure that a change to map(0)(0) floor object does not change originalMap
+
+  val tempPlayer = (3, 3)
+
+  def this() {
+    this(new ArrayBuffer[ArrayBuffer[Floor]])
+  }
 
   def this(origState: ArrayBuffer[ArrayBuffer[Floor]], nam: String, authorNam: String, descript: String) {
     this(origState)

@@ -26,7 +26,7 @@ object MapSave {
 
   def save(castle: CastleStructure, savePath: String, isEditor: Boolean) {
     var state: Seq[State] = Nil
-    if (!isEditor) {
+    if (isEditor) {
       /*
 	   * This is used when saving a castle in the castle editor
 	   * The castle editor will be updating the same map that the game engine uses
