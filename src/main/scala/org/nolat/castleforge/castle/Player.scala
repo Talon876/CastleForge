@@ -19,6 +19,8 @@ class Player extends GameItem {
     val WALKING_UP, WALKING_DOWN, WALKING_RIGHT, WALKING_LEFT, IDLE = Value
   }
 
+  val inventory: Inventory = new Inventory
+
   position = new Vector2f(8, 8)
   sprite = new Sprite(Sprites.player)
   sprite.setAnimation("idle")

@@ -55,11 +55,11 @@ object MapLoad {
     castle.roomLayout = seqStr2ABInt(castleXML.roomlayout.row)
     if (isEditor) //the editor should always get the original layout of the castle
     {
-      castle.map = castle.originalState
+      castle.map = mapType2ABTile(castleXML.state(0).map)
       castle.inventory = itemType2Inventory(castleXML.state(0).inventory) //it will load the inventory of the original state
     } else {
       if (castleXML.state.length == 1) {
-        castle.map = castle.originalState
+        castle.map = mapType2ABTile(castleXML.state(0).map)
         castle.inventory = itemType2Inventory(castleXML.state(0).inventory)
       } else {
         castle.map = mapType2ABTile(castleXML.state(1).map)
