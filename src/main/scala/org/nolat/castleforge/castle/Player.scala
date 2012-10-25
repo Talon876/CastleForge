@@ -11,6 +11,7 @@ import org.nolat.castleforge.graphics.Sprites
 import org.nolat.castleforge.castle.items.GameItem
 import org.nolat.castleforge.graphics.Sprite
 import org.newdawn.slick.Color
+import org.nolat.castleforge.tools.Lerper
 
 class Player extends GameItem {
 
@@ -27,23 +28,50 @@ class Player extends GameItem {
 
   var state = PlayerState.IDLE
 
+  var movementLerper = Lerper(sprite.animationLength)
+  movementLerper.finishedLerp = stopWalking
+
   val speed = .2f
+
+  def stopWalking() = {
+    sprite.setAnimation("idle")
+    state = PlayerState.IDLE
+  }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     if (state == PlayerState.IDLE) {
       if (container.getInput().isKeyDown(Input.KEY_W)) {
-        position.y -= 1 * speed
+
         sprite.setAnimation("walking_up")
+        state = PlayerState.WALKING_UP
+        movementLerper.start(position.y, position.y - 64)
+        movementLerper.msToLerp = sprite.animationLength
       } else if (container.getInput().isKeyDown(Input.KEY_S)) {
-        position.y += 1 * speed
+
         sprite.setAnimation("walking_down")
+        state = PlayerState.WALKING_DOWN
+        movementLerper.start(position.y, position.y + 64)
+        movementLerper.msToLerp = sprite.animationLength
       } else if (container.getInput().isKeyDown(Input.KEY_A)) {
-        position.x -= 1 * speed
+
         sprite.setAnimation("walking_left")
+        state = PlayerState.WALKING_LEFT
+        movementLerper.start(position.x, position.x - 64)
+        movementLerper.msToLerp = sprite.animationLength
       } else if (container.getInput().isKeyDown(Input.KEY_D)) {
-        position.x += 1 * speed
+
         sprite.setAnimation("walking_right")
+        state = PlayerState.WALKING_RIGHT
+        movementLerper.start(position.x, position.x + 64)
+        movementLerper.msToLerp = sprite.animationLength
       }
+    } else { //not idle, moving
+      if (state == PlayerState.WALKING_LEFT || state == PlayerState.WALKING_RIGHT) {
+        position = new Vector2f(movementLerper.value, position.y)
+      } else if (state == PlayerState.WALKING_UP || state == PlayerState.WALKING_DOWN) {
+        position = new Vector2f(position.x, movementLerper.value)
+      }
+
     }
   }
 

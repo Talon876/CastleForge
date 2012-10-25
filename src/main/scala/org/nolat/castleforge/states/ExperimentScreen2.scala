@@ -20,6 +20,7 @@ import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.items.Item
 import org.newdawn.slick.state.transition.EmptyTransition
 import org.nolat.castleforge.castle.Player
+import org.nolat.castleforge.tools.Lerper
 
 object ExperimentScreen2 {
   val ID = 4
@@ -39,6 +40,7 @@ class ExperimentScreen2 extends BasicGameState {
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+    Lerper.lerpers.foreach(_.update(delta))
     castle.update(container, game, delta)
     player.update(container, game, delta)
   }

@@ -54,6 +54,14 @@ class Sprite(name: String) {
   }.toMap
   currentAnimation = if (animationList.contains("default")) "default" else animationList(0)
 
+  /**
+   * How long the animation is in ms
+   */
+  def animationLength = {
+    //println("numframes: " + numberOfFrames + "; fps: " + animationData.fps)
+    ((numberOfFrames.toFloat / animationData.fps.toFloat).toFloat * 1000f).toInt
+  }
+
   def getAnimation(): Animation = {
     animations(currentAnimation)
   }
