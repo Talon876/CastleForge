@@ -3,6 +3,9 @@ package org.nolat.castleforge.castle.items
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
+import org.nolat.castleforge.castle.PlayerListener
+import org.nolat.castleforge.castle.Floor
+import org.nolat.castleforge.castle.Player
 
 object Item {
   def apply(itemType: String, _params: List[String]): Option[Item] = {
@@ -33,11 +36,21 @@ object Item {
   }
 }
 
-abstract class Item extends GameItem {
+abstract class Item extends GameItem with PlayerListener {
   def getItemType: String = "n/a"
   def getParamList: Seq[String] = Nil
+  var isBlockingMovement: Boolean = false
 
   def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {
     this.sprite.getAnimation.draw(x, y, this.color)
+  }
+
+  override def onPlayerEnter(player: Player, srcFloor: Floor) {
+    println("item onPlayerEnter")
+  }
+
+  override def onPlayerExit(player: Player, destFloor: Floor) {
+    println("item onPlayerExit")
+
   }
 }

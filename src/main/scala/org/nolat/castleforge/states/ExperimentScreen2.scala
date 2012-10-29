@@ -30,13 +30,15 @@ class ExperimentScreen2 extends BasicGameState {
 
   override def getID = ExperimentScreen2.ID
 
-  lazy val castle = MapLoad.loadMap(new File("/Users/talon/.castleforge/maps/Allitems.xml"), false)
+  lazy val castle = MapLoad.loadMap(new File("/Users/talon/.castleforge/maps/large.xml"), false)
 
   var player: Player = null
 
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
     this.player = new Player
+    this.player.castle = castle
+    this.castle.player = player
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {

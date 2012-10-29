@@ -28,4 +28,5 @@ class Pusher(_direction: String) extends Item with Direction {
     sprite.getAnimation.draw(x, y, color)
     g.popTransform()
   }
+
 }

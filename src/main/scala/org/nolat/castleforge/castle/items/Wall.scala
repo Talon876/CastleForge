@@ -8,6 +8,7 @@ class Wall extends Item {
 
   sprite = new Sprite(getItemType)
   sprite.setRandomAnimation()
+  isBlockingMovement = true
 
   override def getItemType = Sprites.wall
 }

@@ -13,12 +13,15 @@ import org.nolat.castleforge.castle.items.attributes.Direction
 
 class Floor(var item: Option[Item], val x: Int, val y: Int) extends Renderable with PlayerListener {
   var sprite = new Sprite(Sprites.floor)
-  sprite.setRandomAnimation(List(0.33f, 0.33f, 0.33f, 0.1f))
+  sprite.setRandomAnimation(List(1f, 0.0f, 0.0f, 0.0f))
 
-  var translate: (Int, Int) => ((Int, Int)) = transform
+  var translate: (Int, Int) => ((Int, Int)) = null //transform
 
-  def canEnter(): Boolean = {
-    true
+  def isBlockingMovement: Boolean = {
+    item match {
+      case Some(i) => i.isBlockingMovement
+      case None => false
+    }
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
@@ -29,25 +32,44 @@ class Floor(var item: Option[Item], val x: Int, val y: Int) extends Renderable w
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
-    sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY)
+
+    val newX = x * Config.TileWidth + Config.TileOffsetX
+    val newY = y * Config.TileHeight + Config.TileOffsetY
+
+    sprite.getAnimation.draw(newX + translate(newX, newY)._1, newY + translate(newX, newY)._2)
 
     item match {
-      case Some(i) => i.render(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY, container, game, g)
-      //        {
-      //        if (i.isInstanceOf[Direction]) {
-      //          g.pushTransform()
-      //          g.rotate(x * Config.TileWidth + Config.TileOffsetX + Config.TileWidth / 2, y * Config.TileHeight + Config.TileOffsetY + Config.TileHeight / 2, i.asInstanceOf[Direction].direction)
-      //          i.sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY, i.color)
-      //          g.popTransform()
-      //        } else {
-      //          i.sprite.getAnimation.draw(x * Config.TileWidth + Config.TileOffsetX, y * Config.TileHeight + Config.TileOffsetY, i.color)
-      //        }
-      //      }
+      case Some(i) => i.render(newX + translate(newX, newY)._1, newY + translate(newX, newY)._2, container, game, g)
       case None => //don't draw
     }
   }
 
+  //this is the default transform method, the one being called is in Castle
   private def transform(x: Int, y: Int): (Int, Int) = {
-    (x, y)
+    (0, 0)
   }
+
+  def itemName = {
+    item match {
+      case Some(item) => item.getItemType
+      case None => "None"
+    }
+  }
+
+  override def onPlayerEnter(player: Player, srcFloor: Floor) {
+    println("floor onPlayerEnter")
+    item match {
+      case Some(item) => item.onPlayerEnter(player, srcFloor)
+      case None =>
+    }
+  }
+
+  override def onPlayerExit(player: Player, destFloor: Floor) {
+    println("floor onPlayerExit")
+    item match {
+      case Some(item) => item.onPlayerExit(player, destFloor)
+      case None =>
+    }
+  }
+
 }

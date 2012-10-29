@@ -6,6 +6,7 @@ import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
 import org.nolat.castleforge.Config
+import scala.collection.mutable.ListBuffer
 
 class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   var name: String = "Default"
@@ -23,16 +24,15 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
     //update all Floors in map so that they use this classes translate
     map.foreach { row =>
       row.foreach { floor =>
+        println("translate changing")
         floor.translate = translate
       }
-
     }
   }
+  var player: Player = null
 
   map = originalState.clone //needed to set initial map
-		  					//TODO: check to make sure that a change to map(0)(0) floor object does not change originalMap
-
-  val tempPlayer = (3, 3)
+  //TODO: check to make sure that a change to map(0)(0) floor object does not change originalMap
 
   def this() {
     this(new ArrayBuffer[ArrayBuffer[Floor]])
@@ -56,10 +56,25 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   }
 
   def getFloorsToRender(): List[Floor] = {
-    map.flatten.toList //List(map(0)(0))
+    //map.flatten.toList //List(map(0)(0))
+    var tempList = new ListBuffer[Floor]
+    for (x <- cameraBounds._1 to cameraBounds._2) {
+      for (y <- cameraBounds._3 to cameraBounds._4) {
+        tempList += map(y)(x)
+      }
+    }
+    tempList.toList
+  }
+
+  private def cameraBounds = {
+    val left = scala.math.max(player.tilePosition._1 - 5, 0)
+    val right = scala.math.min(player.tilePosition._1 + 5, map(0).size - 1)
+    val top = scala.math.max(player.tilePosition._2 - 5, 0)
+    val bottom = scala.math.min(player.tilePosition._2 + 5, map.size - 1)
+    (left, right, top, bottom)
   }
 
   def translate(x: Int, y: Int): (Int, Int) = {
-    (x, y)
+    (0, 0)
   }
 }
