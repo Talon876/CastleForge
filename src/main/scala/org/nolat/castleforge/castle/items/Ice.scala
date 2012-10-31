@@ -9,6 +9,7 @@ import org.nolat.castleforge.castle.Player
 import org.newdawn.slick.Color
 import org.newdawn.slick.Input
 import org.newdawn.slick.geom.Vector2f
+import org.nolat.castleforge.tools.MoveDescription
 
 class Ice extends Item with RNG {
   sprite = new Sprite(getItemType)
@@ -18,13 +19,7 @@ class Ice extends Item with RNG {
   override def getItemType = Sprites.ice
 
   override def onPlayerEnter(player: Player, srcFloor: Floor) {
-    val reverseMap = player.movementMap.map(_.swap)
 
-    reverseMap(player.lastMoveDirection) match {
-      case Input.KEY_W => player.attemptMove(Input.KEY_W, "gliding_up", speedMod)
-      case Input.KEY_S => player.attemptMove(Input.KEY_S, "gliding_down", speedMod)
-      case Input.KEY_A => player.attemptMove(Input.KEY_A, "gliding_left", speedMod)
-      case Input.KEY_D => player.attemptMove(Input.KEY_D, "gliding_right", speedMod)
-    }
+    player.attemptMove(MoveDescription(player.lastMove.keyPressed, player.lastMove.animation.replace("walking_", "gliding_"), speedMod))
   }
 }

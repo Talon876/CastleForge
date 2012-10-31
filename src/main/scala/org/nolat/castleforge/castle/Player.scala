@@ -38,7 +38,8 @@ class Player extends GameItem {
   val speed = .2f
 
   var lastTile: Floor = null
-  var lastMoveDirection = (0, 0)
+  //var lastMoveDirection = (0, 0)
+  var lastMove: MoveDescription = null
 
   private var moveQueue: Queue[MoveDescription] = new Queue()
 
@@ -59,28 +60,18 @@ class Player extends GameItem {
   var movementOffset = (0f, 0f)
 
   def stopWalking() = {
-    //correctPosition()
     tilePosition = (tilePosition._1 + stateMap(state)._1, tilePosition._2 + stateMap(state)._2)
-    lastMoveDirection = stateMap(state)
     tileOffset = (tileOffset._1 + stateMap(state)._1, tileOffset._2 + stateMap(state)._2)
     movementOffset = (tileOffset._1 * 64, tileOffset._2 * 64)
-    println("Position: " + tilePosition)
-    println("Offset: " + tileOffset)
+    //    println("Position: " + tilePosition)
+    //    println("Offset: " + tileOffset)
 
     sprite.setAnimation("idle")
     state = PlayerState.IDLE
     val destItem = castle.map(tilePosition._2)(tilePosition._1)
-    destItem.onPlayerEnter(this, lastTile)
+    if (!lastMove.ghost) destItem.onPlayerEnter(this, lastTile) //only send updates when not ghosting
 
     playMovement()
-  }
-
-  private def correctPosition() {
-    if (state == PlayerState.WALKING_LEFT || state == PlayerState.WALKING_RIGHT) {
-      position = new Vector2f(movementLerper.finish, position.y)
-    } else if (state == PlayerState.WALKING_UP || state == PlayerState.WALKING_DOWN) {
-      position = new Vector2f(position.x, movementLerper.finish)
-    }
   }
 
   def teleportMove(destinationTile: (Int, Int), animation: String, speedModifier: Float) {
@@ -100,7 +91,6 @@ class Player extends GameItem {
   }
 
   def enqueueMove(moveDescription: MoveDescription) {
-    println("Eqnueued Movement: " + moveDescription)
     moveQueue.enqueue(moveDescription)
   }
 
@@ -134,8 +124,8 @@ class Player extends GameItem {
 
     //println("Destination Floor: " + destFloor.itemName + ": blocking? " + destFloor.isBlockingMovement)
     if (!destFloor.isBlockingMovement || md.ghost) {
-      sourceFloor.onPlayerExit(this, destFloor)
-
+      lastMove = md
+      if (!md.ghost) sourceFloor.onPlayerExit(this, destFloor) //only send events when not ghosting
       sprite.setAnimation(md.animation)
       md.keyPressed match {
         case Input.KEY_W => {
