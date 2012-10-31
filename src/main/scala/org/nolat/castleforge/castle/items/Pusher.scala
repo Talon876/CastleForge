@@ -7,6 +7,9 @@ import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
 import org.nolat.castleforge.Config
+import org.nolat.castleforge.castle.Floor
+import org.nolat.castleforge.castle.Player
+import org.newdawn.slick.Input
 
 class Pusher(_direction: String) extends Item with Direction {
   direction = Direction.fromString(_direction)
@@ -29,4 +32,12 @@ class Pusher(_direction: String) extends Item with Direction {
     g.popTransform()
   }
 
+  override def onPlayerEnter(player: Player, srcFloor: Floor) {
+    direction match {
+      case Direction.NORTH => player.attemptMove(Input.KEY_W)
+      case Direction.SOUTH => player.attemptMove(Input.KEY_S)
+      case Direction.EAST => player.attemptMove(Input.KEY_D)
+      case Direction.WEST => player.attemptMove(Input.KEY_A)
+    }
+  }
 }

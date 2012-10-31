@@ -24,7 +24,6 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
     //update all Floors in map so that they use this classes translate
     map.foreach { row =>
       row.foreach { floor =>
-        println("translate changing")
         floor.translate = translate
       }
     }
@@ -67,14 +66,16 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   }
 
   private def cameraBounds = {
-    val left = scala.math.max(player.tilePosition._1 - 5, 0)
-    val right = scala.math.min(player.tilePosition._1 + 5, map(0).size - 1)
-    val top = scala.math.max(player.tilePosition._2 - 5, 0)
-    val bottom = scala.math.min(player.tilePosition._2 + 5, map.size - 1)
+    val camRadius = 6
+    val left = scala.math.max(player.tilePosition._1 - camRadius, 0)
+    val right = scala.math.min(player.tilePosition._1 + camRadius, map(0).size - 1)
+    val top = scala.math.max(player.tilePosition._2 - camRadius, 0)
+    val bottom = scala.math.min(player.tilePosition._2 + camRadius, map.size - 1)
     (left, right, top, bottom)
   }
 
   def translate(x: Int, y: Int): (Int, Int) = {
-    (0, 0)
+    //(-player.tileOffset._1 * 64, -player.tileOffset._2 * 64)
+    (-player.movementOffset._1.toInt, -player.movementOffset._2.toInt)
   }
 }

@@ -44,13 +44,4 @@ abstract class Item extends GameItem with PlayerListener {
   def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {
     this.sprite.getAnimation.draw(x, y, this.color)
   }
-
-  override def onPlayerEnter(player: Player, srcFloor: Floor) {
-    println("item onPlayerEnter")
-  }
-
-  override def onPlayerExit(player: Player, destFloor: Floor) {
-    println("item onPlayerExit")
-
-  }
 }

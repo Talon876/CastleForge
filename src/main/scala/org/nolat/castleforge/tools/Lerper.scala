@@ -36,12 +36,11 @@ class Lerper(var msToLerp: Int) {
 
   def update(deltaMs: Int) {
     if (isStarted) {
-      println("elapsed: " + elapsedMillis)
       elapsedMillis += deltaMs
       if (elapsedMillis >= msToLerp) {
-        finishedLerp()
         this.isStarted = false
         elapsedMillis = 0
+        finishedLerp()
       }
     }
   }

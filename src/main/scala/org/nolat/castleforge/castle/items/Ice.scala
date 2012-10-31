@@ -17,11 +17,8 @@ class Ice extends Item with RNG {
   override def getItemType = Sprites.ice
 
   override def onPlayerEnter(player: Player, srcFloor: Floor) {
-    println("ice onPlayerEnter")
     val reverseMap = player.movementMap.map(_.swap)
 
-    //player.sprite.setAnimation("walking_up")
-    // player.position = new Vector2f(50, 50)
-    player.attemptMove(Input.KEY_W)
+    player.attemptMove(reverseMap(player.lastMoveDirection))
   }
 }

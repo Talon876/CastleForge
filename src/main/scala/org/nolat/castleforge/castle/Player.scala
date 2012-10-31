@@ -50,16 +50,22 @@ class Player extends GameItem {
     PlayerState.WALKING_LEFT -> (-1, 0),
     PlayerState.WALKING_RIGHT -> (1, 0))
 
+  var tileOffset = (0, 0)
+  var movementOffset = (0f, 0f)
+
   def stopWalking() = {
-    correctPosition()
+    //correctPosition()
     tilePosition = (tilePosition._1 + stateMap(state)._1, tilePosition._2 + stateMap(state)._2)
     lastMoveDirection = stateMap(state)
-    // println("Position: " + tilePosition)
+    tileOffset = (tileOffset._1 + stateMap(state)._1, tileOffset._2 + stateMap(state)._2)
+    movementOffset = (tileOffset._1 * 64, tileOffset._2 * 64)
+    println("Position: " + tilePosition)
+    println("Offset: " + tileOffset)
+
     sprite.setAnimation("idle")
     state = PlayerState.IDLE
     val destItem = castle.map(tilePosition._2)(tilePosition._1)
     destItem.onPlayerEnter(this, lastTile)
-
   }
 
   private def correctPosition() {
@@ -76,19 +82,16 @@ class Player extends GameItem {
     val destTile = (tilePosition._1 + movementMap(keyPressed)._1, tilePosition._2 + movementMap(keyPressed)._2)
     val destItem = castle.map(destTile._2)(destTile._1)
 
-    println("Destin: " + destItem.itemName + " at " + destTile)
+    //println("Destin: " + destItem.itemName + " at " + destTile)
     //     println("Position: " + position.x.toInt + " " + position.y.toInt)
-    //update tile position (not here)
     if (!destItem.isBlockingMovement) {
       sourceItem.onPlayerExit(this, destItem)
+
+      println(tileOffset)
       keyPressed match {
         case Input.KEY_W => {
-          //println("set animation to walking up")
           sprite.setAnimation("walking_up")
-          //assert(sprite.toString == "walking_up")
-          //println("set state to walking up")
           state = PlayerState.WALKING_UP
-          //assert(state == PlayerState.WALKING_UP)
           movementLerper.start(position.y, position.y - Config.TileHeight)
         }
         case Input.KEY_S => {
@@ -127,10 +130,15 @@ class Player extends GameItem {
         attemptMove(Input.KEY_W)
       }
     } else { //not idle, moving
+      //println(movementOffset)
+      //(64 * movementLerper.amountLerped) * tileOffset._1) + (movementOffset._1 * stateMap(state)._1)
+      movementOffset = ((movementLerper.amountLerped * 64) * stateMap(state)._1 + tileOffset._1 * 64,
+        (movementLerper.amountLerped * 64) * stateMap(state)._2 + tileOffset._2 * 64)
+
       if (state == PlayerState.WALKING_LEFT || state == PlayerState.WALKING_RIGHT) {
-        position = new Vector2f(movementLerper.value, position.y)
+        //position = new Vector2f(movementLerper.value, position.y)
       } else if (state == PlayerState.WALKING_UP || state == PlayerState.WALKING_DOWN) {
-        position = new Vector2f(position.x, movementLerper.value)
+        //position = new Vector2f(position.x, movementLerper.value)
       }
     }
   }

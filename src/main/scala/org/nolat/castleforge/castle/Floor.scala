@@ -57,7 +57,6 @@ class Floor(var item: Option[Item], val x: Int, val y: Int) extends Renderable w
   }
 
   override def onPlayerEnter(player: Player, srcFloor: Floor) {
-    println("floor onPlayerEnter")
     item match {
       case Some(item) => item.onPlayerEnter(player, srcFloor)
       case None =>
@@ -65,7 +64,6 @@ class Floor(var item: Option[Item], val x: Int, val y: Int) extends Renderable w
   }
 
   override def onPlayerExit(player: Player, destFloor: Floor) {
-    println("floor onPlayerExit")
     item match {
       case Some(item) => item.onPlayerExit(player, destFloor)
       case None =>

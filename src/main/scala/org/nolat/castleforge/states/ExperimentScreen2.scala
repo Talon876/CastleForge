@@ -52,6 +52,12 @@ class ExperimentScreen2 extends BasicGameState {
     g.setColor(Color.white)
     castle.render(container, game, g)
     player.render(container, game, g)
+    g.setColor(Color.black)
+    //draw fake ui to mimic proper scrolling
+    g.fillRect(0, 0, 8, Config.Resolution.getY)
+    g.fillRect(0, 0, Config.Resolution.getX, 8)
+    g.fillRect(8 + 11 * 64, 8, 600, 900)
+    g.fillRect(8, 8 + 11 * 64, 900, 10)
     //g.setColor(Color.green)
     //g.drawRect(player._1 * Config.TileWidth + Config.TileOffsetX, player._2 * Config.TileHeight + Config.TileOffsetY, 64, 64)
   }
