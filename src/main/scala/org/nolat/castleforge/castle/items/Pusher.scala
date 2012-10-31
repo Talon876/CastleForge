@@ -20,6 +20,7 @@ class Pusher(_direction: String) extends Item with Direction {
   sprite = new Sprite(getItemType)
 
   override def getItemType = Sprites.pusher
+  val speedMod = 2.2f
 
   override def getParamList = {
     Seq(direction.toString)
@@ -34,10 +35,10 @@ class Pusher(_direction: String) extends Item with Direction {
 
   override def onPlayerEnter(player: Player, srcFloor: Floor) {
     direction match {
-      case Direction.NORTH => player.attemptMove(Input.KEY_W)
-      case Direction.SOUTH => player.attemptMove(Input.KEY_S)
-      case Direction.EAST => player.attemptMove(Input.KEY_D)
-      case Direction.WEST => player.attemptMove(Input.KEY_A)
+      case Direction.NORTH => player.attemptMove(Input.KEY_W, "gliding_up", speedMod)
+      case Direction.SOUTH => player.attemptMove(Input.KEY_S, "gliding_down", speedMod)
+      case Direction.EAST => player.attemptMove(Input.KEY_D, "gliding_right", speedMod)
+      case Direction.WEST => player.attemptMove(Input.KEY_A, "gliding_left", speedMod)
     }
   }
 }

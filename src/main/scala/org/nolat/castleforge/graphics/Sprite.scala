@@ -59,7 +59,8 @@ class Sprite(name: String) {
    */
   def animationLength = {
     //println("numframes: " + numberOfFrames + "; fps: " + animationData.fps)
-    ((numberOfFrames.toFloat / animationData.fps.toFloat).toFloat * 1000f).toInt
+
+    scala.math.max(((numberOfFrames.toFloat / animationData.fps.toFloat).toFloat * 1000f).toInt, Config.DefaultAnimLerpMs)
   }
 
   def getAnimation(): Animation = {

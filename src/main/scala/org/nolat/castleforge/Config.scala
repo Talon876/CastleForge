@@ -22,6 +22,7 @@ object Config {
   val TileOffsetX = 8
   val TileOffsetY = 8
   val DefaultAnimFps = 10
+  val DefaultAnimLerpMs = 500
   val DefaultCastleSize = Tuple2[Int, Int](11, 11)
   val random = new Random()
   val WorkingDirectory = System.getProperty("user.home") + "/." + App.APPNAME.toLowerCase

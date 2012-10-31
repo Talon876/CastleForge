@@ -78,4 +78,17 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
     //(-player.tileOffset._1 * 64, -player.tileOffset._2 * 64)
     (-player.movementOffset._1.toInt, -player.movementOffset._2.toInt)
   }
+
+  def getFloorAtPosition(tilePosition: (Int, Int)): Floor = {
+    getFloorAtPosition(tilePosition._1, tilePosition._2)
+  }
+
+  def getFloorAtPosition(x: Int, y: Int): Floor = {
+    map(y)(x)
+  }
+
+  def getFloorAtPositionWithOffset(tilePosition: (Int, Int), offset: (Int, Int)): Floor = {
+    val position = (tilePosition._1 + offset._1, tilePosition._2 + offset._2)
+    getFloorAtPosition(position)
+  }
 }

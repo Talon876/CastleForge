@@ -13,7 +13,7 @@ import org.nolat.castleforge.castle.items.attributes.Direction
 
 class Floor(var item: Option[Item], val x: Int, val y: Int) extends Renderable with PlayerListener {
   var sprite = new Sprite(Sprites.floor)
-  sprite.setRandomAnimation(List(1f, 0.0f, 0.0f, 0.0f))
+  sprite.setRandomAnimation(List(0.0f, 1f, 0.0f, 0.0f))
 
   var translate: (Int, Int) => ((Int, Int)) = null //transform
 

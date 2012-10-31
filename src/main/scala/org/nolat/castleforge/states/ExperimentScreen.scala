@@ -77,7 +77,7 @@ object ExperimentScreen {
     "type6",
     "type7",
     "type8")
-  val teleType = List[Int](0, 1, 2)
+  val teleType = List[String]("sender", "receiver", "bidirectional")
 }
 class ExperimentScreen extends BasicGameState {
   var game: StateBasedGame = null

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <animations>
+    <!-- Walkiing animations -->
     <animation name="walking_down">
         <start>0</start>
         <end>3</end>
@@ -10,17 +11,37 @@
         <end>7</end>
         <fps>8</fps>
     </animation>
-    <animation name="walking_left">
+    <animation name="walking_right">
         <start>8</start>
         <end>11</end>
         <fps>8</fps>
     </animation>
-    <animation name="walking_right">
+    <animation name="walking_left">
         <start>12</start>
         <end>15</end>
         <fps>8</fps>
     </animation>
+
+    <!-- Gliding animations -->
+    <animation name="gliding_down">
+        <start>1</start>
+    </animation>
+    <animation name="gliding_up">
+        <start>5</start>
+    </animation>
+    <animation name="gliding_right">
+        <start>9</start>
+    </animation>
+    <animation name="gliding_left">
+        <start>13</start>
+    </animation>
+
     <animation name="idle">
         <start>0</start>
+    </animation>
+    <animation name="teleporting">
+        <start>16</start>
+        <end>19</end>
+        <fps>16</fps>
     </animation>
 </animations>

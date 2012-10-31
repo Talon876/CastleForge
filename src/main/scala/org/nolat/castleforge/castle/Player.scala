@@ -12,6 +12,8 @@ import org.nolat.castleforge.castle.items.GameItem
 import org.nolat.castleforge.graphics.Sprite
 import org.newdawn.slick.Color
 import org.nolat.castleforge.tools.Lerper
+import scala.collection.mutable.Queue
+import org.nolat.castleforge.tools.MoveDescription
 
 class Player extends GameItem {
 
@@ -38,6 +40,8 @@ class Player extends GameItem {
   var lastTile: Floor = null
   var lastMoveDirection = (0, 0)
 
+  private var moveQueue: Queue[MoveDescription] = new Queue()
+
   val movementMap = Map(
     Input.KEY_W -> (0, -1),
     Input.KEY_S -> (0, 1),
@@ -49,6 +53,7 @@ class Player extends GameItem {
     PlayerState.WALKING_DOWN -> (0, 1),
     PlayerState.WALKING_LEFT -> (-1, 0),
     PlayerState.WALKING_RIGHT -> (1, 0))
+  private def stateMapReverse = stateMap.map(_.swap)
 
   var tileOffset = (0, 0)
   var movementOffset = (0f, 0f)
@@ -66,6 +71,8 @@ class Player extends GameItem {
     state = PlayerState.IDLE
     val destItem = castle.map(tilePosition._2)(tilePosition._1)
     destItem.onPlayerEnter(this, lastTile)
+
+    playMovement()
   }
 
   private def correctPosition() {
@@ -76,41 +83,79 @@ class Player extends GameItem {
     }
   }
 
+  def teleportMove(destinationTile: (Int, Int), animation: String, speedModifier: Float) {
+    val horizontal = destinationTile._1 - tilePosition._1
+    val vertical = destinationTile._2 - tilePosition._2
+    println("over " + horizontal + ", up " + vertical)
+    val horizKey = if (horizontal < 0) Input.KEY_A else Input.KEY_D
+    val vertKey = if (vertical < 0) Input.KEY_W else Input.KEY_S
+
+    for (x <- 0 to scala.math.abs(horizontal) - 1) {
+      enqueueMove(MoveDescription(horizKey, animation, speedModifier, true))
+    }
+    for (y <- 0 to scala.math.abs(vertical) - 1) {
+      enqueueMove(MoveDescription(vertKey, animation, speedModifier, true))
+    }
+
+  }
+
+  def enqueueMove(moveDescription: MoveDescription) {
+    println("Eqnueued Movement: " + moveDescription)
+    moveQueue.enqueue(moveDescription)
+  }
+
+  def playMovement() {
+    if (!moveQueue.isEmpty) {
+      attemptMove(moveQueue.dequeue())
+    }
+  }
+
+  /**
+   * attemptMove method that passes in the correct walking animation for the direction
+   * @param keyPressed the key that was pressed
+   */
   def attemptMove(keyPressed: Int) {
-    val sourceItem = castle.map(tilePosition._2)(tilePosition._1)
-    lastTile = sourceItem
-    val destTile = (tilePosition._1 + movementMap(keyPressed)._1, tilePosition._2 + movementMap(keyPressed)._2)
-    val destItem = castle.map(destTile._2)(destTile._1)
+    keyPressed match {
+      case Input.KEY_W => attemptMove(Input.KEY_W, "walking_up", 1f)
+      case Input.KEY_S => attemptMove(Input.KEY_S, "walking_down", 1f)
+      case Input.KEY_A => attemptMove(Input.KEY_A, "walking_left", 1f)
+      case Input.KEY_D => attemptMove(Input.KEY_D, "walking_right", 1f)
+    }
+  }
 
-    //println("Destin: " + destItem.itemName + " at " + destTile)
-    //     println("Position: " + position.x.toInt + " " + position.y.toInt)
-    if (!destItem.isBlockingMovement) {
-      sourceItem.onPlayerExit(this, destItem)
+  def attemptMove(keyPressed: Int, animation: String, speedModifier: Float) {
+    attemptMove(MoveDescription(keyPressed, animation, speedModifier))
+  }
 
-      println(tileOffset)
-      keyPressed match {
+  def attemptMove(md: MoveDescription) {
+    val sourceFloor = castle.getFloorAtPosition(tilePosition)
+    lastTile = sourceFloor
+    val destFloor = castle.getFloorAtPositionWithOffset(tilePosition, movementMap(md.keyPressed))
+
+    //println("Destination Floor: " + destFloor.itemName + ": blocking? " + destFloor.isBlockingMovement)
+    if (!destFloor.isBlockingMovement || md.ghost) {
+      sourceFloor.onPlayerExit(this, destFloor)
+
+      sprite.setAnimation(md.animation)
+      md.keyPressed match {
         case Input.KEY_W => {
-          sprite.setAnimation("walking_up")
           state = PlayerState.WALKING_UP
           movementLerper.start(position.y, position.y - Config.TileHeight)
         }
         case Input.KEY_S => {
-          sprite.setAnimation("walking_down")
           state = PlayerState.WALKING_DOWN
           movementLerper.start(position.y, position.y + Config.TileHeight)
         }
         case Input.KEY_A => {
-          sprite.setAnimation("walking_left")
           state = PlayerState.WALKING_LEFT
           movementLerper.start(position.x, position.x - Config.TileWidth)
         }
         case Input.KEY_D => {
-          sprite.setAnimation("walking_right")
           state = PlayerState.WALKING_RIGHT
           movementLerper.start(position.x, position.x + Config.TileWidth)
         }
       }
-      movementLerper.msToLerp = sprite.animationLength //adjust lerp length to animation length
+      movementLerper.msToLerp = (sprite.animationLength.toFloat / md.speedModifier).toInt //adjust lerp length to animation length and apply speed modifier
     } else {
       println("You shall not pass!")
     }
@@ -118,28 +163,29 @@ class Player extends GameItem {
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     if (state == PlayerState.IDLE) {
-      if (container.getInput().isKeyDown(Input.KEY_W)) {
-        attemptMove(Input.KEY_W)
-      } else if (container.getInput().isKeyDown(Input.KEY_S)) {
-        attemptMove(Input.KEY_S)
-      } else if (container.getInput().isKeyDown(Input.KEY_A)) {
-        attemptMove(Input.KEY_A)
-      } else if (container.getInput().isKeyDown(Input.KEY_D)) {
-        attemptMove(Input.KEY_D)
-      } else if (container.getInput().isKeyDown(Input.KEY_U)) {
-        attemptMove(Input.KEY_W)
-      }
+      handleInput(container)
     } else { //not idle, moving
       //println(movementOffset)
-      //(64 * movementLerper.amountLerped) * tileOffset._1) + (movementOffset._1 * stateMap(state)._1)
       movementOffset = ((movementLerper.amountLerped * 64) * stateMap(state)._1 + tileOffset._1 * 64,
         (movementLerper.amountLerped * 64) * stateMap(state)._2 + tileOffset._2 * 64)
+    }
+  }
 
-      if (state == PlayerState.WALKING_LEFT || state == PlayerState.WALKING_RIGHT) {
-        //position = new Vector2f(movementLerper.value, position.y)
-      } else if (state == PlayerState.WALKING_UP || state == PlayerState.WALKING_DOWN) {
-        //position = new Vector2f(position.x, movementLerper.value)
-      }
+  private def handleInput(container: GameContainer) {
+    if (container.getInput().isKeyDown(Input.KEY_W)) {
+      attemptMove(Input.KEY_W)
+    } else if (container.getInput().isKeyDown(Input.KEY_S)) {
+      attemptMove(Input.KEY_S)
+    } else if (container.getInput().isKeyDown(Input.KEY_A)) {
+      attemptMove(Input.KEY_A)
+    } else if (container.getInput().isKeyDown(Input.KEY_D)) {
+      attemptMove(Input.KEY_D)
+    } else if (container.getInput().isKeyDown(Input.KEY_U)) {
+      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", .25f))
+      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", .25f))
+      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 2.25f))
+      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", .25f))
+      playMovement()
     }
   }
 
