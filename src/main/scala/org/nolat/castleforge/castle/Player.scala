@@ -15,7 +15,7 @@ import org.nolat.castleforge.tools.Lerper
 import scala.collection.mutable.Queue
 import org.nolat.castleforge.tools.MoveDescription
 
-class Player extends GameItem {
+class Player(var castle: Castle) extends GameItem {
 
   object PlayerState extends Enumeration {
     type PlayerState = Value
@@ -23,10 +23,16 @@ class Player extends GameItem {
   }
 
   val inventory: Inventory = new Inventory
-  var castle: Castle = null
 
-  position = new Vector2f(8 + 64 * 5, 8 + 64 * 5)
-  var tilePosition = (5, 5)
+  var tilePosition = CastleUtil.findSpawnpoint(castle).getTilePosition
+  println("Tile Position of player: " + tilePosition)
+  position = new Vector2f(Config.TileOffsetX + Config.TileWidth * 5, Config.TileOffsetY + Config.TileHeight * 5)
+
+  var tileOffset = (tilePosition._1 - 5, tilePosition._2 - 5)
+  var movementOffset = (tileOffset._1 * 64f, tileOffset._2 * 64f)
+
+  println("Location: " + position)
+
   sprite = new Sprite(Sprites.player)
   sprite.setAnimation("idle")
 
@@ -55,9 +61,6 @@ class Player extends GameItem {
     PlayerState.WALKING_LEFT -> (-1, 0),
     PlayerState.WALKING_RIGHT -> (1, 0))
   private def stateMapReverse = stateMap.map(_.swap)
-
-  var tileOffset = (0, 0)
-  var movementOffset = (0f, 0f)
 
   def stopWalking() = {
     tilePosition = (tilePosition._1 + stateMap(state)._1, tilePosition._2 + stateMap(state)._2)

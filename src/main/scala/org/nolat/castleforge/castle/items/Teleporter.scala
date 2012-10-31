@@ -8,8 +8,9 @@ import org.nolat.castleforge.graphics.Sprites.value2string
 import org.newdawn.slick.Input
 import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.castle.Floor
+import org.nolat.castleforge.castle.CastleUtil
 
-class Teleporter(teleType: String, _idcolor: String) extends Item with IDColor {
+class Teleporter(val teleType: String, _idcolor: String) extends Item with IDColor {
   idcolor = IDColor.fromString(_idcolor)
   def this(paramList: List[String]) = {
     this(paramList(0), paramList(1))
@@ -40,6 +41,6 @@ class Teleporter(teleType: String, _idcolor: String) extends Item with IDColor {
   }
 
   private def senderEnter(player: Player, srcFloor: Floor) {
-    player.teleportMove((1, 15), "teleporting", speedMod)
+    player.teleportMove(CastleUtil.findMatchingTeleporter(player.castle, this).getTilePosition, "teleporting", speedMod)
   }
 }

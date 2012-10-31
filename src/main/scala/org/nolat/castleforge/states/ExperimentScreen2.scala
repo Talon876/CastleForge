@@ -21,6 +21,7 @@ import org.nolat.castleforge.castle.items.Item
 import org.newdawn.slick.state.transition.EmptyTransition
 import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.tools.Lerper
+import org.nolat.castleforge.castle.Castle
 
 object ExperimentScreen2 {
   val ID = 4
@@ -30,14 +31,18 @@ class ExperimentScreen2 extends BasicGameState {
 
   override def getID = ExperimentScreen2.ID
 
-  lazy val castle = MapLoad.loadMap(new File("/Users/talon/.castleforge/maps/large.xml"), false)
+  var castle: Castle = null
 
   var player: Player = null
 
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
-    this.player = new Player
-    this.player.castle = castle
+  }
+
+  override def enter(container: GameContainer, game: StateBasedGame) {
+    println("Entered Experiment screen")
+    castle = MapLoad.loadMap(new File("/Users/talon/.castleforge/maps/large.xml"), false)
+    this.player = new Player(castle)
     this.castle.player = player
   }
 

@@ -70,4 +70,6 @@ class Floor(var item: Option[Item], val x: Int, val y: Int) extends Renderable w
     }
   }
 
+  def getTilePosition = (x, y)
+
 }

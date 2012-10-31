@@ -19,7 +19,6 @@ class Ice extends Item with RNG {
   override def getItemType = Sprites.ice
 
   override def onPlayerEnter(player: Player, srcFloor: Floor) {
-
     player.attemptMove(MoveDescription(player.lastMove.keyPressed, player.lastMove.animation.replace("walking_", "gliding_"), speedMod))
   }
 }
