@@ -33,4 +33,8 @@ object CastleUtil {
 
     matchingTeleporters(0) //if this throws an exception then you don't have a matching teleporter which isn't valid
   }
+
+  def removeItem(castle: Castle, coords: (Int, Int)) {
+    castle.map(coords._2)(coords._1).item = None
+  }
 }

@@ -8,6 +8,7 @@ import org.nolat.castleforge.graphics.Sprites
 import org.nolat.castleforge.graphics.Sprite
 import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.castle.Floor
+import org.nolat.castleforge.castle.CastleUtil
 
 class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDColor with Quantity with Shape {
 
@@ -31,5 +32,6 @@ class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDCo
 
   override def onPlayerEnter(player: Player, srcFloor: Floor) {
     player.inventory.addItem(this)
+    CastleUtil.removeItem(player.castle, player.tilePosition) //remove item at players position (this)
   }
 }

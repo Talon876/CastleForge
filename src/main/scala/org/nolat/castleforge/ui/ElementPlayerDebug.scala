@@ -25,7 +25,7 @@ class ElementPlayerDebug(player: Player) extends HUDElement(HUD.custom) {
   }
 
   def messages = {
-    List("Tile: " + player.tilePosition.toString,
+    List("Tile: " + player.tilePosition.toString + "           <F3>",
       "State: " + player.state,
       "Animation: " + player.sprite,
       "Inv. Size: " + player.inventory.size)
