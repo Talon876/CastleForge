@@ -34,7 +34,7 @@ class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extend
   override def getItemType = Sprites.door
 
   override def getParamList = {
-    Seq(doorType.toString, idcolor.toString, shape)
+    Seq(doorType.toString, IDColor.toString(idcolor), shape)
   }
 
   override def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {

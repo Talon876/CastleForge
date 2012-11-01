@@ -24,6 +24,6 @@ class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDCo
   override def getItemType = Sprites.key
 
   override def getParamList = {
-    Seq(idcolor.toString, shape, quantity.toString)
+    Seq(IDColor.toString(idcolor), shape, quantity.toString)
   }
 }

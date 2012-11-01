@@ -20,6 +20,8 @@ import org.nolat.castleforge.castle.items._
 import scala.collection.mutable.ArrayBuffer
 import org.nolat.castleforge.castle.Castle
 import org.newdawn.slick.state.transition.EmptyTransition
+import org.nolat.castleforge.castle.Player
+import org.nolat.castleforge.tools.Lerper
 
 object ExperimentScreen {
   val ID = 3
@@ -84,35 +86,41 @@ class ExperimentScreen extends BasicGameState {
 
   override def getID = ExperimentScreen.ID
 
-  lazy val castle = list2Castle(allCombinations())
+  var castle: Castle = null
+
+  var player: Player = null
 
   var lstItem = ArrayBuffer[Item]()
 
+  override def enter(container: GameContainer, game: StateBasedGame) {
+    println("Entered Experiment screen")
+    castle = list2Castle(allCombinations())
+    this.player = new Player(castle)
+    this.castle.player = player
+  }
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+    Lerper.lerpers.foreach(_.update(delta))
     castle.update(container, game, delta)
-    //tiles.foreach(_.update(container, game, delta))
+    player.update(container, game, delta)
 
-    if (container.getInput().isKeyPressed(Input.KEY_1)) {
-      MapSave.save(castle, Config.WorkingDirectory + "/maps", true)
-      castle.map(0)(0).item = null;
-      assert(castle.originalState(0)(0) == null)
-    } else if (container.getInput().isKeyPressed(Input.KEY_2)) {
-
-    } else if (container.getInput().isKeyPressed(Input.KEY_3)) {
-
-    }
+    
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
-
-    g.setBackground(Color.black)
+   g.setBackground(Color.black)
     g.setColor(Color.white)
     castle.render(container, game, g)
-    //tiles.foreach(_.render(container, game, g))
+    player.render(container, game, g)
+    g.setColor(Color.black)
+    //draw fake ui to mimic proper scrolling
+    g.fillRect(0, 0, 8, Config.Resolution.getY)
+    g.fillRect(0, 0, Config.Resolution.getX, 8)
+    g.fillRect(8 + 11 * 64, 8, 600, 900)
+    g.fillRect(8, 8 + 11 * 64, 900, 10)
 
   }
 
@@ -121,6 +129,13 @@ class ExperimentScreen extends BasicGameState {
       game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
     } else if (key == Input.KEY_F10) {
       game.enterState(ExperimentScreen2.ID, new EmptyTransition(), new EmptyTransition())
+    }
+    else if (key == Input.KEY_1){
+      MapSave.save(castle, Config.WorkingDirectory + "/maps", true)
+      val i = castle.map(0)(0).item
+      castle.map(0)(0).item = null;
+      assert(castle.originalState(0)(0) != null)
+      castle.map(0)(0).item = i;
     }
   }
   def list2Castle(items: List[Item]): Castle = {
@@ -217,7 +232,7 @@ class ExperimentScreen extends BasicGameState {
 
   def createAllSpawnPoint(list: ArrayBuffer[Item]) {
     ExperimentScreen.checkpointState.foreach {
-      b => list.append(new CheckPoint(b))
+      b => list.append(new SpawnPoint(b))
     }
   }
   def createAllTeleporters(list: ArrayBuffer[Item]) {
