@@ -6,6 +6,8 @@ import org.nolat.castleforge.castle.items.attributes.Quantity
 import org.nolat.castleforge.castle.items.attributes.Shape
 import org.nolat.castleforge.graphics.Sprites
 import org.nolat.castleforge.graphics.Sprite
+import org.nolat.castleforge.castle.Player
+import org.nolat.castleforge.castle.Floor
 
 class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDColor with Quantity with Shape {
 
@@ -25,5 +27,9 @@ class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDCo
 
   override def getParamList = {
     Seq(idcolor.toString, shape, quantity.toString)
+  }
+
+  override def onPlayerEnter(player: Player, srcFloor: Floor) {
+    player.inventory.addItem(this)
   }
 }

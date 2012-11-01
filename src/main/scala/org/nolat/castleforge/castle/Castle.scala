@@ -1,12 +1,13 @@
 package org.nolat.castleforge.castle
 
 import scala.collection.mutable.ArrayBuffer
-import org.nolat.castleforge.graphics.Renderable
-import org.newdawn.slick.state.StateBasedGame
+import scala.collection.mutable.ListBuffer
+
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
+import org.newdawn.slick.state.StateBasedGame
 import org.nolat.castleforge.Config
-import scala.collection.mutable.ListBuffer
+import org.nolat.castleforge.graphics.Renderable
 
 class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   var name: String = "Default"
@@ -50,8 +51,8 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
+    Config.backdrop.draw(0, 0)
     getFloorsToRender.foreach(_.render(container, game, g))
-    g.drawRect(Config.TileOffsetX, Config.TileOffsetY, 11 * 64, 11 * 64)
   }
 
   def getFloorsToRender(): List[Floor] = {

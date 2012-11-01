@@ -12,6 +12,7 @@ import org.newdawn.slick.SpriteSheet
 import scala.collection.parallel.immutable.ParMap
 import org.nolat.castleforge.xml.SpriteLoad
 import scala.util.Random
+import org.nolat.castleforge.ui.HUD
 
 object Config {
   val Title = "CastleForge"
@@ -32,16 +33,20 @@ object Config {
 
   var UIFont: TrueTypeFont = null
   var TitleScreenBackground: Image = null
+  var backdrop: Image = null
 
   var animationData: Map[String, Map[String, AnimationData]] = null
   var spritesheets: Map[String, SpriteSheet] = null
 
   def init() = {
     TitleScreenBackground = new Image("images/titlescreen.png")
+    backdrop = new Image("images/backdrop.png")
     UIFont = new TrueTypeFont(augustaFont.deriveFont(Font.PLAIN, 48), true)
 
     animationData = Sprites.values.map { sprite => (sprite.toString, Loader.getAnimData(sprite)) }.toMap
     spritesheets = Sprites.values.map { sprite => (sprite.toString, Loader.getSpriteSheet(sprite)) }.toMap
 
+    HUD.init()
   }
+
 }

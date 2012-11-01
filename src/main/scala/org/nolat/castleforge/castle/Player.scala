@@ -14,6 +14,7 @@ import org.newdawn.slick.Color
 import org.nolat.castleforge.tools.Lerper
 import scala.collection.mutable.Queue
 import org.nolat.castleforge.tools.MoveDescription
+import org.nolat.castleforge.castle.items.Item
 
 class Player(var castle: Castle) extends GameItem {
 
@@ -23,6 +24,10 @@ class Player(var castle: Castle) extends GameItem {
   }
 
   val inventory: Inventory = new Inventory
+  inventory.addItem(Item("key", List("blue", "pentagon", "1")).get)
+  inventory.addItem(Item("key", List("red", "diamond", "1")).get)
+  inventory.addItem(Item("key", List("orange", "square", "1")).get)
+  inventory.addItem(Item("key", List("yellow", "triangle", "1")).get)
 
   var tilePosition = CastleUtil.findSpawnpoint(castle).getTilePosition
   println("Tile Position of player: " + tilePosition)
