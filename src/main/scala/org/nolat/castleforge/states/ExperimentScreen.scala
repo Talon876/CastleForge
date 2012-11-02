@@ -107,11 +107,10 @@ class ExperimentScreen extends BasicGameState {
     castle.update(container, game, delta)
     player.update(container, game, delta)
 
-    
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
-   g.setBackground(Color.black)
+    g.setBackground(Color.black)
     g.setColor(Color.white)
     castle.render(container, game, g)
     player.render(container, game, g)
@@ -129,13 +128,8 @@ class ExperimentScreen extends BasicGameState {
       game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
     } else if (key == Input.KEY_F10) {
       game.enterState(ExperimentScreen2.ID, new EmptyTransition(), new EmptyTransition())
-    }
-    else if (key == Input.KEY_1){
+    } else if (key == Input.KEY_1) {
       MapSave.save(castle, Config.WorkingDirectory + "/maps", true)
-      val i = castle.map(0)(0).item
-      castle.map(0)(0).item = null;
-      assert(castle.originalState(0)(0) != null)
-      castle.map(0)(0).item = i;
     }
   }
   def list2Castle(items: List[Item]): Castle = {
@@ -155,7 +149,7 @@ class ExperimentScreen extends BasicGameState {
     }
     var lastRow = floors(floors.length - 1)
     while (lastRow.length < ExperimentScreen.castleWidth) {
-      lastRow.append(new Floor(None, floors.length - 1, lastRow.length))
+      lastRow.append(new Floor(None, lastRow.length, floors.length - 1))
     }
     new Castle(floors)
   }
@@ -178,18 +172,25 @@ class ExperimentScreen extends BasicGameState {
     list.toList
   }
   def createAllCheckpoints(list: ArrayBuffer[Item]) {
-    ExperimentScreen.checkpointState.foreach {
-      b => list.append(new CheckPoint(b))
-    }
+    //ExperimentScreen.checkpointState.foreach {
+    // b => list.append(new CheckPoint(b))
+    //}
+    list.append(new CheckPoint(false))
+    list.append(new CheckPoint(false))
   }
 
   def createAllDoors(list: ArrayBuffer[Item]) {
     ExperimentScreen.doorType.foreach { dt =>
-      ExperimentScreen.colors.foreach { clr =>
-        ExperimentScreen.shapes.foreach {
-          shp => list.append(new Door(dt, clr, shp))
+      dt match {
+        case 1 => ExperimentScreen.colors.foreach { clr =>
+          ExperimentScreen.shapes.foreach {
+            shp => list.append(new Door(dt, clr, shp))
+          }
         }
+        case 0 => list.append(new Door(dt))
+        case 2 => list.append(new Door(dt))
       }
+
     }
   }
 
@@ -209,14 +210,12 @@ class ExperimentScreen extends BasicGameState {
 
   def createAllMatches(list: ArrayBuffer[Item]) {
     ExperimentScreen.quantities.foreach { quan =>
-
       list.append(new Match(quan))
     }
   }
 
   def createAllObstacles(list: ArrayBuffer[Item]) {
     ExperimentScreen.obstacles.foreach { ob =>
-
       list.append(new Obstacle(ob))
     }
   }
@@ -231,24 +230,28 @@ class ExperimentScreen extends BasicGameState {
   }
 
   def createAllSpawnPoint(list: ArrayBuffer[Item]) {
-    ExperimentScreen.checkpointState.foreach {
-      b => list.append(new SpawnPoint(b))
-    }
+    // ExperimentScreen.checkpointState.foreach {
+    // b => list.append(new SpawnPoint(b))
+    // }
+    list.append(new SpawnPoint(true))
   }
   def createAllTeleporters(list: ArrayBuffer[Item]) {
-    ExperimentScreen.teleType.foreach { typ =>
+    //ExperimentScreen.teleType.foreach { typ =>
       ExperimentScreen.colors.foreach { clr =>
-        list.append(new Teleporter(typ, clr))
+        list.append(new Teleporter("bidirectional", clr))
       }
-    }
+      ExperimentScreen.colors.foreach { clr =>
+        list.append(new Teleporter("bidirectional", clr))
+      }
+   // }
   }
 
   def createAllTorches(list: ArrayBuffer[Item]) {
     ExperimentScreen.lumenosity.foreach { lum =>
       ExperimentScreen.colors.foreach { clr =>
-        ExperimentScreen.torchState.foreach { st =>
-          list.append(new Torch(st, lum, clr))
-        }
+        //ExperimentScreen.torchState.foreach { st =>
+          list.append(new Torch(true, lum, clr))
+        //}
       }
     }
   }

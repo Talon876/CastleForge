@@ -1,12 +1,19 @@
 package org.nolat.castleforge.xml
 
 import java.io.File
+
+import scala.Option.option2Iterable
+import scala.annotation.implicitNotFound
+import scala.collection.mutable.ArrayBuffer
+import scala.math.BigDecimal.int2bigDecimal
+import scala.math.BigInt.int2bigInt
 import scala.xml.XML
-import org.nolat.castleforge.castle.{ Castle => CastleStructure }
+
+import org.nolat.castleforge.castle.{Castle => CastleStructure}
 import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.Inventory
-import scala.collection.mutable.ArrayBuffer
-import org.nolat.castleforge.castle.items.{ Item => CastleItem }
+import org.nolat.castleforge.castle.items.{Item => CastleItem}
+import org.nolat.castleforge.Config
 
 object MapSave {
   private def save(castle: Castle, saveDirectory: String) =
@@ -24,6 +31,10 @@ object MapSave {
     save(xmlCastle, savePath)
   }
 
+  def save(castle: CastleStructure, isEditor : Boolean = false)
+  {
+    save(castle, Config.WorkingDirectory + "/maps", isEditor)
+  }
   def save(castle: CastleStructure, savePath: String, isEditor: Boolean) {
     var state: Seq[State] = Nil
     if (isEditor) {
