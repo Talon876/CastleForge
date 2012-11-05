@@ -19,7 +19,6 @@ class ElementInventory(player: Player) extends HUDElement(HUD.custom) {
     if (keyAmount == 0) {
       g.fillRoundRect(position.x, position.y, 64 * 8, 22, 12)
     } else {
-      println(keyAmount / 8)
       g.fillRoundRect(position.x, position.y, 64 * 8, ((((keyAmount - 1) / 8) + 1) * 64) + 6, 12)
     }
     g.setColor(Color.darkGray)

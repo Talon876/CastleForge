@@ -49,7 +49,13 @@ class ExperimentScreen2 extends BasicGameState {
 
   override def enter(container: GameContainer, game: StateBasedGame) {
     println("Entered Experiment screen")
-    castle = MapLoad.loadMap(new File("/Users/talon/.castleforge/maps/large.xml"), false)
+    var file = new File("/Users/talon/.castleforge/maps/large.xml")
+    if (file.exists) {
+      castle = MapLoad.loadMap(new File("/Users/talon/.castleforge/maps/large.xml"), false)
+    } else {
+      castle = MapLoad.loadMap(new File("C:/test.xml"), false)
+    }
+
     this.player = new Player(castle)
     this.castle.player = player
 

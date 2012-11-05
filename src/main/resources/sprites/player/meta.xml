@@ -7,8 +7,8 @@
         <fps>8</fps>
     </animation>
     <animation name="walking_up">
-        <start>4</start>
-        <end>7</end>
+        <start>12</start>
+        <end>15</end>
         <fps>8</fps>
     </animation>
     <animation name="walking_right">
@@ -17,8 +17,8 @@
         <fps>8</fps>
     </animation>
     <animation name="walking_left">
-        <start>12</start>
-        <end>15</end>
+        <start>4</start>
+        <end>7</end>
         <fps>8</fps>
     </animation>
 
@@ -27,13 +27,13 @@
         <start>1</start>
     </animation>
     <animation name="gliding_up">
-        <start>5</start>
+        <start>13</start>
     </animation>
     <animation name="gliding_right">
-        <start>9</start>
+        <start>10</start>
     </animation>
     <animation name="gliding_left">
-        <start>13</start>
+        <start>5</start>
     </animation>
 
     <animation name="idle">
@@ -43,5 +43,10 @@
         <start>16</start>
         <end>19</end>
         <fps>16</fps>
+    </animation>
+    <animation name="teleporting2">
+        <start>20</start>
+        <end>27</end>
+        <fps>8</fps>
     </animation>
 </animations>
