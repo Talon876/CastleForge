@@ -29,7 +29,7 @@ class Player(var castle: Castle) extends GameItem {
   inventory.addItem(Item("key", List("orange", "square", "1")).get)
   inventory.addItem(Item("key", List("yellow", "triangle", "1")).get)
 
-  var tilePosition = CastleUtil.findSpawnpoint(castle).getTilePosition
+  var tilePosition = CastleUtil.findPlayerStart(castle).getTilePosition
   println("Tile Position of player: " + tilePosition)
   position = new Vector2f(Config.TileOffsetX + Config.TileWidth * 5, Config.TileOffsetY + Config.TileHeight * 5)
 

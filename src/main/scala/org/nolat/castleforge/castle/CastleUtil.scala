@@ -1,6 +1,7 @@
 package org.nolat.castleforge.castle
 
 import org.nolat.castleforge.castle.items._
+import org.nolat.castleforge.castle.items.attributes.CheckPointState
 
 object CastleUtil {
 
@@ -14,6 +15,44 @@ object CastleUtil {
     spawnPoint(0) //if this throws an exception then you don't have a spawn point which isn't valid
   }
 
+  def findPlayerStart(castle: Castle): Floor = {
+    val candidates = findAllCheckPointStates(castle)
+    candidates.filter { floor =>
+      floor.item match {
+        case Some(x) => x.asInstanceOf[CheckPointState].checkpointstate == CheckPointState.ACTIVE
+        case None => false
+      }
+
+    }(0) //There can only be one active CheckPointState in a Castle at any given time
+  }
+
+  def activateCheckPoint(castle: Castle, chkpnt: CheckPointState) {
+    val candidates = findAllCheckPointStates(castle)
+    candidates.foreach { floor =>
+      floor.item match {
+        case Some(x) =>
+          val itm = x.asInstanceOf[CheckPointState]
+          if (itm != chkpnt) {
+            itm.deactivate()
+          } else {
+            itm.activate()
+          }
+        case None => false
+      }
+
+    }
+  }
+
+  def findAllCheckPointStates(castle: Castle): List[Floor] = {
+    val checkpoint = castle.map.flatten.toList.filter { floor =>
+      floor.item match {
+        case Some(x) => x.isInstanceOf[CheckPointState]
+        case None => false
+      }
+    }
+    checkpoint
+
+  }
   def findMatchingTeleporter(castle: Castle, teleporter: Teleporter): Floor = {
 
     def matchingTeleporter(sourceTeleporter: Teleporter, candidate: Floor): Boolean = {

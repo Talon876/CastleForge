@@ -28,7 +28,7 @@ class Teleporter(val teleType: String, _idcolor: String) extends Item with IDCol
   override def getItemType = Sprites.teleporter
 
   override def getParamList = {
-    Seq(teleType.toString, idcolor.toString)
+    Seq(teleType.toString, IDColor.toString(idcolor))
   }
 
   override def onPlayerEnter(player: Player, srcFloor: Floor) {

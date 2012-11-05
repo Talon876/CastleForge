@@ -21,6 +21,6 @@ class Torch(lit: Boolean, lumen: String, _color: String) extends Item with IDCol
   override def getItemType = Sprites.torch
 
   override def getParamList = {
-    Seq(torchstate.toString, luminosity.toString, idcolor.toString)
+    Seq(torchstate.toString, luminosity.toString, IDColor.toString(idcolor))
   }
 }

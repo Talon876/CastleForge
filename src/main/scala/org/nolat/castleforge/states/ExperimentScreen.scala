@@ -20,6 +20,8 @@ import org.nolat.castleforge.castle.items._
 import scala.collection.mutable.ArrayBuffer
 import org.nolat.castleforge.castle.Castle
 import org.newdawn.slick.state.transition.EmptyTransition
+import org.nolat.castleforge.castle.Player
+import org.nolat.castleforge.tools.Lerper
 
 object ExperimentScreen {
   val ID = 3
@@ -84,35 +86,40 @@ class ExperimentScreen extends BasicGameState {
 
   override def getID = ExperimentScreen.ID
 
-  lazy val castle = list2Castle(allCombinations())
+  var castle: Castle = null
+
+  var player: Player = null
 
   var lstItem = ArrayBuffer[Item]()
 
+  override def enter(container: GameContainer, game: StateBasedGame) {
+    println("Entered Experiment screen")
+    castle = list2Castle(allCombinations())
+    this.player = new Player(castle)
+    this.castle.player = player
+  }
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+    Lerper.lerpers.foreach(_.update(delta))
     castle.update(container, game, delta)
-    //tiles.foreach(_.update(container, game, delta))
+    player.update(container, game, delta)
 
-    if (container.getInput().isKeyPressed(Input.KEY_1)) {
-      MapSave.save(castle, Config.WorkingDirectory + "/maps", true)
-      castle.map(0)(0).item = null;
-      assert(castle.originalState(0)(0) == null)
-    } else if (container.getInput().isKeyPressed(Input.KEY_2)) {
-
-    } else if (container.getInput().isKeyPressed(Input.KEY_3)) {
-
-    }
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
-
     g.setBackground(Color.black)
     g.setColor(Color.white)
     castle.render(container, game, g)
-    //tiles.foreach(_.render(container, game, g))
+    player.render(container, game, g)
+    g.setColor(Color.black)
+    //draw fake ui to mimic proper scrolling
+    g.fillRect(0, 0, 8, Config.Resolution.getY)
+    g.fillRect(0, 0, Config.Resolution.getX, 8)
+    g.fillRect(8 + 11 * 64, 8, 600, 900)
+    g.fillRect(8, 8 + 11 * 64, 900, 10)
 
   }
 
@@ -121,6 +128,8 @@ class ExperimentScreen extends BasicGameState {
       game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
     } else if (key == Input.KEY_F10) {
       game.enterState(ExperimentScreen2.ID, new EmptyTransition(), new EmptyTransition())
+    } else if (key == Input.KEY_1) {
+      MapSave.save(castle, Config.WorkingDirectory + "/maps", true)
     }
   }
   def list2Castle(items: List[Item]): Castle = {
@@ -140,7 +149,7 @@ class ExperimentScreen extends BasicGameState {
     }
     var lastRow = floors(floors.length - 1)
     while (lastRow.length < ExperimentScreen.castleWidth) {
-      lastRow.append(new Floor(None, floors.length - 1, lastRow.length))
+      lastRow.append(new Floor(None, lastRow.length, floors.length - 1))
     }
     new Castle(floors)
   }
@@ -163,18 +172,25 @@ class ExperimentScreen extends BasicGameState {
     list.toList
   }
   def createAllCheckpoints(list: ArrayBuffer[Item]) {
-    ExperimentScreen.checkpointState.foreach {
-      b => list.append(new CheckPoint(b))
-    }
+    //ExperimentScreen.checkpointState.foreach {
+    // b => list.append(new CheckPoint(b))
+    //}
+    list.append(new CheckPoint(false))
+    list.append(new CheckPoint(false))
   }
 
   def createAllDoors(list: ArrayBuffer[Item]) {
     ExperimentScreen.doorType.foreach { dt =>
-      ExperimentScreen.colors.foreach { clr =>
-        ExperimentScreen.shapes.foreach {
-          shp => list.append(new Door(dt, clr, shp))
+      dt match {
+        case 1 => ExperimentScreen.colors.foreach { clr =>
+          ExperimentScreen.shapes.foreach {
+            shp => list.append(new Door(dt, clr, shp))
+          }
         }
+        case 0 => list.append(new Door(dt))
+        case 2 => list.append(new Door(dt))
       }
+
     }
   }
 
@@ -194,14 +210,12 @@ class ExperimentScreen extends BasicGameState {
 
   def createAllMatches(list: ArrayBuffer[Item]) {
     ExperimentScreen.quantities.foreach { quan =>
-
       list.append(new Match(quan))
     }
   }
 
   def createAllObstacles(list: ArrayBuffer[Item]) {
     ExperimentScreen.obstacles.foreach { ob =>
-
       list.append(new Obstacle(ob))
     }
   }
@@ -216,24 +230,28 @@ class ExperimentScreen extends BasicGameState {
   }
 
   def createAllSpawnPoint(list: ArrayBuffer[Item]) {
-    ExperimentScreen.checkpointState.foreach {
-      b => list.append(new CheckPoint(b))
-    }
+    // ExperimentScreen.checkpointState.foreach {
+    // b => list.append(new SpawnPoint(b))
+    // }
+    list.append(new SpawnPoint(true))
   }
   def createAllTeleporters(list: ArrayBuffer[Item]) {
-    ExperimentScreen.teleType.foreach { typ =>
+    //ExperimentScreen.teleType.foreach { typ =>
       ExperimentScreen.colors.foreach { clr =>
-        list.append(new Teleporter(typ, clr))
+        list.append(new Teleporter("bidirectional", clr))
       }
-    }
+      ExperimentScreen.colors.foreach { clr =>
+        list.append(new Teleporter("bidirectional", clr))
+      }
+   // }
   }
 
   def createAllTorches(list: ArrayBuffer[Item]) {
     ExperimentScreen.lumenosity.foreach { lum =>
       ExperimentScreen.colors.foreach { clr =>
-        ExperimentScreen.torchState.foreach { st =>
-          list.append(new Torch(st, lum, clr))
-        }
+        //ExperimentScreen.torchState.foreach { st =>
+          list.append(new Torch(true, lum, clr))
+        //}
       }
     }
   }
