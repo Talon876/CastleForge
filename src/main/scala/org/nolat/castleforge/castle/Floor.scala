@@ -11,7 +11,8 @@ import org.nolat.castleforge.graphics.Sprites
 import org.nolat.castleforge.castle.items.Pusher
 import org.nolat.castleforge.castle.items.attributes.Direction
 
-class Floor(var item: Option[Item], val x: Int, val y: Int) extends Renderable with PlayerListener {
+class Floor(var item: Option[Item], val x: Int, val y: Int, val roomIDs: String = "0") extends Renderable with PlayerListener {
+  println(roomIDs)
   var sprite = new Sprite(Sprites.floor)
   sprite.setRandomAnimation(List(0.0f, 1f, 0.0f, 0.0f))
 

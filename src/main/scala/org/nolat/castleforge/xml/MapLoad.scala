@@ -51,9 +51,6 @@ object MapLoad {
     //to support an initial inventory you would want to to add it to the castle currently the inventory will reset to blank
     castle.name = castleXML.meta.name;
     castle.authorName = castleXML.meta.author;
-    castle.rows = castleXML.roomlayout.rows.intValue
-    castle.cols = castleXML.roomlayout.cols.intValue
-    castle.roomLayout = seqStr2ABInt(castleXML.roomlayout.row)
     if (isEditor) //the editor should always get the original layout of the castle
     {
       castle.map = mapType2ABTile(castleXML.state(0).map)
@@ -80,7 +77,7 @@ object MapLoad {
     val castle = map.row.zipWithIndex.map {
       case (row, y) => row.tile.zipWithIndex.map {
         case (tyle, x) => {
-          itemType2Tile(tyle, x, y)
+          itemType2Floor(tyle, x, y)
         }
       }
     }
@@ -94,15 +91,21 @@ object MapLoad {
     result
   }
 
-  private def itemType2Tile(t: CastleForgeItemType, x: Int, y: Int): Floor = {
-    val tileitem: Option[CastleItem] = itemType2Items(t)(0) //The floor tiles only use the first item in the "inventory"
-
-    new Floor(tileitem, x, y)
+  private def itemType2Floor(t: CastleForgeTileType, x: Int, y: Int): Floor = {
+    val tileitem: Option[CastleItem] = tile2CastleItem(t) //The floor tiles only use the first item in the "inventory"
+    val roomIds: String = t.roomids
+    new Floor(tileitem, x, y, roomIds)
   }
-  private def item2Item(i: Item): Option[CastleItem] = {
-    i.param.isEmpty match {
-      case false => CastleItem(i.typeValue, i.param.toList)
-      case true => CastleItem(i.typeValue)
+
+  private def tile2CastleItem(t: CastleForgeTileType): Option[CastleItem] = {
+    t.item match {
+      case Some(itm) => {
+        itm.param.size > 0 match { 
+          case true => CastleItem(itm.typeValue, itm.param.toList)
+          case false => CastleItem(itm.typeValue)
+        }
+      }
+      case None => None
     }
 
   }
@@ -112,22 +115,16 @@ object MapLoad {
       case None => new Inventory()
     }
   }
-  private def itemType2Items(itemType: CastleForgeItemType): Seq[Option[CastleItem]] = {
-    itemType.item.isEmpty match {
-      case false => itemType.item.map(i => item2Item(i))
-      case true => Seq(None)
-    }
-  }
-  
+
   private def itemType2Collectables(itemType: CastleForgeItemType): Seq[Option[Collectable]] = {
-    itemType.item.isEmpty match {
+    itemType.invItem.isEmpty match {
       case false => {
-        itemType.item.map(i => item2Collectable(i))
+        itemType.invItem.map(i => item2Collectable(i))
       }
       case true => Seq(None)
     }
   }
-  private def item2Collectable(i: Item): Option[Collectable] = {
+  private def item2Collectable(i: InvItem): Option[Collectable] = {
     i.param.isEmpty match {
       case false => Collectable(i.typeValue, i.param.toList)
       case true => Collectable(i.typeValue)

@@ -25,9 +25,8 @@ object MapSave {
     }
   private def saveCastle(castle: CastleStructure, savePath: String, state: Seq[State]) {
     val meta = new Meta(castle.name, castle.authorName, castle.description)
-    val roomlayout = new Roomlayout(AB2Roomlayout(castle.roomLayout), castle.rows, castle.cols)
     val version = 1
-    val xmlCastle: Castle = new Castle(meta, roomlayout, state, version)
+    val xmlCastle: Castle = new Castle(meta, state, version)
     save(xmlCastle, savePath)
   }
 
@@ -67,21 +66,33 @@ object MapSave {
   }
 
   private def seq2Row(seq: Seq[Floor]): Row = {
-    new Row(seq.map(t => tile2CastleForgeItemType(t)): _*)
+    new Row(seq.map(t => tile2CastleForgeTileType(t)): _*)
   }
-  private def tile2CastleForgeItemType(tile: Floor): CastleForgeItemType = {
+  
+  private def tile2CastleForgeTileType(tile: Floor): CastleForgeTileType = {
     tile.item match { 
-      case Some(i) => new CastleForgeItemType(item2Item(i)) //if the tile has an item save it
-      case None => new CastleForgeItemType() //save with a blank "inventory"
+      //TODO: change tile.roomIDs to proper getter
+      case Some(i) => new CastleForgeTileType(Some(item2Item(i)), tile.roomIDs) //if the tile has an item save it
+      case None => new CastleForgeTileType(None, tile.roomIDs) //save with a blank "inventory"
     }
   }
   private def item2Item(item: CastleItem): Item = {
     new Item(item.getParamList, item.getItemType)
 
   }
+  private def tile2CastleForgeItemType(tile: Floor): CastleForgeItemType = {
+    tile.item match { 
+      case Some(i) => new CastleForgeItemType(item2InvItem(i)) //if the tile has an item save it
+      case None => new CastleForgeItemType() //save with a blank "inventory"
+    }
+  }
+  private def item2InvItem(item: CastleItem): InvItem = {
+    new InvItem(item.getParamList, item.getItemType)
+
+  }
   private def inv2ItemType(inv: Inventory): Option[CastleForgeItemType] = {
     val sequence = List(inv.flatten.map {
-      item => item2Item(item)
+      item => item2InvItem(item)
     }: _*)
     
     var items: Option[CastleForgeItemType] = None

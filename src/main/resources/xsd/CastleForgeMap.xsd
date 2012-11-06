@@ -2,7 +2,7 @@
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
 	<xs:complexType name="CastleForgeItemType">
 		<xs:sequence>
-			<xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="invItem" minOccurs="0" maxOccurs="unbounded">
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="param" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
@@ -11,6 +11,19 @@
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CastleForgeTileType">
+		<xs:sequence>
+			<xs:element name="item" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="param" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+					</xs:sequence>
+					<xs:attribute name="type" type="xs:string" use="required" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="roomids" type="xs:string" default="0" />
 	</xs:complexType>
 	<xs:simpleType name="positiveDecimal">
 		<xs:restriction base="xs:decimal">
@@ -41,22 +54,6 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="roomlayout">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="row" minOccurs="1" maxOccurs="unbounded">
-								<xs:simpleType>
-									<xs:restriction base="xs:string">
-										<xs:whiteSpace value="collapse"/>
-										<xs:pattern value="([0-4])+"/>
-									</xs:restriction>
-								</xs:simpleType>
-							</xs:element>
-						</xs:sequence>
-						<xs:attribute name="rows" type="xs:positiveInteger" use="required"/>
-						<xs:attribute name="cols" type="xs:positiveInteger" use="required"/>
-					</xs:complexType>
-				</xs:element>
 				<xs:element name="state" minOccurs="1" maxOccurs="2">
 					<xs:complexType>
 						<xs:sequence>
@@ -66,7 +63,7 @@
 										<xs:element name="row" minOccurs="1" maxOccurs="unbounded">
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="tile" minOccurs="1" maxOccurs="unbounded" type="CastleForgeItemType"/>
+													<xs:element name="tile" minOccurs="1" maxOccurs="unbounded" type="CastleForgeTileType"/>
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>

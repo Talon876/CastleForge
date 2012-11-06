@@ -175,7 +175,7 @@ class ExperimentScreen extends BasicGameState {
     var col: Int = 0;
     items.grouped(ExperimentScreen.castleWidth).foreach { i =>
       i.foreach { itm =>
-        temp.append(new Floor(Some(itm), col, row))
+        temp.append(new Floor(Some(itm), col, row, "1"))
         col += 1
       }
       floors.append(temp)
@@ -185,7 +185,7 @@ class ExperimentScreen extends BasicGameState {
     }
     var lastRow = floors(floors.length - 1)
     while (lastRow.length < ExperimentScreen.castleWidth) {
-      lastRow.append(new Floor(None, lastRow.length, floors.length - 1))
+      lastRow.append(new Floor(None, lastRow.length, floors.length - 1, "0"))
     }
     floors
   }

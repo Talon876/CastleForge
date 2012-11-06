@@ -13,22 +13,6 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   var name: String = "Default"
   var authorName: String = "Default Name"
   var description: String = ""
-  var rows: Int = org.nolat.castleforge.Config.DefaultCastleSize._1
-  var cols: Int = org.nolat.castleforge.Config.DefaultCastleSize._2
-  var roomLayout: ArrayBuffer[ArrayBuffer[Int]] = {
-    val row: ArrayBuffer[ArrayBuffer[Int]] = new ArrayBuffer()
-    val zero: Int = 0
-    zero.to(rows - 1).foreach { r =>
-      {
-        val temp = new ArrayBuffer[Int]
-        zero.to(cols - 1).foreach { c =>
-          temp.append(0)
-        }
-        row.append(temp)
-      }
-    }
-    row
-  }
   val originalState: ArrayBuffer[ArrayBuffer[Floor]] = origState
   private var _inventory: Inventory = new Inventory()
   def inventory = _inventory
@@ -79,9 +63,8 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
     this(new ArrayBuffer[ArrayBuffer[Floor]])
   }
 
-  def this(origState: ArrayBuffer[ArrayBuffer[Floor]], roomLay: ArrayBuffer[ArrayBuffer[Int]], nam: String, authorNam: String, descript: String) {
+  def this(origState: ArrayBuffer[ArrayBuffer[Floor]], nam: String, authorNam: String, descript: String) {
     this(origState)
-    roomLayout = roomLay
     name = nam
     authorName = authorNam
     description = descript
