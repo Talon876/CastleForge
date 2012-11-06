@@ -14,6 +14,7 @@ import org.newdawn.slick.Color
 import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.tools.MoveDescription
+import org.nolat.castleforge.castle.Castle
 
 class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extends Item with IDColor with Shape {
   //doorType: 0 = normal, 1 = locked, 2 = hidden
@@ -66,8 +67,8 @@ class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extend
     Seq(doorType.toString, IDColor.toString(idcolor), shape)
   }
 
-  override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
-    super.update(container, game, delta)
+  override def update(castle: Castle, container: GameContainer, game: StateBasedGame, delta: Int) {
+    super.update(castle, container, game, delta)
     doorType match {
       case 0 => sprite.setAnimation("unlocked")
       case 1 => sprite.setAnimation("locked")

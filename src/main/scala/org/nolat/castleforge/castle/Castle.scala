@@ -47,7 +47,7 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
-
+    map.flatten.foreach(_.update(this, container, game, delta))
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {

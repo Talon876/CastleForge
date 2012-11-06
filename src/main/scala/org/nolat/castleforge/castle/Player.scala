@@ -173,7 +173,7 @@ class Player(var castle: Castle) extends GameItem {
     }
   }
 
-  override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+  def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     if (state == PlayerState.IDLE) {
       handleInput(container)
     } else { //not idle, moving
@@ -207,7 +207,7 @@ class Player(var castle: Castle) extends GameItem {
     }
   }
 
-  override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
+  def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     sprite.getAnimation.draw(position.x.toInt, position.y.toInt, Color.white)
   }
 }
