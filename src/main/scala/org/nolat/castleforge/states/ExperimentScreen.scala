@@ -1,27 +1,29 @@
 package org.nolat.castleforge.states
 
+import java.io.File
+import scala.collection.mutable.ArrayBuffer
 import org.newdawn.slick.Color
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
+import org.newdawn.slick.Input
+import org.newdawn.slick.geom.Vector2f
 import org.newdawn.slick.state.BasicGameState
 import org.newdawn.slick.state.StateBasedGame
-import org.nolat.castleforge.Config
-import org.newdawn.slick.geom.Vector2f
-import org.nolat.castleforge.ui.Menu
-import org.nolat.castleforge.graphics.Loader
-import org.newdawn.slick.Input
-import org.nolat.castleforge.graphics.Sprite
-import org.nolat.castleforge.graphics.Sprites
-import scala.collection.mutable.MutableList
-import org.nolat.castleforge.xml.MapSave
-import java.io.File
-import org.nolat.castleforge.castle.Floor
-import org.nolat.castleforge.castle.items._
-import scala.collection.mutable.ArrayBuffer
-import org.nolat.castleforge.castle.Castle
 import org.newdawn.slick.state.transition.EmptyTransition
+import org.nolat.castleforge.Config
+import org.nolat.castleforge.castle.Castle
+import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.Player
+import org.nolat.castleforge.castle.items._
+import org.nolat.castleforge.graphics.Sprite
 import org.nolat.castleforge.tools.Lerper
+import org.nolat.castleforge.ui.ElementInventory
+import org.nolat.castleforge.ui.ElementPlayerDebug
+import org.nolat.castleforge.ui.HUD
+import org.nolat.castleforge.ui.HUDElement
+import org.nolat.castleforge.ui.Menu
+import org.nolat.castleforge.xml.MapSave
+import org.nolat.castleforge.xml.MapLoad
 
 object ExperimentScreen {
   val ID = 3
@@ -90,13 +92,40 @@ class ExperimentScreen extends BasicGameState {
 
   var player: Player = null
 
+  var hud: HUD = null
+  var playerDebug: ElementPlayerDebug = null
+
   var lstItem = ArrayBuffer[Item]()
 
   override def enter(container: GameContainer, game: StateBasedGame) {
-    println("Entered Experiment screen")
-    castle = list2Castle(allCombinations())
+    hud = new HUD()
+    if (SharedStateData.mapFile == null) { //hasn't loaded from the File
+      castle = new Castle(list2Floors(allCombinations()))
+      castle.map = list2Floors(allCombinations())
+    } else {
+      castle = SharedStateData.loadedCastle //grab loaded castle
+    }
     this.player = new Player(castle)
     this.castle.player = player
+
+    val borders = new HUDElement(HUD.border)
+    hud add borders
+
+    val grooves = new HUDElement(HUD.grooves)
+    grooves.position = new Vector2f(728, 8)
+    hud add grooves
+
+    val logo = new HUDElement(HUD.logo)
+    logo.position = new Vector2f(728, 588)
+    hud add logo
+
+    playerDebug = new ElementPlayerDebug(player)
+    playerDebug.position = new Vector2f(8, 8 + 64 * 9)
+    hud add playerDebug
+
+    val playerInventory = new ElementInventory(player)
+    playerInventory.position = new Vector2f(grooves.position.x + 16, grooves.position.y + 16)
+    hud add playerInventory
   }
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
@@ -106,7 +135,7 @@ class ExperimentScreen extends BasicGameState {
     Lerper.lerpers.foreach(_.update(delta))
     castle.update(container, game, delta)
     player.update(container, game, delta)
-
+    hud.update(container, game, delta)
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
@@ -115,12 +144,7 @@ class ExperimentScreen extends BasicGameState {
     castle.render(container, game, g)
     player.render(container, game, g)
     g.setColor(Color.black)
-    //draw fake ui to mimic proper scrolling
-    g.fillRect(0, 0, 8, Config.Resolution.getY)
-    g.fillRect(0, 0, Config.Resolution.getX, 8)
-    g.fillRect(8 + 11 * 64, 8, 600, 900)
-    g.fillRect(8, 8 + 11 * 64, 900, 10)
-
+    hud.render(container, game, g)
   }
 
   override def keyReleased(key: Int, c: Char) {
@@ -129,10 +153,22 @@ class ExperimentScreen extends BasicGameState {
     } else if (key == Input.KEY_F10) {
       game.enterState(ExperimentScreen2.ID, new EmptyTransition(), new EmptyTransition())
     } else if (key == Input.KEY_1) {
-      MapSave.save(castle, Config.WorkingDirectory + "/maps", true)
+      MapSave.save(castle, "D:\\" + "maps", false)
+      SharedStateData.mapFile = new File("D:\\" + "maps/" + "Default Name-Default.xml")//simulates selecting a map file slow HDD
+      game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition())//loads the map into a castle
+    } else if (key == Input.KEY_2) {
+      castle.inventory.addItem(Collectable("key", List("blue", "pentagon", "1")).get)
+      castle.inventory.addItem(Collectable("key", List("red", "diamond", "1")).get)
+      castle.inventory.addItem(Collectable("key", List("orange", "square", "1")).get)
+      castle.inventory.addItem(Collectable("key", List("yellow", "triangle", "1")).get)
+    } else if (key == Input.KEY_4) {
+      SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/" + "Default Name-Default.xml")//simulates selecting a map file
+      game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition())//loads the map into a castle
+    } else if (key == Input.KEY_F3) {
+      playerDebug.toggle()
     }
   }
-  def list2Castle(items: List[Item]): Castle = {
+  def list2Floors(items: List[Item]): ArrayBuffer[ArrayBuffer[Floor]] = {
     val floors: ArrayBuffer[ArrayBuffer[Floor]] = new ArrayBuffer[ArrayBuffer[Floor]]
     var row: Int = 0
     var temp: ArrayBuffer[Floor] = new ArrayBuffer[Floor]
@@ -151,7 +187,7 @@ class ExperimentScreen extends BasicGameState {
     while (lastRow.length < ExperimentScreen.castleWidth) {
       lastRow.append(new Floor(None, lastRow.length, floors.length - 1))
     }
-    new Castle(floors)
+    floors
   }
   def allCombinations(): List[Item] = {
     var list: ArrayBuffer[Item] = new ArrayBuffer[Item]
@@ -237,20 +273,20 @@ class ExperimentScreen extends BasicGameState {
   }
   def createAllTeleporters(list: ArrayBuffer[Item]) {
     //ExperimentScreen.teleType.foreach { typ =>
-      ExperimentScreen.colors.foreach { clr =>
-        list.append(new Teleporter("bidirectional", clr))
-      }
-      ExperimentScreen.colors.foreach { clr =>
-        list.append(new Teleporter("bidirectional", clr))
-      }
-   // }
+    ExperimentScreen.colors.foreach { clr =>
+      list.append(new Teleporter("bidirectional", clr))
+    }
+    ExperimentScreen.colors.foreach { clr =>
+      list.append(new Teleporter("bidirectional", clr))
+    }
+    // }
   }
 
   def createAllTorches(list: ArrayBuffer[Item]) {
     ExperimentScreen.lumenosity.foreach { lum =>
       ExperimentScreen.colors.foreach { clr =>
         //ExperimentScreen.torchState.foreach { st =>
-          list.append(new Torch(true, lum, clr))
+        list.append(new Torch(true, lum, clr))
         //}
       }
     }

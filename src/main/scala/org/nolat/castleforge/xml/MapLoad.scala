@@ -15,6 +15,7 @@ import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.Inventory
 import org.nolat.castleforge.castle.{ Castle => CastleStructure }
 import org.nolat.castleforge.castle.items.{ Item => CastleItem }
+import org.nolat.castleforge.castle.items.Collectable
 
 object MapLoad {
 
@@ -107,7 +108,7 @@ object MapLoad {
   }
   private def itemType2Inventory(inven: Option[CastleForgeItemType]): Inventory = {
     inven match {
-      case Some(inv) => new Inventory(itemType2Items(inv))
+      case Some(inv) => new Inventory(itemType2Collectables(inv))
       case None => new Inventory()
     }
   }
@@ -116,5 +117,21 @@ object MapLoad {
       case false => itemType.item.map(i => item2Item(i))
       case true => Seq(None)
     }
+  }
+  
+  private def itemType2Collectables(itemType: CastleForgeItemType): Seq[Option[Collectable]] = {
+    itemType.item.isEmpty match {
+      case false => {
+        itemType.item.map(i => item2Collectable(i))
+      }
+      case true => Seq(None)
+    }
+  }
+  private def item2Collectable(i: Item): Option[Collectable] = {
+    i.param.isEmpty match {
+      case false => Collectable(i.typeValue, i.param.toList)
+      case true => Collectable(i.typeValue)
+    }
+
   }
 }

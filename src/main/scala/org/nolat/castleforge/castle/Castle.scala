@@ -2,22 +2,46 @@ package org.nolat.castleforge.castle
 
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.ListBuffer
-
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
 import org.newdawn.slick.state.StateBasedGame
 import org.nolat.castleforge.Config
 import org.nolat.castleforge.graphics.Renderable
+import org.nolat.castleforge.castle.items.Item
 
 class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   var name: String = "Default"
   var authorName: String = "Default Name"
   var description: String = ""
-  var roomLayout: ArrayBuffer[ArrayBuffer[Int]] = new ArrayBuffer()
   var rows: Int = org.nolat.castleforge.Config.DefaultCastleSize._1
   var cols: Int = org.nolat.castleforge.Config.DefaultCastleSize._2
+  var roomLayout: ArrayBuffer[ArrayBuffer[Int]] = {
+    val row: ArrayBuffer[ArrayBuffer[Int]] = new ArrayBuffer()
+    val zero: Int = 0
+    zero.to(rows - 1).foreach { r =>
+      {
+        val temp = new ArrayBuffer[Int]
+        zero.to(cols - 1).foreach { c =>
+          temp.append(0)
+        }
+        row.append(temp)
+      }
+    }
+    row
+  }
   val originalState: ArrayBuffer[ArrayBuffer[Floor]] = origState
-  var inventory: Inventory = new Inventory()
+  private var _inventory: Inventory = new Inventory()
+  def inventory = _inventory
+  def inventory_=(inv: Inventory) = {//TODO: clean up inventory and player setters
+    if (player != null) { //Player is set already
+      player.inventory.clear()
+      player.inventory.addItems(inv.flatten: _*)
+      _inventory = player.inventory //pass the reference through
+
+    } else {
+      _inventory = inv //Player is not set, load inventory (Default case)
+    }
+  }
   private var _map: ArrayBuffer[ArrayBuffer[Floor]] = null //position of this line of code matters it will be called again if put below map = originalMap
   def map = _map
   def map_=(mp: ArrayBuffer[ArrayBuffer[Floor]]) = {
@@ -29,17 +53,35 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
       }
     }
   }
-  var player: Player = null
-
-  map = originalState.clone //needed to set initial map
-  //TODO: check to make sure that a change to map(0)(0) floor object does not change originalMap
+  private var _player: Player = null
+  def player = _player
+  def player_=(plyr: Player) = {
+    if (player == null) { //First Player set in this castle
+      _player = plyr
+      if (inventory != null) //Is set after inventory (Default case)
+      {
+        player.inventory.addItems(inventory.flatten: _*)
+      }
+    } else { //There was already a player in this castle
+      val temp: Inventory = player.inventory //old inventory
+      _player = plyr
+      if (inventory != null) { //Already player but no inventory
+        player.inventory.clear()
+        if (temp != null) { //old player had an inventory
+          player.inventory.addItems(temp.flatten: _*)
+        }
+      }
+    }
+    _inventory = player.inventory //set the castle inventory to the players inventory reference
+  }
 
   def this() {
     this(new ArrayBuffer[ArrayBuffer[Floor]])
   }
 
-  def this(origState: ArrayBuffer[ArrayBuffer[Floor]], nam: String, authorNam: String, descript: String) {
+  def this(origState: ArrayBuffer[ArrayBuffer[Floor]], roomLay: ArrayBuffer[ArrayBuffer[Int]], nam: String, authorNam: String, descript: String) {
     this(origState)
+    roomLayout = roomLay
     name = nam
     authorName = authorNam
     description = descript

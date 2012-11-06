@@ -10,7 +10,7 @@ import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.CastleUtil
 
-class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDColor with Quantity with Shape {
+class Key(_color: String, _shape: String, _quantity: Int) extends Collectable with IDColor with Quantity with Shape {
 
   idcolor = IDColor.fromString(_color)
   shape = Shape.fromString(_shape)
@@ -34,4 +34,13 @@ class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDCo
     player.inventory.addItem(this)
     CastleUtil.removeItem(player.castle, player.tilePosition) //remove item at players position (this)
   }
+
+  override def equalCollectable(that: Collectable): Boolean = {
+    that match
+    {
+      case key : Key => this.idcolor == key.idcolor && this.shape == key.shape
+      case _ => false
+    }
+  }
+
 }

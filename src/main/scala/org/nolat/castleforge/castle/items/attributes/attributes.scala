@@ -165,15 +165,12 @@ object CheckPointState {
 }
 trait CheckPointState extends Attribute {
   var checkpointstate = CheckPointState.INACTIVE
-  
-  def activate()
-  {
-    System.out.println("Activating Checkpoint")
+
+  def activate() {
     checkpointstate = CheckPointState.ACTIVE
   }
-  def deactivate()
-  {
-    System.out.println("Deactivating Checkpoint")
+  def deactivate() {
     checkpointstate = CheckPointState.INACTIVE
   }
 }
+

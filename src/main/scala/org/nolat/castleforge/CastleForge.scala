@@ -2,10 +2,7 @@ package org.nolat.castleforge
 
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.GameContainer
-import org.nolat.castleforge.states.TitleScreen
-import org.nolat.castleforge.states.MainMenuScreen
-import org.nolat.castleforge.states.ExperimentScreen
-import org.nolat.castleforge.states.ExperimentScreen2
+import org.nolat.castleforge.states._
 
 class CastleForge(title: String) extends StateBasedGame(title) {
 
@@ -14,5 +11,6 @@ class CastleForge(title: String) extends StateBasedGame(title) {
     addState(new MainMenuScreen())
     addState(new ExperimentScreen())
     addState(new ExperimentScreen2())
+    addState(new CastleLoading())
   }
 }

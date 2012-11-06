@@ -5,7 +5,7 @@ import org.nolat.castleforge.castle.items.attributes.Quantity
 import org.nolat.castleforge.graphics.Sprites
 import org.nolat.castleforge.graphics.Sprite
 
-class Match(_quantity: Int) extends Item with Quantity {
+class Match(_quantity: Int) extends Collectable with Quantity {
   quantity = Quantity.fromInt(_quantity)
 
   def this(paramList: List[String]) = {
@@ -30,6 +30,13 @@ class Match(_quantity: Int) extends Item with Quantity {
       "many"
     } else {
       "alot"
+    }
+  }
+    override def equalCollectable(that: Collectable): Boolean = {
+    that match
+    {
+      case matchh : Match => true
+      case _ => false
     }
   }
 }
