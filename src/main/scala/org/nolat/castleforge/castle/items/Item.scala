@@ -40,8 +40,4 @@ abstract class Item extends GameItem with PlayerListener {
   def getItemType: String = "n/a"
   def getParamList: Seq[String] = Nil
   var isBlockingMovement: Boolean = false
-
-  def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {
-    this.sprite.getAnimation.draw(x, y, this.color)
-  }
 }

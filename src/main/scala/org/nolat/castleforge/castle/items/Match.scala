@@ -4,8 +4,9 @@ import org.nolat.castleforge.tools.Preamble._
 import org.nolat.castleforge.castle.items.attributes.Quantity
 import org.nolat.castleforge.graphics.Sprites
 import org.nolat.castleforge.graphics.Sprite
+import org.nolat.castleforge.castle.items.attributes.Collectable
 
-class Match(_quantity: Int) extends Collectable with Quantity {
+class Match(_quantity: Int) extends Item with Quantity with Collectable {
   quantity = Quantity.fromInt(_quantity)
 
   def this(paramList: List[String]) = {

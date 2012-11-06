@@ -11,8 +11,9 @@ import org.nolat.castleforge.graphics.Sprites
 import org.nolat.castleforge.castle.items.Pusher
 import org.nolat.castleforge.castle.items.attributes.Direction
 
-class Floor(var item: Option[Item], val x: Int, val y: Int, val roomIDs: String = "0") extends Renderable with PlayerListener {
+class Floor(var item: Option[Item], val x: Int, val y: Int, val roomIDs: String = "0") extends PlayerListener {
   println(roomIDs)
+
   var sprite = new Sprite(Sprites.floor)
   sprite.setRandomAnimation(List(0.0f, 1f, 0.0f, 0.0f))
 
@@ -25,14 +26,14 @@ class Floor(var item: Option[Item], val x: Int, val y: Int, val roomIDs: String 
     }
   }
 
-  override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+  def update(castle: Castle, container: GameContainer, game: StateBasedGame, delta: Int) {
     item match {
-      case Some(theItem) => theItem.update(container, game, delta)
+      case Some(theItem) => theItem.update(castle, container, game, delta)
       case None => //nothing
     }
   }
 
-  override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
+  def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
 
     val newX = x * Config.TileWidth + Config.TileOffsetX
     val newY = y * Config.TileHeight + Config.TileOffsetY

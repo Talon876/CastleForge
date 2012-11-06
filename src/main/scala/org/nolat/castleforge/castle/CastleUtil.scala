@@ -76,4 +76,10 @@ object CastleUtil {
   def removeItem(castle: Castle, coords: (Int, Int)) {
     castle.map(coords._2)(coords._1).item = None
   }
+
+  def distanceBetweenTiles(floor1: Floor, floor2: Floor): Int = distanceBetweenTiles(floor1.getTilePosition, floor2.getTilePosition)
+
+  def distanceBetweenTiles(tile1: (Int, Int), tile2: (Int, Int)): Int = {
+    scala.math.floor(scala.math.sqrt((tile2._1 - tile1._1) * (tile2._1 - tile1._1) + (tile2._2 - tile1._2) * (tile2._2 - tile1._2))).toInt // + (tile2._2 - tile1._2)*(tile2._2 - tile1._2))).toInt
+  }
 }

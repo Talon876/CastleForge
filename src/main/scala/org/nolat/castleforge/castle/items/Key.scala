@@ -9,9 +9,10 @@ import org.nolat.castleforge.graphics.Sprite
 import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.CastleUtil
+import org.nolat.castleforge.castle.items.attributes.Collectable
 
-class Key(_color: String, _shape: String, _quantity: Int) extends Collectable with IDColor with Quantity with Shape {
 
+class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDColor with Quantity with Shape with Collectable {
   idcolor = IDColor.fromString(_color)
   shape = Shape.fromString(_shape)
   quantity = Quantity.fromInt(_quantity)
@@ -30,6 +31,7 @@ class Key(_color: String, _shape: String, _quantity: Int) extends Collectable wi
     Seq(IDColor.toString(idcolor), shape, quantity.toString)
   }
 
+<<<<<<< HEAD
   override def onPlayerEnter(player: Player, srcFloor: Floor) {
     player.inventory.addItem(this)
     CastleUtil.removeItem(player.castle, player.tilePosition) //remove item at players position (this)
@@ -43,4 +45,6 @@ class Key(_color: String, _shape: String, _quantity: Int) extends Collectable wi
     }
   }
 
+=======
+>>>>>>> talon_dev
 }

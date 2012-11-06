@@ -125,20 +125,21 @@ trait Luminosity extends Attribute {
 }
 
 object Direction {
-  val WEST = 270 //scala.math.toRadians(90).toFloat
-  val SOUTH = 180 //scala.math.toRadians(180).toFloat
-  val EAST = 90 //scala.math.toRadians(270).toFloat
-  val NORTH = 0 //scala.math.toRadians(0).toFloat
+  val WEST = 270
+  val SOUTH = 180
+  val EAST = 90
+  val NORTH = 0
 
   def fromString(dir: String) = {
     dir.toLowerCase match {
-      case "north" => NORTH
-      case "west" => WEST
-      case "south" => SOUTH
-      case "east" => EAST
+      case "north" | "0" => NORTH
+      case "west" | "270" => WEST
+      case "south" | "180" => SOUTH
+      case "east" | "90" => EAST
       case _ => NORTH
     }
   }
+
 }
 trait Direction extends Attribute {
   var direction = Direction.NORTH
@@ -166,9 +167,11 @@ object CheckPointState {
 trait CheckPointState extends Attribute {
   var checkpointstate = CheckPointState.INACTIVE
 
+
   def activate() {
     checkpointstate = CheckPointState.ACTIVE
   }
+
   def deactivate() {
     checkpointstate = CheckPointState.INACTIVE
   }
