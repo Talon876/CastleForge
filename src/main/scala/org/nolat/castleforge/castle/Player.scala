@@ -24,10 +24,6 @@ class Player(var castle: Castle) extends GameItem {
   }
 
   val inventory: Inventory = new Inventory
-  inventory.addItem(Item("key", List("blue", "pentagon", "1")).get)
-  inventory.addItem(Item("key", List("red", "diamond", "1")).get)
-  inventory.addItem(Item("key", List("orange", "square", "1")).get)
-  inventory.addItem(Item("key", List("yellow", "triangle", "1")).get)
 
   var tilePosition = CastleUtil.findPlayerStart(castle).getTilePosition
   println("Tile Position of player: " + tilePosition)
@@ -60,12 +56,30 @@ class Player(var castle: Castle) extends GameItem {
     Input.KEY_A -> (-1, 0),
     Input.KEY_D -> (1, 0))
 
+  private val reverseDirectionMap = Map(
+    Input.KEY_W -> Input.KEY_S,
+    Input.KEY_S -> Input.KEY_W,
+    Input.KEY_A -> Input.KEY_D,
+    Input.KEY_D -> Input.KEY_A)
+
+  private val keyToAnimationMap = Map(
+    Input.KEY_W -> "walking_up",
+    Input.KEY_S -> "walking_down",
+    Input.KEY_A -> "walking_left",
+    Input.KEY_D -> "walking_right")
+
   private val stateMap = Map(
     PlayerState.WALKING_UP -> (0, -1),
     PlayerState.WALKING_DOWN -> (0, 1),
     PlayerState.WALKING_LEFT -> (-1, 0),
     PlayerState.WALKING_RIGHT -> (1, 0))
+
   private def stateMapReverse = stateMap.map(_.swap)
+
+  def reverseMove(md: MoveDescription) = {
+    val reverseKey = reverseDirectionMap(md.keyPressed)
+    MoveDescription(reverseKey, keyToAnimationMap(reverseKey), md.speedModifier, md.ghost)
+  }
 
   def stopWalking() = {
     tilePosition = (tilePosition._1 + stateMap(state)._1, tilePosition._2 + stateMap(state)._2)
@@ -155,7 +169,7 @@ class Player(var castle: Castle) extends GameItem {
       }
       movementLerper.msToLerp = (sprite.animationLength.toFloat / md.speedModifier).toInt //adjust lerp length to animation length and apply speed modifier
     } else {
-      println("You shall not pass!")
+      //println("You shall not pass!")
     }
   }
 
@@ -179,11 +193,17 @@ class Player(var castle: Castle) extends GameItem {
     } else if (container.getInput().isKeyDown(Input.KEY_D)) {
       attemptMove(Input.KEY_D)
     } else if (container.getInput().isKeyDown(Input.KEY_U)) {
-      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", .25f))
-      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", .25f))
-      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 2.25f))
-      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", .25f))
+      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
+      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
+      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
+      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
       playMovement()
+    } else if (container.getInput().isKeyDown(Input.KEY_I)) {
+      inventory.addItem(Item("key", List("red", "diamond", "1")).get)
+    } else if (container.getInput().isKeyDown(Input.KEY_E)) {
+      inventory.clear()
+    } else if (container.getInput().isKeyDown(Input.KEY_O)) {
+      inventory.addItem(Item("crystal_ball").get)
     }
   }
 
