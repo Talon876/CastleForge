@@ -106,9 +106,9 @@ trait Shape extends Attribute {
 
 object Luminosity {
   val OFF = 0
-  val LOW = 3
-  val MEDIUM = 7
-  val HIGH = 15
+  val LOW = 2
+  val MEDIUM = 3
+  val HIGH = 5
 
   def fromString(lum: String) = {
     lum.toLowerCase match {
@@ -166,7 +166,6 @@ object CheckPointState {
 }
 trait CheckPointState extends Attribute {
   var checkpointstate = CheckPointState.INACTIVE
-
 
   def activate() {
     checkpointstate = CheckPointState.ACTIVE

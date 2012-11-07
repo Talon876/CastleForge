@@ -27,6 +27,9 @@ import org.nolat.castleforge.ui.HUDElement
 import org.nolat.castleforge.ui.ElementPlayerDebug
 import org.nolat.castleforge.ui.ElementInventory
 import org.nolat.castleforge.ui.ElementSign
+import org.nolat.castleforge.castle.CastleUtil
+import org.nolat.castleforge.castle.items.Torch
+import org.nolat.castleforge.castle.items.Pusher
 
 object ExperimentScreen2 {
   val ID = 4
@@ -51,7 +54,7 @@ class ExperimentScreen2 extends BasicGameState {
 
   override def enter(container: GameContainer, game: StateBasedGame) {
     println("Entered Experiment screen")
-    var file = new File("/Users/talon/.castleforge/maps/talon-everything.xml")
+    var file = new File("/Users/talon/.castleforge/maps/talon-lighting.xml")
     if (file.exists) {
       castle = MapLoad.loadMap(file, false)
     } else {
@@ -83,6 +86,9 @@ class ExperimentScreen2 extends BasicGameState {
     val playerInventory = new ElementInventory(player)
     playerInventory.position = new Vector2f(grooves.position.x + 16, grooves.position.y + 16)
     hud add playerInventory
+
+    val torches = CastleUtil.getAllRoomsContainingItem(castle, classOf[Pusher])
+    println("pushers: " + torches)
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {

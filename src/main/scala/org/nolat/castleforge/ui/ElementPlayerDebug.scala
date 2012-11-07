@@ -29,6 +29,8 @@ class ElementPlayerDebug(player: Player) extends HUDElement(HUD.custom) {
     List("Tile: " + player.tilePosition.toString + "           <F3>",
       "State: " + player.state,
       "Animation: " + player.sprite,
-      "Inv. Size: " + player.inventory.size)
+      "Inv. Size: " + player.inventory.size,
+      "In Rooms: " + player.container.roomIDs,
+      "Darkness: " + player.container.darkness)
   }
 }

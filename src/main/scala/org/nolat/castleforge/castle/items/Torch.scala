@@ -20,8 +20,10 @@ class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with I
 
   sprite = new Sprite(getItemType)
   if (lit) {
+    println("torch is lit. lumens: " + lumen)
     sprite.setAnimation(lumen)
   } else {
+    println("torch is off. lumens: " + lumen)
     sprite.setAnimation("off")
   }
 
@@ -39,6 +41,15 @@ class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with I
         player.inventory.decrementItem(m)
       }
       case None =>
+    }
+  }
+
+  def brightnessDecrement = {
+    luminosity match {
+      case Luminosity.LOW => .1f
+      case Luminosity.MEDIUM => .15f
+      case Luminosity.HIGH => .2f
+
     }
   }
 }

@@ -17,12 +17,12 @@ import org.nolat.castleforge.tools.MoveDescription
 import org.nolat.castleforge.castle.items._
 import org.nolat.castleforge.castle.items.attributes.Collectable
 
-class Player(var castle: Castle) extends GameItem {
+object PlayerState extends Enumeration {
+  type PlayerState = Value
+  val WALKING_UP, WALKING_DOWN, WALKING_RIGHT, WALKING_LEFT, IDLE = Value
+}
 
-  object PlayerState extends Enumeration {
-    type PlayerState = Value
-    val WALKING_UP, WALKING_DOWN, WALKING_RIGHT, WALKING_LEFT, IDLE = Value
-  }
+class Player(var castle: Castle) extends GameItem {
 
   val inventory: Inventory = new Inventory
 
@@ -104,7 +104,6 @@ class Player(var castle: Castle) extends GameItem {
   def teleportMove(destinationTile: (Int, Int), animation: String, speedModifier: Float) {
     val horizontal = destinationTile._1 - tilePosition._1
     val vertical = destinationTile._2 - tilePosition._2
-    println("over " + horizontal + ", up " + vertical)
     val horizKey = if (horizontal < 0) Input.KEY_A else Input.KEY_D
     val vertKey = if (vertical < 0) Input.KEY_W else Input.KEY_S
 
@@ -214,5 +213,7 @@ class Player(var castle: Castle) extends GameItem {
 
   def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     sprite.getAnimation.draw(position.x.toInt, position.y.toInt, Color.white)
+    //g.setColor(new Color(0, 0, 0, this.container.brightness))
+    //g.fillRect(position.x.toInt, position.y.toInt, 64, 64)
   }
 }

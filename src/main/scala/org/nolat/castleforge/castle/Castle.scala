@@ -8,6 +8,8 @@ import org.newdawn.slick.state.StateBasedGame
 import org.nolat.castleforge.Config
 import org.nolat.castleforge.graphics.Renderable
 import org.nolat.castleforge.castle.items.Item
+import org.nolat.castleforge.castle.items.Torch
+import org.nolat.castleforge.castle.items.Wall
 
 class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   var name: String = "Default"
@@ -16,7 +18,7 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   val originalState: ArrayBuffer[ArrayBuffer[Floor]] = origState
   private var _inventory: Inventory = new Inventory()
   def inventory = _inventory
-  def inventory_=(inv: Inventory) = {//TODO: clean up inventory and player setters
+  def inventory_=(inv: Inventory) = { //TODO: clean up inventory and player setters
     if (player != null) { //Player is set already
       player.inventory.clear()
       player.inventory.addItems(inv.flatten: _*)
@@ -38,6 +40,9 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
     }
   }
   private var _player: Player = null
+
+  val lighting = new Lighting(this)
+
   def player = _player
   def player_=(plyr: Player) = {
     if (player == null) { //First Player set in this castle
@@ -72,6 +77,7 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+    lighting.update()
     map.flatten.foreach(_.update(this, container, game, delta))
   }
 
@@ -88,7 +94,8 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
         tempList += map(y)(x)
       }
     }
-    tempList.toList
+    tempList.filter(floor =>
+      floor.sharesRoomId(player.container)).toList
   }
 
   private def cameraBounds = {
@@ -117,4 +124,5 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
     val position = (tilePosition._1 + offset._1, tilePosition._2 + offset._2)
     getFloorAtPosition(position)
   }
+
 }

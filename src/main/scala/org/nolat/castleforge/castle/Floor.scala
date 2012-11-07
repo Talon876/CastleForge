@@ -10,9 +10,9 @@ import org.nolat.castleforge.Config
 import org.nolat.castleforge.graphics.Sprites
 import org.nolat.castleforge.castle.items.Pusher
 import org.nolat.castleforge.castle.items.attributes.Direction
+import org.newdawn.slick.Color
 
 class Floor(private var _item: Option[Item], val x: Int, val y: Int, val roomIDs: String = "0") extends PlayerListener {
-  println(roomIDs)
   updateFloor()
 
   def item = _item
@@ -22,9 +22,12 @@ class Floor(private var _item: Option[Item], val x: Int, val y: Int, val roomIDs
   }
 
   var sprite = new Sprite(Sprites.floor)
-  sprite.setRandomAnimation(List(0.0f, 1f, 0.0f, 0.0f))
+  sprite.setAnimation("type" + ((roomIDs.split(",")(0).toInt % 2) + 1))
+  //sprite.setRandomAnimation(List(0.0f, 1f, 0.0f, 0.0f))
 
-  var translate: (Int, Int) => ((Int, Int)) = null //transform
+  var darkness = 0.15f
+
+  var translate: (Int, Int) => ((Int, Int)) = null
 
   def isBlockingMovement: Boolean = {
     item match {
@@ -51,6 +54,10 @@ class Floor(private var _item: Option[Item], val x: Int, val y: Int, val roomIDs
       case Some(i) => i.render(newX + translate(newX, newY)._1, newY + translate(newX, newY)._2, container, game, g)
       case None => //don't draw
     }
+
+    //draw darkness
+    g.setColor(new Color(0, 0, 0, darkness))
+    g.fillRect(newX + translate(newX, newY)._1, newY + translate(newX, newY)._2, Config.TileWidth, Config.TileHeight)
   }
 
   private def updateFloor() = {
@@ -87,5 +94,22 @@ class Floor(private var _item: Option[Item], val x: Int, val y: Int, val roomIDs
   }
 
   def getTilePosition = (x, y)
+
+  def sharesRoomId(other: Floor): Boolean = sharesRoomId(other.roomIDs)
+
+  def sharesRoomId(otherIDs: String, exact: Boolean): Boolean = {
+    if (exact) {
+      roomIDs == otherIDs
+    } else {
+      val ids = roomIDs.split(",").toList
+      val otherIds = otherIDs.split(",").toList
+      ids.intersect(otherIds).size > 0
+    }
+
+  }
+
+  def sharesRoomId(otherIDs: String): Boolean = sharesRoomId(otherIDs, false)
+
+  override def toString() = "Floor(" + roomIDs + ", " + getTilePosition + ", " + itemName + ")\n"
 
 }

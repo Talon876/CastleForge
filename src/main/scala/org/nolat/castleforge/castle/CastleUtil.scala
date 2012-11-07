@@ -95,10 +95,26 @@ object CastleUtil {
   //http://stackoverflow.com/questions/5485817/can-i-perform-matching-on-a-type-parameter-in-scala-to-see-if-it-implements-a-tr
   //for some reason doing <: Item won't work if this is called using classOf[Readable]. probably something to do
   //with it being a trait (even though it extends Item so i'm not sure why)
-  def isItemAt(castle: Castle, coords: (Int, Int), clazz: Class[_ <: AnyRef]): Boolean = {
+  def isItemAt(castle: Castle, coords: (Int, Int), clazz: Class[_ <: Item]): Boolean = {
     castle.map(coords._2)(coords._1).item match {
       case Some(x) => x.getClass isAssignableFrom clazz
       case None => false
     }
+  }
+
+  def getAllRoomsContainingItem(castle: Castle, clazz: Class[_ <: Item]): List[Floor] = {
+    castle.map.flatten.filter(floor => isItemAt(castle, floor.getTilePosition, clazz)).toList
+  }
+
+  def getFloorsSharingRoomIds(castle: Castle, floor: Floor, exactMatch: Boolean = true): List[Floor] = {
+    getFloorsSharingRoomIds(castle, floor.roomIDs, exactMatch)
+  }
+
+  def getFloorsSharingRoomIds(castle: Castle, roomIds: String, exactMatch: Boolean): List[Floor] = {
+    castle.map.flatten.filter(floor => floor.sharesRoomId(roomIds, exactMatch)).toList
+  }
+
+  def getFloorsSharingRoomIds(castle: Castle, roomIdsList: List[String], exactMatch: Boolean): List[Floor] = {
+    roomIdsList.map(roomId => getFloorsSharingRoomIds(castle, roomId, exactMatch)).flatten
   }
 }
