@@ -13,4 +13,6 @@ trait Collectable extends Item with PlayerListener {
     player.inventory.addItem(this)
     CastleUtil.removeItem(player.castle, player.tilePosition) //remove item at players position (this)
   }
+
+  def isSimilar(other: Collectable): Boolean = false
 }

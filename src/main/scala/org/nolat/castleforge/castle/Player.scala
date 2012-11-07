@@ -15,6 +15,7 @@ import org.nolat.castleforge.tools.Lerper
 import scala.collection.mutable.Queue
 import org.nolat.castleforge.tools.MoveDescription
 import org.nolat.castleforge.castle.items._
+import org.nolat.castleforge.castle.items.attributes.Collectable
 
 class Player(var castle: Castle) extends GameItem {
 
@@ -26,6 +27,7 @@ class Player(var castle: Castle) extends GameItem {
   val inventory: Inventory = new Inventory
 
   var tilePosition = CastleUtil.findPlayerStart(castle).getTilePosition
+
   println("Tile Position of player: " + tilePosition)
   position = new Vector2f(Config.TileOffsetX + Config.TileWidth * 5, Config.TileOffsetY + Config.TileHeight * 5)
 
@@ -44,7 +46,7 @@ class Player(var castle: Castle) extends GameItem {
 
   val speed = .2f
 
-  var lastTile: Floor = null
+  private var lastTile: Floor = null
   //var lastMoveDirection = (0, 0)
   var lastMove: MoveDescription = null
 
@@ -75,6 +77,10 @@ class Player(var castle: Castle) extends GameItem {
     PlayerState.WALKING_RIGHT -> (1, 0))
 
   private def stateMapReverse = stateMap.map(_.swap)
+
+  def container = {
+    castle.map(tilePosition._2)(tilePosition._1)
+  }
 
   def reverseMove(md: MoveDescription) = {
     val reverseKey = reverseDirectionMap(md.keyPressed)
@@ -199,11 +205,11 @@ class Player(var castle: Castle) extends GameItem {
       enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
       playMovement()
     } else if (container.getInput().isKeyDown(Input.KEY_I)) {
-      inventory.addItem(Item("key", List("red", "diamond", "1")).get)
+      inventory.addItem(Item("key", List("red", "diamond", "1")).get.asInstanceOf[Collectable])
     } else if (container.getInput().isKeyDown(Input.KEY_E)) {
       inventory.clear()
     } else if (container.getInput().isKeyDown(Input.KEY_O)) {
-      inventory.addItem(Item("crystal_ball").get)
+      inventory.addItem(Item("crystal_ball").get.asInstanceOf[Collectable])
     }
   }
 

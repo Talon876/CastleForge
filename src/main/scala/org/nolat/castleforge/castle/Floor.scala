@@ -11,8 +11,15 @@ import org.nolat.castleforge.graphics.Sprites
 import org.nolat.castleforge.castle.items.Pusher
 import org.nolat.castleforge.castle.items.attributes.Direction
 
-class Floor(var item: Option[Item], val x: Int, val y: Int, val roomIDs: String = "0") extends PlayerListener {
+class Floor(private var _item: Option[Item], val x: Int, val y: Int, val roomIDs: String = "0") extends PlayerListener {
   println(roomIDs)
+  updateFloor()
+
+  def item = _item
+  def item_=(itm: Option[Item]) {
+    _item = itm
+    updateFloor()
+  }
 
   var sprite = new Sprite(Sprites.floor)
   sprite.setRandomAnimation(List(0.0f, 1f, 0.0f, 0.0f))
@@ -43,6 +50,13 @@ class Floor(var item: Option[Item], val x: Int, val y: Int, val roomIDs: String 
     item match {
       case Some(i) => i.render(newX + translate(newX, newY)._1, newY + translate(newX, newY)._2, container, game, g)
       case None => //don't draw
+    }
+  }
+
+  private def updateFloor() = {
+    item match {
+      case Some(itm) => itm.container = this
+      case None =>
     }
   }
 

@@ -1,9 +1,9 @@
 package org.nolat.castleforge.castle.items
 
-import org.nolat.castleforge.tools.Preamble._
 import org.nolat.castleforge.castle.items.attributes.Quantity
-import org.nolat.castleforge.graphics.Sprites
 import org.nolat.castleforge.graphics.Sprite
+import org.nolat.castleforge.graphics.Sprites
+import org.nolat.castleforge.tools.Preamble._
 import org.nolat.castleforge.castle.items.attributes.Collectable
 
 class Match(_quantity: Int) extends Item with Quantity with Collectable {
@@ -33,10 +33,10 @@ class Match(_quantity: Int) extends Item with Quantity with Collectable {
       "alot"
     }
   }
-    override def equalCollectable(that: Collectable): Boolean = {
-    that match
-    {
-      case matchh : Match => true
+
+  override def isSimilar(that: Collectable): Boolean = {
+    that match {
+      case matchh: Match => true
       case _ => false
     }
   }

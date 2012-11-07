@@ -6,7 +6,7 @@ import org.nolat.castleforge.castle.items.Key
 import org.nolat.castleforge.castle.items.attributes.Quantity
 import org.nolat.castleforge.castle.items.CrystalBall
 import org.nolat.castleforge.castle.items.Match
-import org.nolat.castleforge.castle.items.Collectable
+import org.nolat.castleforge.castle.items.attributes.Collectable
 
 class Inventory extends ArrayBuffer[Option[Collectable]] {
   def this(items: Seq[Option[Collectable]]) {
@@ -24,7 +24,7 @@ class Inventory extends ArrayBuffer[Option[Collectable]] {
           val itemsType = this.flatten.map { item =>
             item match {
               case itm: Collectable with Quantity =>
-                if (itm.equalCollectable(addedItem)) {
+                if (itm.isSimilar(addedItem)) {
                   Some(itm)
                 } else {
                   None
@@ -45,7 +45,7 @@ class Inventory extends ArrayBuffer[Option[Collectable]] {
           val itemsType = this.flatten.map { item =>
             item match {
               case itm: Collectable =>
-                if (itm.equalCollectable(addedItem)) {
+                if (itm.isSimilar(addedItem)) {
                   Some(itm)
                 } else {
                   None
@@ -62,6 +62,7 @@ class Inventory extends ArrayBuffer[Option[Collectable]] {
     }
 
   }
+
   def addItems(addedItem: Collectable*) {
     addedItem.foreach { itm =>
       itm match {
@@ -69,28 +70,44 @@ class Inventory extends ArrayBuffer[Option[Collectable]] {
       }
     }
   }
+
+  def containsItem() {
+    //true or false if the item is in this inventory
+  }
+
+  def decrementItem(item: Collectable) {
+    //remove that item's quantity by 1 unless it goes <= 0 then remove it completely 
+  }
+
   def getKeys = {
     this.flatten.map { item =>
       item match {
         case itm: Key => Some(itm)
         case _ => None
       }
-    }.flatten
+    }.flatten.toList
   }
+
   def getMatches = {
     this.flatten.map { item =>
       item match {
         case itm: Match => Some(itm)
         case _ => None
       }
-    }.flatten
+    }.flatten.toList
   }
+
   def getCrystalBall = {
     this.flatten.map { item =>
       item match {
         case itm: CrystalBall => Some(itm)
         case _ => None
       }
-    }.flatten
+    }.flatten.toList
   }
+
+  def getMiscItems = {
+    getMatches ::: getCrystalBall ::: Nil
+  }
+
 }

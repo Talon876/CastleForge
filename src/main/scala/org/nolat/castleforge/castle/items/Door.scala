@@ -15,6 +15,7 @@ import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.tools.MoveDescription
 import org.nolat.castleforge.castle.Castle
+import org.nolat.castleforge.castle.CastleUtil
 
 class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extends Item with IDColor with Shape {
   //doorType: 0 = normal, 1 = locked, 2 = hidden
@@ -37,6 +38,8 @@ class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extend
   val keySprite = new Sprite(Sprites.key)
   keySprite.setAnimation(shape)
 
+  private var opacity = .25f
+
   /**
    * Determines if the player can open this door
    * @param player The player who's inventory should be checked
@@ -44,7 +47,7 @@ class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extend
    */
   def canBeOpenedBy(player: Player) = {
     var canOpen = false
-    val validKeys = getValidKeysFromPlayer(player)
+    val validKeys = getValidKeyFromPlayer(player)
     if (validKeys.size > 0) {
       canOpen = true
     }
@@ -55,7 +58,7 @@ class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extend
    * @param player The player who's inventory should be checked
    * @return the keys in the player's inventory that will open this door
    */
-  def getValidKeysFromPlayer(player: Player) = {
+  def getValidKeyFromPlayer(player: Player) = {
     player.inventory.getKeys.filter { key =>
       (key.idcolor == idcolor && key.shape == shape)
     }.toList
@@ -74,25 +77,25 @@ class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extend
       case 1 => sprite.setAnimation("locked")
       case 2 => sprite.setAnimation("unlocked")
     }
+
+    //    println("distance: " + CastleUtil.distanceBetweenTiles(this.container, castle.player.container))
+    //    if (CastleUtil.distanceBetweenTiles(this.container, castle.player.container) > 3) opacity = .25f else opacity = .8f
   }
 
   override def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {
 
     if (doorType == 0) {
-      //sprite.setAnimation("unlocked")
       sprite.getAnimation.draw(x, y, color)
     }
 
     if (doorType == 1) {
-      //sprite.setAnimation("locked")
       sprite.getAnimation.draw(x, y, color)
       keySprite.getAnimation.draw(x + 26, y + 11, 16, 16, idcolor)
     }
 
     if (doorType == 2) {
-      //sprite.setAnimation("unlocked")
       wallSprite.getAnimation.draw(x, y, Color.white)
-      sprite.getAnimation.draw(x, y, new Color(color.r, color.g, color.b, .24f))
+      sprite.getAnimation.draw(x, y, new Color(color.r, color.g, color.b, opacity))
     }
 
   }
@@ -113,7 +116,7 @@ class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extend
 
   private def handleLockedDoor(player: Player) {
     if (canBeOpenedBy(player)) { //if the player can open this door
-      //player.inventory.remove(player.inventory.indexOf(getValidKeysFromPlayer(player)(0))) //remove key from their inventory
+      player.inventory.decrementItem(getValidKeyFromPlayer(player)(0)) //can assume (0) because canBeOpenedBy will always be true
 
       doorType = 0 //unlock the door
       handleNormalDoor(player) //continue on as though this were a normal door

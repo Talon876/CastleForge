@@ -15,7 +15,7 @@ import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.Inventory
 import org.nolat.castleforge.castle.{ Castle => CastleStructure }
 import org.nolat.castleforge.castle.items.{ Item => CastleItem }
-import org.nolat.castleforge.castle.items.Collectable
+import org.nolat.castleforge.castle.items.attributes.Collectable
 
 object MapLoad {
 
@@ -100,7 +100,7 @@ object MapLoad {
   private def tile2CastleItem(t: CastleForgeTileType): Option[CastleItem] = {
     t.item match {
       case Some(itm) => {
-        itm.param.size > 0 match { 
+        itm.param.size > 0 match {
           case true => CastleItem(itm.typeValue, itm.param.toList)
           case false => CastleItem(itm.typeValue)
         }
@@ -125,10 +125,19 @@ object MapLoad {
     }
   }
   private def item2Collectable(i: InvItem): Option[Collectable] = {
-    i.param.isEmpty match {
-      case false => Collectable(i.typeValue, i.param.toList)
-      case true => Collectable(i.typeValue)
-    }
 
+    val item = i.param.isEmpty match {
+      case false => CastleItem(i.typeValue, i.param.toList)
+      case true => CastleItem(i.typeValue)
+    }
+    convertToCollectable(item)
+  }
+
+  private def convertToCollectable(item: Option[CastleItem]): Option[Collectable] = {
+    val isCollectable = item match {
+      case Some(itm) => item.isInstanceOf[Collectable]
+      case None => false
+    }
+    if (isCollectable) Some(item.get.asInstanceOf[Collectable]) else None
   }
 }

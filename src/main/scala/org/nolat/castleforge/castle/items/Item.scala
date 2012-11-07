@@ -40,4 +40,5 @@ abstract class Item extends GameItem with PlayerListener {
   def getItemType: String = "n/a"
   def getParamList: Seq[String] = Nil
   var isBlockingMovement: Boolean = false
+  var container: Floor = null
 }

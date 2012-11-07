@@ -37,7 +37,7 @@ class ElementInventory(player: Player) extends HUDElement(HUD.custom) {
   }
 
   private def miscSectionHeight = {
-    val miscAmount = miscInventory.size
+    val miscAmount = player.inventory.getMiscItems.size
     if (miscAmount == 0) 22 else ((((miscAmount - 1) / 8) + 1) * 64) + 6
   }
 
@@ -48,22 +48,9 @@ class ElementInventory(player: Player) extends HUDElement(HUD.custom) {
     g.setColor(Color.black)
     g.drawString("~Misc~", position.x + 6, position.y + keySectionHeight + 8)
 
-    miscInventory.zipWithIndex.foreach {
+    player.inventory.getMiscItems.zipWithIndex.foreach {
       case (itm, idx) =>
         itm.sprite.getAnimation.draw(position.x + ((idx % 8) * 64) + 6, position.y + ((idx / 8) * 64) + 10 + keySectionHeight + 8, itm.color)
-    }
-  }
-
-  //this and isNotKey should be replaced by the inventory's implementation
-  private def miscInventory = player.inventory.filter(isNotKey(_)).map(item => item match { case Some(x) => x }).toList
-
-  private def isNotKey(item: Option[Item]) = {
-    item match {
-      case Some(x) => x match {
-        case k: Key => false
-        case _ => true
-      }
-      case None => false
     }
   }
 

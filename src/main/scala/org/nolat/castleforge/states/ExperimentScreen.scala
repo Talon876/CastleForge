@@ -154,16 +154,16 @@ class ExperimentScreen extends BasicGameState {
       game.enterState(ExperimentScreen2.ID, new EmptyTransition(), new EmptyTransition())
     } else if (key == Input.KEY_1) {
       MapSave.save(castle, "D:\\" + "maps", false)
-      SharedStateData.mapFile = new File("D:\\" + "maps/" + "Default Name-Default.xml")//simulates selecting a map file slow HDD
-      game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition())//loads the map into a castle
+      SharedStateData.mapFile = new File("D:\\" + "maps/" + "Default Name-Default.xml") //simulates selecting a map file slow HDD
+      game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition()) //loads the map into a castle
     } else if (key == Input.KEY_2) {
-      castle.inventory.addItem(Collectable("key", List("blue", "pentagon", "1")).get)
-      castle.inventory.addItem(Collectable("key", List("red", "diamond", "1")).get)
-      castle.inventory.addItem(Collectable("key", List("orange", "square", "1")).get)
-      castle.inventory.addItem(Collectable("key", List("yellow", "triangle", "1")).get)
+      //      castle.inventory.addItem(Item("key", List("blue", "pentagon", "1")).get)
+      //      castle.inventory.addItem(Collectable("key", List("red", "diamond", "1")).get)
+      //      castle.inventory.addItem(Collectable("key", List("orange", "square", "1")).get)
+      //      castle.inventory.addItem(Collectable("key", List("yellow", "triangle", "1")).get)
     } else if (key == Input.KEY_4) {
-      SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/" + "Default Name-Default.xml")//simulates selecting a map file
-      game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition())//loads the map into a castle
+      SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/" + "Default Name-Default.xml") //simulates selecting a map file
+      game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition()) //loads the map into a castle
     } else if (key == Input.KEY_F3) {
       playerDebug.toggle()
     }
