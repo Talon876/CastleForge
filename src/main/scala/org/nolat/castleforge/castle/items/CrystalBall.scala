@@ -12,11 +12,6 @@ class CrystalBall extends Item with Collectable {
 
   override def getItemType = Sprites.crystal_ball
 
-  override def onPlayerEnter(player: Player, srcFloor: Floor) {
-    super.onPlayerEnter(player, srcFloor)
-    println("crystal ball enter")
-  }
-
   override def isSimilar(that: Collectable): Boolean = {
     that match {
       case cb: CrystalBall => true

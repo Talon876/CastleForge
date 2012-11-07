@@ -14,6 +14,7 @@ class ElementPlayerDebug(player: Player) extends HUDElement(HUD.custom) {
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     if (active) {
+
       g.setColor(new Color(255, 255, 255, 128))
       g.fillRoundRect(position.x, position.y, 64f * 4f, 64f * 2f, 12)
       g.setColor(Color.black)

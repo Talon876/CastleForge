@@ -88,26 +88,40 @@ class Inventory extends ArrayBuffer[Option[Collectable]] {
     }.flatten.toList
   }
 
-  def getMatches = {
-    this.flatten.map { item =>
+  def getMatch = {
+    val matches = this.flatten.map { item =>
       item match {
         case itm: Match => Some(itm)
         case _ => None
       }
     }.flatten.toList
+    if (matches.size > 0) Some(matches(0)) else None
   }
 
   def getCrystalBall = {
-    this.flatten.map { item =>
+    val cballs = this.flatten.map { item =>
       item match {
         case itm: CrystalBall => Some(itm)
         case _ => None
       }
     }.flatten.toList
+    if (cballs.size > 0) Some(cballs(0)) else None
   }
 
+  def hasCrystalBall = getCrystalBall.size > 0
+
   def getMiscItems = {
-    getMatches ::: getCrystalBall ::: Nil
+    val mList = getMatch match {
+      case Some(m) => List(m)
+      case None => Nil
+    }
+
+    val cList = getCrystalBall match {
+      case Some(c) => List(c)
+      case None => Nil
+    }
+
+    mList ::: cList ::: Nil
   }
 
 }

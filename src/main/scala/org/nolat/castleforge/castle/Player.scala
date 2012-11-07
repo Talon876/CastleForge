@@ -47,7 +47,6 @@ class Player(var castle: Castle) extends GameItem {
   val speed = .2f
 
   private var lastTile: Floor = null
-  //var lastMoveDirection = (0, 0)
   var lastMove: MoveDescription = null
 
   private var moveQueue: Queue[MoveDescription] = new Queue()

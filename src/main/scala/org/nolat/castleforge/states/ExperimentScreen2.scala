@@ -26,6 +26,7 @@ import org.nolat.castleforge.ui.HUD
 import org.nolat.castleforge.ui.HUDElement
 import org.nolat.castleforge.ui.ElementPlayerDebug
 import org.nolat.castleforge.ui.ElementInventory
+import org.nolat.castleforge.ui.ElementSign
 
 object ExperimentScreen2 {
   val ID = 4
@@ -41,6 +42,7 @@ class ExperimentScreen2 extends BasicGameState {
 
   val hud = new HUD()
   var playerDebug: ElementPlayerDebug = null
+  var signElement: ElementSign = null
 
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
@@ -73,6 +75,10 @@ class ExperimentScreen2 extends BasicGameState {
     playerDebug = new ElementPlayerDebug(player)
     playerDebug.position = new Vector2f(8, 8 + 64 * 9)
     hud add playerDebug
+
+    signElement = new ElementSign(player)
+    signElement.position = new Vector2f(54, 100)
+    hud add signElement
 
     val playerInventory = new ElementInventory(player)
     playerInventory.position = new Vector2f(grooves.position.x + 16, grooves.position.y + 16)

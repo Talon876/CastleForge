@@ -14,6 +14,7 @@ object HUD {
   var grooves: Image = null
   var logo: Image = null
   var custom: Image = null
+  var sign: Image = null
 
   def init() = {
     println("Loading HUD Images")
@@ -21,6 +22,7 @@ object HUD {
     grooves = new Image("images/interface/grooves.png")
     logo = new Image("images/interface/logo.png")
     custom = new Image("images/nothing.png")
+    sign = new Image("images/interface/sign.png")
   }
 }
 

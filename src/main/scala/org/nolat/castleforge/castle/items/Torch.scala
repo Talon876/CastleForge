@@ -6,8 +6,10 @@ import org.nolat.castleforge.graphics.Sprite
 import org.nolat.castleforge.castle.items.attributes.IDColor
 import org.nolat.castleforge.castle.items.attributes.Luminosity
 import org.nolat.castleforge.castle.items.attributes.TorchState
+import org.nolat.castleforge.castle.Player
+import org.nolat.castleforge.castle.Floor
 
-class Torch(lit: Boolean, lumen: String, _color: String) extends Item with IDColor with Luminosity with TorchState {
+class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with IDColor with Luminosity with TorchState {
   torchstate = TorchState.fromBoolean(lit)
   luminosity = Luminosity.fromString(lumen)
   idcolor = IDColor.fromString(_color)
@@ -17,10 +19,26 @@ class Torch(lit: Boolean, lumen: String, _color: String) extends Item with IDCol
   }
 
   sprite = new Sprite(getItemType)
+  if (lit) {
+    sprite.setAnimation(lumen)
+  } else {
+    sprite.setAnimation("off")
+  }
 
   override def getItemType = Sprites.torch
 
   override def getParamList = {
     Seq(torchstate.toString, luminosity.toString, IDColor.toString(idcolor))
+  }
+
+  override def onPlayerEnter(player: Player, srcFloor: Floor) {
+    player.inventory.getMatch match {
+      case Some(m) => {
+        lit = true
+        sprite.setAnimation(lumen)
+        player.inventory.decrementItem(m)
+      }
+      case None =>
+    }
   }
 }

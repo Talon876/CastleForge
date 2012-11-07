@@ -78,8 +78,12 @@ class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extend
       case 2 => sprite.setAnimation("unlocked")
     }
 
-    //    println("distance: " + CastleUtil.distanceBetweenTiles(this.container, castle.player.container))
-    //    if (CastleUtil.distanceBetweenTiles(this.container, castle.player.container) > 3) opacity = .25f else opacity = .8f
+    if (doorType == 2) { //if the door is hidden, check if the player is less than 3 tiles away and has the crystal ball
+      if (CastleUtil.distanceBetweenTiles(this.container, castle.player.container) <= 3 && castle.player.inventory.hasCrystalBall)
+        opacity = .8f //make door obvious
+      else
+        opacity = .25f //hide door
+    }
   }
 
   override def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {

@@ -68,7 +68,7 @@ class Floor(private var _item: Option[Item], val x: Int, val y: Int, val roomIDs
   def itemName = {
     item match {
       case Some(item) => item.getItemType
-      case None => "None"
+      case None => "Floor"
     }
   }
 
