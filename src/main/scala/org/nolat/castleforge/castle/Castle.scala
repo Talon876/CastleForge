@@ -10,13 +10,29 @@ import org.nolat.castleforge.graphics.Renderable
 import org.nolat.castleforge.castle.items.Item
 import org.nolat.castleforge.castle.items.Torch
 import org.nolat.castleforge.castle.items.Wall
+import java.io.File
+import org.nolat.castleforge.xml.MapSave
 
-class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]], curState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
+object Castle {
+  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]], castleName: String, authorNam: String, descript: String) : Castle = {
+    val mapsFolderStr: String = Config.WorkingDirectory + "/maps"
+    val mapsFolder : File = new File(mapsFolderStr)
+    mapsFolder.mkdirs()
+    val file: File = new File(mapsFolderStr + "/" + authorNam + "-" + castleName + ".xml")
+    val castle = new Castle(curState, file, castleName, authorNam, descript)
+    MapSave.save(castle, true)
+    //TODO: determine if we want to save here for debugging purposes I will leave it for now
+    castle
+  }
+  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]], fileLocation: File, castleName: String, authorNam: String, descript: String) : Castle = {
+    new Castle(curState, fileLocation, castleName, authorNam, descript)
+  }
+}
+class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) extends Renderable {
   var name: String = "Default"
   var authorName: String = "Default Name"
   var description: String = ""
-  val originalState: ArrayBuffer[ArrayBuffer[Floor]] = origState
-  
+
   private var _map: ArrayBuffer[ArrayBuffer[Floor]] = curState
   def map = _map
   def map_=(mp: ArrayBuffer[ArrayBuffer[Floor]]) = {
@@ -24,26 +40,21 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]], curState: ArrayBuffer[A
     //update all Floors in map so that they use this classes translate
     updateFloorTransitions()
   }
-  
+
   private val _player: Player = new Player(this)
   def player = _player
   private val _inventory: Inventory = player.inventory
   def inventory = _inventory
-  def inventory_=(inv: Inventory)
-  {
-    player.inventory.clear()
-    player.inventory.addItems(inv.flatten : _*)
+  def inventory_=(inv: Inventory) {
+    _inventory.clear()
+    _inventory.addItems(inv.flatten: _*)
   }
   val lighting = new Lighting(this)
 
   updateFloorTransitions()
-  
-  def this() {
-    this(new ArrayBuffer[ArrayBuffer[Floor]], new ArrayBuffer[ArrayBuffer[Floor]])
-  }
 
-  def this(origState: ArrayBuffer[ArrayBuffer[Floor]], curState: ArrayBuffer[ArrayBuffer[Floor]],  nam: String, authorNam: String, descript: String) {
-    this(origState, curState)
+  def this(curState: ArrayBuffer[ArrayBuffer[Floor]], fileLoc: File, nam: String, authorNam: String, descript: String) {
+    this(curState, fileLoc)
     name = nam
     authorName = authorNam
     description = descript
@@ -99,8 +110,7 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]], curState: ArrayBuffer[A
     getFloorAtPosition(position)
   }
 
-  def updateFloorTransitions()
-  {
+  def updateFloorTransitions() {
     map.foreach { row =>
       row.foreach { floor =>
         floor.translate = translate

@@ -19,46 +19,31 @@ class Inventory extends ArrayBuffer[Option[Collectable]] {
   //http://stackoverflow.com/questions/1094173/how-do-i-get-around-type-erasure-on-scala-or-why-cant-i-get-the-type-paramete
   def addItem(addedItem: Collectable) {
     addedItem match {
-      case addItmQ: Item with Quantity =>
-        {
-          val itemsType = this.flatten.map { item =>
-            item match {
-              case itm: Collectable with Quantity =>
-                if (itm.isSimilar(addedItem)) {
-                  Some(itm)
-                } else {
-                  None
-                }
-              case _ => None
-            }
-          }.flatten
-          if (itemsType.size == 1) {
-            itemsType(0).quantity += addItmQ.quantity
-          } else if (itemsType.size == 0) {
-            this += Some(addItmQ)
-          } else if (itemsType.size > 1) {
-            assert(itemsType.size == 1)
+      case addItmQ: Item with Quantity => {
+        this.flatten.map { item =>
+          item match {
+            case itm: Collectable with Quantity =>
+              if (itm.isSimilar(addItmQ)) {
+                itm.quantity += addItmQ.quantity
+                return
+              }
+            case _ =>
           }
         }
-      case addItm: Item =>
-        {
-          val itemsType = this.flatten.map { item =>
-            item match {
-              case itm: Collectable =>
-                if (itm.isSimilar(addedItem)) {
-                  Some(itm)
-                } else {
-                  None
-                }
-              case _ => None
-            }
-          }.flatten
-          if (itemsType.size == 0) {
-            this += Some(addItm)
-          } else if (itemsType.size > 1) {
-            assert(itemsType.size == 1)
+        this += Some(addItmQ)
+      }
+      case addItm: Item => {
+        this.flatten.map { item =>
+          item match {
+            case itm: Collectable =>
+              if (itm.isSimilar(addItm)) {
+                return
+              }
+            case _ =>
           }
         }
+        this += Some(addItm)
+      }
     }
 
   }
@@ -71,14 +56,55 @@ class Inventory extends ArrayBuffer[Option[Collectable]] {
     }
   }
 
-  def containsItem() {
-    //true or false if the item is in this inventory
+  def containsItem(itm : Collectable): Boolean = {
+    val hasItm = this.filter{ p =>
+      {
+    	  p match {
+    	    case Some(i) => i.isSimilar(itm)
+    	    case None => false
+    	  }
+      }
+    }
+    if(hasItm.size > 0){true}
+    else{false}
   }
 
-  def decrementItem(item: Collectable) {
-    //remove that item's quantity by 1 unless it goes <= 0 then remove it completely 
+  def decrementItem(removeItem: Collectable) {
+    decrementItem(removeItem, 1)
   }
-
+  def decrementItem(removeItem: Collectable, amt: Int) {
+    if (amt <= 0) { return }
+    removeItem match {
+      case rmItmQ: Item with Quantity => {
+        this.zipWithIndex.map { item =>
+          item._1 match {
+            case Some(itm: Collectable with Quantity) =>
+              if (itm.isSimilar(rmItmQ)) {
+                if (itm.quantity > amt) {
+                  itm.quantity -= amt
+                } else {
+                  this.remove(item._2)
+                }
+                return
+              }
+            case _ =>
+          }
+        }
+      }
+      case rmItm: Item => {
+        this.zipWithIndex.map { item =>
+          item._1 match {
+            case Some(itm: Collectable) =>
+              if (itm.isSimilar(rmItm)) {
+                this.remove(item._2)
+                return
+              }
+            case _ =>
+          }
+        }
+      }
+    }
+  }
   def getKeys = {
     this.flatten.map { item =>
       item match {

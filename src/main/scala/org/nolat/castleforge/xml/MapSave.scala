@@ -1,14 +1,12 @@
 package org.nolat.castleforge.xml
 
 import java.io.File
-
 import scala.Option.option2Iterable
 import scala.annotation.implicitNotFound
 import scala.collection.mutable.ArrayBuffer
 import scala.math.BigDecimal.int2bigDecimal
 import scala.math.BigInt.int2bigInt
 import scala.xml.XML
-
 import org.nolat.castleforge.castle.{Castle => CastleStructure}
 import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.Inventory
@@ -16,25 +14,20 @@ import org.nolat.castleforge.castle.items.{Item => CastleItem}
 import org.nolat.castleforge.Config
 
 object MapSave {
-  private def save(castle: Castle, saveDirectory: String) =
+  private def save(castle: Castle, saveFile: File) =
     {
       val xml = scalaxb.toXML[Castle](castle, None, Some("castle"), defaultScope)
-      val mapsFolder = new File(saveDirectory)
-      mapsFolder.mkdirs()
-      XML.save(saveDirectory + "/" + castle.meta.author + "-" + castle.meta.name + ".xml", xml(0), "UTF-8", true, null)
+      XML.save(saveFile.getAbsolutePath(), xml(0), "UTF-8", true, null)
     }
-  private def saveCastle(castle: CastleStructure, savePath: String, state: Seq[State]) {
+  
+  private def saveCastle(castle: CastleStructure, state: Seq[State], saveFile: File) {
     val meta = new Meta(castle.name, castle.authorName, castle.description)
     val version = 1
     val xmlCastle: Castle = new Castle(meta, state, version)
-    save(xmlCastle, savePath)
+    save(xmlCastle, saveFile)
   }
 
-  def save(castle: CastleStructure, isEditor : Boolean = false)
-  {
-    save(castle, Config.WorkingDirectory + "/maps", isEditor)
-  }
-  def save(castle: CastleStructure, savePath: String, isEditor: Boolean) {
+  def save(castle: CastleStructure, isEditor: Boolean = false, saveFile: Option[File] = None) {
     var state: Seq[State] = Nil
     if (isEditor) {
       /*
@@ -45,17 +38,23 @@ object MapSave {
 	   * and will not write out a checkpoint state (1)
 	   */
       state = List[State](new State(AB2State(castle.map), inv2ItemType(castle.inventory), 0))
-      saveCastle(castle, savePath, state) //TODO: change to using online database later
     } else {
       /*
 	   * This is used when saving a checkpoint while playing through a castle
 	   * It will save the players inventory and the current state of the map
 	   * to state id 1 which is the checkpoint state
 	   */
-      state = List[State](new State(AB2State(castle.originalState), None, 0), new State(AB2State(castle.map), inv2ItemType(castle.inventory), 1))
-      saveCastle(castle, savePath, state)
+      if(castle.fileLocation == null) //all non editor castles should be loaded from files
+      {
+        return
+      }
+      val origState = MapUtils.getState(castle.fileLocation, 0)
+      state = List[State](origState, new State(AB2State(castle.map), inv2ItemType(castle.inventory), 1))
     }
-
+    saveFile match {
+      case None => saveCastle(castle, state, castle.fileLocation)
+      case Some(f) => saveCastle(castle, state, f)
+    }
   }
   private def AB2Roomlayout(buffer: ArrayBuffer[ArrayBuffer[Int]]): Seq[String] = {
     buffer.map(row => new String(row.map(i => (i + '0').toChar).toArray))

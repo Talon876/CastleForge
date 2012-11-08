@@ -23,47 +23,46 @@ object MapLoad {
     loadMap(file, Config.mapXsd, isEditor)
   }
 
-  def loadMap(file: File, schema: InputStream, isEditor: Boolean): CastleStructure = {
-    val source = FileUtils.openInputStream(file)
-    loadMap(source, schema, isEditor)
+  def loadMap(file: File, schema: InputStream, loadOriginal: Boolean): CastleStructure = {
+    val xmlCastle = getXMLMap(file, schema)
+    createCastle(xmlCastle, file, loadOriginal)
   }
-  def loadMap(stream: InputStream, isEditor: Boolean): CastleStructure = {
-    loadMap(stream, Config.mapXsd, isEditor)
-  }
-  def loadMap(stream: InputStream, xsdStream: InputStream, isEditor: Boolean): CastleStructure = {
+  
+  def getXMLMap(file: File, xsdStream: InputStream):Castle ={
     val factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
     val schema = factory.newSchema(new StreamSource(xsdStream))
-
+    val stream = FileUtils.openInputStream(file)
     val xml = new SchemaAwareFactoryAdapter(schema).load(stream)
     var xmlCastle: Castle = null
     try {
       xmlCastle = scalaxb.fromXML[Castle](xml)
-      createCastle(xmlCastle, isEditor)
+      
     } catch {
       case e: Exception =>
         println(e.getMessage() + e.getStackTrace().map(ex => println(ex.toString())))
         throw new Exception()
     }
+    xmlCastle
   }
-
-  private def createCastle(castleXML: Castle, isEditor: Boolean): CastleStructure = {
+  private def createCastle(castleXML: Castle, castleFile : File, loadOriginal: Boolean): CastleStructure = {
     var castle: CastleStructure = null //loads the 0 state as the original map so you can reset progress to default
-    
-    if (isEditor) //the editor should always get the original layout of the castle
+    var tiles: ArrayBuffer[ArrayBuffer[Floor]] = null
+    var inventory: Inventory = null
+    if (loadOriginal) //the editor should always get the original layout of the castle
     {
-      castle = new CastleStructure(mapType2ABTile(castleXML.state(0).map), mapType2ABTile(castleXML.state(0).map))
-      castle.inventory = itemType2Inventory(castleXML.state(0).inventory) //it will load the inventory of the original state
-    } else {
+      tiles = mapType2ABTile(castleXML.state(0).map)
+      inventory = itemType2Inventory(castleXML.state(0).inventory) //it will load the inventory of the original state
+    } else {//Load original if there is no checkpointstate
       if (castleXML.state.length == 1) {
-        castle = new CastleStructure(mapType2ABTile(castleXML.state(0).map), mapType2ABTile(castleXML.state(0).map))
-        castle.inventory = itemType2Inventory(castleXML.state(0).inventory)
+        tiles = mapType2ABTile(castleXML.state(0).map)
+        inventory = itemType2Inventory(castleXML.state(0).inventory)
       } else {
-        castle = new CastleStructure(mapType2ABTile(castleXML.state(0).map), mapType2ABTile(castleXML.state(1).map))
-        castle.inventory = itemType2Inventory(castleXML.state(1).inventory)
+        tiles = mapType2ABTile(castleXML.state(1).map)
+        inventory = itemType2Inventory(castleXML.state(1).inventory)
       }
     }
-    castle.name = castleXML.meta.name;
-    castle.authorName = castleXML.meta.author;
+    castle = CastleStructure(tiles, castleFile, castleXML.meta.name, castleXML.meta.author, castleXML.meta.description)
+    castle.inventory = inventory
     castle
   }
 

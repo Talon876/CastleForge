@@ -13,6 +13,7 @@ import org.nolat.castleforge.castle.items.attributes.Direction
 import org.newdawn.slick.Color
 
 class Floor(private var _item: Option[Item], val x: Int, val y: Int, val roomIDs: String = "0") extends PlayerListener {
+  //TODO: allow updating roomIDs for editor
   updateFloor()
 
   def item = _item

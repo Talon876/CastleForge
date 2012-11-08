@@ -96,10 +96,12 @@ class ExperimentScreen extends BasicGameState {
 
   var lstItem = ArrayBuffer[Item]()
 
+  val authorName = "Steve"
+  val mapName = "Test Map"
   override def enter(container: GameContainer, game: StateBasedGame) {
     hud = new HUD()
     if (SharedStateData.mapFile == null) { //hasn't loaded from the File
-      castle = new Castle(list2Floors(allCombinations()),list2Floors(allCombinations()))
+      castle = Castle(list2Floors(allCombinations()), mapName , authorName, "This is a test Map")
     } else {
       castle = SharedStateData.loadedCastle //grab loaded castle
     }
@@ -153,8 +155,10 @@ class ExperimentScreen extends BasicGameState {
     } else if (key == Input.KEY_F10) {
       game.enterState(ExperimentScreen2.ID, new EmptyTransition(), new EmptyTransition())
     } else if (key == Input.KEY_1) {
-      MapSave.save(castle, "D:\\" + "maps", false)
-      SharedStateData.mapFile = new File("D:\\" + "maps/" + "Default Name-Default.xml") //simulates selecting a map file slow HDD
+      val mapFile = new File("D:\\" + "maps/" + authorName + "-" + mapName + ".xml")
+      MapSave.save(castle, false, Some(mapFile))
+      SharedStateData.loadOriginal = false
+      SharedStateData.mapFile = mapFile //simulates selecting a map file slow HDD
       game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition()) //loads the map into a castle
     } else if (key == Input.KEY_2) {
       //      castle.inventory.addItem(Item("key", List("blue", "pentagon", "1")).get)
@@ -162,9 +166,16 @@ class ExperimentScreen extends BasicGameState {
       //      castle.inventory.addItem(Collectable("key", List("orange", "square", "1")).get)
       //      castle.inventory.addItem(Collectable("key", List("yellow", "triangle", "1")).get)
     } else if (key == Input.KEY_4) {
-      SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/" + "Default Name-Default.xml") //simulates selecting a map file
+      SharedStateData.loadOriginal = false
+      SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/" + authorName + "-" + mapName + ".xml") //simulates selecting a map file
       game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition()) //loads the map into a castle
-    } else if (key == Input.KEY_F3) {
+    } else if (key == Input.KEY_5)
+    {
+      SharedStateData.loadOriginal = true //tests whole map reset functionality
+      SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/" + authorName + "-" + mapName + ".xml") //simulates selecting a map file
+      game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition()) //loads the map into a castle
+    }
+    else if (key == Input.KEY_F3) {
       playerDebug.toggle()
     }
   }

@@ -29,7 +29,7 @@ class CastleLoading extends BasicGameState {
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     if (!loaded && rendered) {
       loaded = true
-      SharedStateData.loadedCastle = (SharedStateData.mapFile, false)
+      SharedStateData.loadedCastle = SharedStateData.mapFile
       this.game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
     }
   }
