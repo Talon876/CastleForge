@@ -41,8 +41,6 @@ class ExperimentScreen2 extends BasicGameState {
 
   var castle: Castle = null
 
-  var player: Player = null
-
   val hud = new HUD()
   var playerDebug: ElementPlayerDebug = null
   var signElement: ElementSign = null
@@ -61,9 +59,6 @@ class ExperimentScreen2 extends BasicGameState {
       castle = MapLoad.loadMap(new File("C:/test.xml"), false)
     }
 
-    this.player = new Player(castle)
-    this.castle.player = player
-
     val borders = new HUDElement(HUD.border)
     hud add borders
 
@@ -75,15 +70,15 @@ class ExperimentScreen2 extends BasicGameState {
     logo.position = new Vector2f(728, 588)
     hud add logo
 
-    playerDebug = new ElementPlayerDebug(player)
+    playerDebug = new ElementPlayerDebug(castle.player)
     playerDebug.position = new Vector2f(8, 8 + 64 * 9)
     hud add playerDebug
 
-    signElement = new ElementSign(player)
+    signElement = new ElementSign(castle.player)
     signElement.position = new Vector2f(54, 100)
     hud add signElement
 
-    val playerInventory = new ElementInventory(player)
+    val playerInventory = new ElementInventory(castle.player)
     playerInventory.position = new Vector2f(grooves.position.x + 16, grooves.position.y + 16)
     hud add playerInventory
 
@@ -94,7 +89,7 @@ class ExperimentScreen2 extends BasicGameState {
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     Lerper.lerpers.foreach(_.update(delta))
     castle.update(container, game, delta)
-    player.update(container, game, delta)
+    castle.player.update(container, game, delta)
     hud.update(container, game, delta)
   }
 
@@ -102,7 +97,7 @@ class ExperimentScreen2 extends BasicGameState {
     g.setBackground(Color.black)
     g.setColor(Color.white)
     castle.render(container, game, g)
-    player.render(container, game, g)
+    castle.player.render(container, game, g)
     g.setColor(Color.black)
     hud.render(container, game, g)
   }

@@ -47,7 +47,10 @@ object CastleUtil {
   def findAllCheckPointStates(castle: Castle): List[Floor] = {
     val checkpoint = castle.map.flatten.toList.filter { floor =>
       floor.item match {
-        case Some(x) => x.isInstanceOf[CheckPointState]
+        case Some(x) => x match {
+          case itm : CheckPointState => true
+          case _ => false
+        }
         case None => false
       }
     }

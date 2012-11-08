@@ -47,23 +47,23 @@ object MapLoad {
   }
 
   private def createCastle(castleXML: Castle, isEditor: Boolean): CastleStructure = {
-    val castle: CastleStructure = new CastleStructure(mapType2ABTile(castleXML.state(0).map)) //loads the 0 state as the original map so you can reset progress to default
-    //to support an initial inventory you would want to to add it to the castle currently the inventory will reset to blank
-    castle.name = castleXML.meta.name;
-    castle.authorName = castleXML.meta.author;
+    var castle: CastleStructure = null //loads the 0 state as the original map so you can reset progress to default
+    
     if (isEditor) //the editor should always get the original layout of the castle
     {
-      castle.map = mapType2ABTile(castleXML.state(0).map)
+      castle = new CastleStructure(mapType2ABTile(castleXML.state(0).map), mapType2ABTile(castleXML.state(0).map))
       castle.inventory = itemType2Inventory(castleXML.state(0).inventory) //it will load the inventory of the original state
     } else {
       if (castleXML.state.length == 1) {
-        castle.map = mapType2ABTile(castleXML.state(0).map)
+        castle = new CastleStructure(mapType2ABTile(castleXML.state(0).map), mapType2ABTile(castleXML.state(0).map))
         castle.inventory = itemType2Inventory(castleXML.state(0).inventory)
       } else {
-        castle.map = mapType2ABTile(castleXML.state(1).map)
+        castle = new CastleStructure(mapType2ABTile(castleXML.state(0).map), mapType2ABTile(castleXML.state(1).map))
         castle.inventory = itemType2Inventory(castleXML.state(1).inventory)
       }
     }
+    castle.name = castleXML.meta.name;
+    castle.authorName = castleXML.meta.author;
     castle
   }
 
@@ -135,7 +135,10 @@ object MapLoad {
 
   private def convertToCollectable(item: Option[CastleItem]): Option[Collectable] = {
     val isCollectable = item match {
-      case Some(itm) => item.isInstanceOf[Collectable]
+      case Some(itm) => itm match {
+        case i : Collectable => true //isInstanceOf does not check traits that are mixed in http://stackoverflow.com/questions/2809463/how-to-get-list-of-traits-that-were-mixed-in-the-specified-class
+        case _ => false
+      }
       case None => false
     }
     if (isCollectable) Some(item.get.asInstanceOf[Collectable]) else None

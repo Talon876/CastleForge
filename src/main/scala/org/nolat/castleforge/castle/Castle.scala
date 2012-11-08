@@ -11,65 +11,39 @@ import org.nolat.castleforge.castle.items.Item
 import org.nolat.castleforge.castle.items.Torch
 import org.nolat.castleforge.castle.items.Wall
 
-class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
+class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]], curState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   var name: String = "Default"
   var authorName: String = "Default Name"
   var description: String = ""
   val originalState: ArrayBuffer[ArrayBuffer[Floor]] = origState
-  private var _inventory: Inventory = new Inventory()
-  def inventory = _inventory
-  def inventory_=(inv: Inventory) = { //TODO: clean up inventory and player setters
-    if (player != null) { //Player is set already
-      player.inventory.clear()
-      player.inventory.addItems(inv.flatten: _*)
-      _inventory = player.inventory //pass the reference through
-
-    } else {
-      _inventory = inv //Player is not set, load inventory (Default case)
-    }
-  }
-  private var _map: ArrayBuffer[ArrayBuffer[Floor]] = null //position of this line of code matters it will be called again if put below map = originalMap
+  
+  private var _map: ArrayBuffer[ArrayBuffer[Floor]] = curState
   def map = _map
   def map_=(mp: ArrayBuffer[ArrayBuffer[Floor]]) = {
     _map = mp;
     //update all Floors in map so that they use this classes translate
-    map.foreach { row =>
-      row.foreach { floor =>
-        floor.translate = translate
-      }
-    }
+    updateFloorTransitions()
   }
-  private var _player: Player = null
-
+  
+  private val _player: Player = new Player(this)
+  def player = _player
+  private val _inventory: Inventory = player.inventory
+  def inventory = _inventory
+  def inventory_=(inv: Inventory)
+  {
+    player.inventory.clear()
+    player.inventory.addItems(inv.flatten : _*)
+  }
   val lighting = new Lighting(this)
 
-  def player = _player
-  def player_=(plyr: Player) = {
-    if (player == null) { //First Player set in this castle
-      _player = plyr
-      if (inventory != null) //Is set after inventory (Default case)
-      {
-        player.inventory.addItems(inventory.flatten: _*)
-      }
-    } else { //There was already a player in this castle
-      val temp: Inventory = player.inventory //old inventory
-      _player = plyr
-      if (inventory != null) { //Already player but no inventory
-        player.inventory.clear()
-        if (temp != null) { //old player had an inventory
-          player.inventory.addItems(temp.flatten: _*)
-        }
-      }
-    }
-    _inventory = player.inventory //set the castle inventory to the players inventory reference
-  }
-
+  updateFloorTransitions()
+  
   def this() {
-    this(new ArrayBuffer[ArrayBuffer[Floor]])
+    this(new ArrayBuffer[ArrayBuffer[Floor]], new ArrayBuffer[ArrayBuffer[Floor]])
   }
 
-  def this(origState: ArrayBuffer[ArrayBuffer[Floor]], nam: String, authorNam: String, descript: String) {
-    this(origState)
+  def this(origState: ArrayBuffer[ArrayBuffer[Floor]], curState: ArrayBuffer[ArrayBuffer[Floor]],  nam: String, authorNam: String, descript: String) {
+    this(origState, curState)
     name = nam
     authorName = authorNam
     description = descript
@@ -125,4 +99,12 @@ class Castle(origState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
     getFloorAtPosition(position)
   }
 
+  def updateFloorTransitions()
+  {
+    map.foreach { row =>
+      row.foreach { floor =>
+        floor.translate = translate
+      }
+    }
+  }
 }

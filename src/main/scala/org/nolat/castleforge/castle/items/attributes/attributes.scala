@@ -105,23 +105,38 @@ trait Shape extends Attribute {
 }
 
 object Luminosity {
-  val OFF = 0
   val LOW = 2
   val MEDIUM = 3
   val HIGH = 5
 
   def fromString(lum: String) = {
     lum.toLowerCase match {
-      case "off" => OFF
       case "low" => LOW
       case "medium" => MEDIUM
       case "high" => HIGH
-      case _ => OFF
+      case _ => LOW
+    }
+  }
+  
+  def toString(lumen: Luminosity) : String ={
+    lumen.luminosity match {
+      case LOW => "low"
+      case MEDIUM => "medium"
+      case HIGH => "high"
+      case _ => "low"
+    }
+  }
+  def toString(lumen: Int) : String ={
+    lumen match {
+      case LOW => "low"
+      case MEDIUM => "medium"
+      case HIGH => "high"
+      case _ => "low"
     }
   }
 }
 trait Luminosity extends Attribute {
-  var luminosity = Luminosity.OFF
+  var luminosity = Luminosity.LOW
 }
 
 object Direction {

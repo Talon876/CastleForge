@@ -13,7 +13,8 @@ object CastleLoading {
 class CastleLoading extends BasicGameState {
 
   var game: StateBasedGame = null
-  var loaded: Boolean = true;
+  var loaded: Boolean = true
+  var rendered: Boolean = false
   override def getID = CastleLoading.ID
 
   override def init(container: GameContainer, game: StateBasedGame) {
@@ -21,11 +22,12 @@ class CastleLoading extends BasicGameState {
   }
 
   override def enter(container: GameContainer, game: StateBasedGame) {
-	  loaded = false;
+	  loaded = false
+	  rendered = false
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
-    if (!loaded) {
+    if (!loaded && rendered) {
       loaded = true
       SharedStateData.loadedCastle = (SharedStateData.mapFile, false)
       this.game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
@@ -34,5 +36,9 @@ class CastleLoading extends BasicGameState {
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     Config.UIFont.drawString(600, 300, "Loading")
+    if(!rendered)
+    {
+      rendered = true
+    }
   }
 }

@@ -30,7 +30,8 @@ class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with I
   override def getItemType = Sprites.torch
 
   override def getParamList = {
-    Seq(torchstate.toString, luminosity.toString, IDColor.toString(idcolor))
+    
+    Seq(torchstate.toString, Luminosity.toString(luminosity), IDColor.toString(idcolor))
   }
 
   override def onPlayerEnter(player: Player, srcFloor: Floor) {
