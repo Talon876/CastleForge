@@ -17,7 +17,6 @@ object HUD {
   var sign: Image = null
 
   def init() = {
-    println("Loading HUD Images")
     border = new Image("images/interface/borders.png")
     grooves = new Image("images/interface/grooves.png")
     logo = new Image("images/interface/logo.png")
@@ -40,6 +39,6 @@ class HUD extends Renderable {
     elements.foreach(_.render(container, game, g))
   }
 
-  def add(element: HUDElement) = elements += element; println("added element")
+  def add(element: HUDElement) = elements += element
 
 }

@@ -13,7 +13,7 @@ object Item {
     itemType match {
 
       case "checkpoint" => Some(new CheckPoint(params))
-      case "door" => println(params); Some(new Door(params))
+      case "door" => Some(new Door(params))
       case "endpoint" => Some(new EndPoint(params))
       case "key" => Some(new Key(params))
       case "match" => Some(new Match(params))

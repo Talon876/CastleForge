@@ -20,10 +20,8 @@ class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with I
 
   sprite = new Sprite(getItemType)
   if (lit) {
-    //println("torch is lit. lumens: " + lumen)
     sprite.setAnimation(lumen)
   } else {
-    //println("torch is off. lumens: " + lumen)
     sprite.setAnimation("off")
   }
 

@@ -8,7 +8,7 @@ import org.newdawn.slick.Color
 
 class ElementPlayerDebug(player: Player) extends HUDElement(HUD.custom) {
 
-  var active = true
+  var active = false
 
   def toggle() = active = !active
 

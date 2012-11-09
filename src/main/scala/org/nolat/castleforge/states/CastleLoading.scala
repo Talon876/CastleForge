@@ -22,22 +22,22 @@ class CastleLoading extends BasicGameState {
   }
 
   override def enter(container: GameContainer, game: StateBasedGame) {
-	  loaded = false
-	  rendered = false
+    container.setPaused(false)
+    loaded = false
+    rendered = false
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     if (!loaded && rendered) {
       loaded = true
       SharedStateData.loadedCastle = SharedStateData.mapFile
-      this.game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
+      this.game.enterState(GameScreen.ID, new EmptyTransition(), new EmptyTransition())
     }
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     Config.UIFont.drawString(600, 300, "Loading")
-    if(!rendered)
-    {
+    if (!rendered) {
       rendered = true
     }
   }

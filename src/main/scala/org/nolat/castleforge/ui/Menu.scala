@@ -21,6 +21,7 @@ class Menu(var position: Vector2f) extends Renderable {
   private var selectedIndex = 0
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+
     menuItems(selectedIndex).isSelected = true
     menuItems.foreach(_.update(container, game, delta))
 
@@ -35,6 +36,7 @@ class Menu(var position: Vector2f) extends Renderable {
       selectedIndex -= 1
       if (selectedIndex < 0) { selectedIndex = menuItems.size - 1 }
     }
+
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {

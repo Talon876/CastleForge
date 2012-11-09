@@ -28,13 +28,10 @@ class Player(var castle: Castle) extends GameItem {
 
   var tilePosition = CastleUtil.findPlayerStart(castle).getTilePosition
 
-  println("Tile Position of player: " + tilePosition)
   position = new Vector2f(Config.TileOffsetX + Config.TileWidth * 5, Config.TileOffsetY + Config.TileHeight * 5)
 
   var tileOffset = (tilePosition._1 - 5, tilePosition._2 - 5)
   var movementOffset = (tileOffset._1 * 64f, tileOffset._2 * 64f)
-
-  println("Location: " + position)
 
   sprite = new Sprite(Sprites.player)
   sprite.setAnimation("idle")

@@ -19,7 +19,7 @@ class MainMenuScreen extends BasicGameState {
   val mainMenu = new Menu(new Vector2f(500, 300))
   mainMenu.add("Choose Castle", handleMenu)
   mainMenu.add("Build New Castle", handleMenu)
-  mainMenu.add("Download Castles", handleMenu)
+  //mainMenu.add("Download Castles", handleMenu)
   mainMenu.add("Exit", handleMenu)
 
   override def init(container: GameContainer, game: StateBasedGame) {
@@ -39,7 +39,7 @@ class MainMenuScreen extends BasicGameState {
     text match {
       case "Choose Castle" =>
       case "Build New Castle" =>
-      case "Download Castles" =>
+      //case "Download Castles" =>
       case "Exit" => sys.exit
     }
   }

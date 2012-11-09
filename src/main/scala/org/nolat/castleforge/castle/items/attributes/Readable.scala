@@ -12,16 +12,4 @@ import org.nolat.castleforge.ui.HUD
 
 trait Readable extends Item with PlayerListener {
   var displayText = ""
-  //  var isDisplaying = false
-
-  override def onPlayerEnter(player: Player, srcFloor: Floor) {
-    println(this.container.getTilePosition)
-    println(displayText)
-    //    isDisplaying = true
-  }
-
-  override def onPlayerExit(player: Player, destFloor: Floor) {
-    //    isDisplaying = false
-  }
-
 }

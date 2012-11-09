@@ -12,6 +12,11 @@ import org.newdawn.slick.state.GameState
 import org.newdawn.slick.state.transition.EmptyTransition
 import org.nolat.castleforge.Config
 import org.nolat.castleforge.tools.CodeTimer
+import org.newdawn.slick.state.transition.SelectTransition
+import org.newdawn.slick.state.transition.BlobbyTransition
+import org.newdawn.slick.state.transition.FadeOutTransition
+import org.newdawn.slick.state.transition.FadeInTransition
+import java.io.File
 
 object TitleScreen {
   val ID = 1
@@ -22,6 +27,9 @@ class TitleScreen extends BasicGameState {
 
   override def getID = TitleScreen.ID
 
+  var alpha = 1f
+  var decreasing = true
+
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
     Config.init()
@@ -29,23 +37,38 @@ class TitleScreen extends BasicGameState {
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+    if (decreasing) {
+      alpha -= .01f
+      if (alpha <= .3f) {
+        alpha = .3f
+        decreasing = false
+      }
+    } else {
+      alpha += .01f
+      if (alpha >= 1f) {
+        alpha = 1f
+        decreasing = true
+      }
+    }
 
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     Config.TitleScreenBackground.draw(0, 0)
-    Config.UIFont.drawString(600, 300, "Press enter")
+    Config.UIFont.drawString(Config.Resolution.getX / 2 - 100, Config.Resolution.getY - 100, "Press enter", new Color(0, 0, 0, alpha))
   }
 
   override def keyReleased(key: Int, c: Char) {
-    println(key + " " + c)
     if (key == Input.KEY_RETURN) {
 
-      game.enterState(MainMenuScreen.ID, new EmptyTransition(), new EmptyTransition())
+      game.enterState(MainMenuScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black))
+
     } else if (key == Input.KEY_F9) {
       game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
     } else if (key == Input.KEY_F10) {
-      game.enterState(ExperimentScreen2.ID, new EmptyTransition(), new EmptyTransition())
+      SharedStateData.loadOriginal = false
+      SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/talon-everything.xml")
+      game.enterState(CastleLoading.ID, new FadeOutTransition(Color.black), new EmptyTransition())
     }
   }
 }

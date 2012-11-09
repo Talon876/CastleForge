@@ -43,7 +43,7 @@ class Match(_quantity: Int) extends Item with Quantity with Collectable {
     sprite.setAnimation(getAnimationFromQuantity)
     this.sprite.getAnimation.draw(x, y, this.color)
     g.setColor(Color.yellow)
-    g.drawString("x" + quantity, x + 5, y + 40)
+    if (quantity > 1) g.drawString("x" + quantity, x + 5, y + 40)
   }
 
   override def isSimilar(that: Collectable): Boolean = {
