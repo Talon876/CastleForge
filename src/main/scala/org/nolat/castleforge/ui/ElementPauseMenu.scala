@@ -19,8 +19,10 @@ class ElementPauseMenu(castle: Castle, game: StateBasedGame) extends HUDElement(
   pauseMenu.add("Restart from checkpoint", handleMenu)
   pauseMenu.add("Restart", handleMenu)
   pauseMenu.add("Main Menu", handleMenu)
-  //pauseMenu.add("Cancel", handleMenu)
+  pauseMenu.add("Cancel", handleMenu)
   private var lastPaused = false
+
+  private var container: GameContainer = null
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     if (container.isPaused && !lastPaused) { //was just paused
@@ -28,7 +30,7 @@ class ElementPauseMenu(castle: Castle, game: StateBasedGame) extends HUDElement(
     }
 
     if (container.isPaused) pauseMenu.update(container, game, delta)
-
+    this.container = container
     lastPaused = container.isPaused
   }
 
@@ -54,7 +56,11 @@ class ElementPauseMenu(castle: Castle, game: StateBasedGame) extends HUDElement(
         game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition())
       }
       case "Main Menu" => {
-        game.enterState(MainMenuScreen.ID, new FadeOutTransition(), new FadeInTransition())
+        container.setPaused(false)
+        game.enterState(MainMenuScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition())
+      }
+      case "Cancel" => {
+        container.setPaused(false)
       }
     }
   }

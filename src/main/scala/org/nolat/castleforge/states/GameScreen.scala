@@ -59,9 +59,6 @@ class GameScreen extends BasicGameState {
       g.setColor(Color.black)
       hud.render(container, game, g)
       handleFade(g)
-    } else {
-      g.setColor(Color.white)
-      g.fillRect(40, 40, 100, 100)
     }
   }
 
