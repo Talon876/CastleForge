@@ -8,6 +8,8 @@ import org.newdawn.slick.Color
 import org.nolat.castleforge.Config
 import org.nolat.castleforge.ui.Menu
 import org.newdawn.slick.geom.Vector2f
+import org.newdawn.slick.state.transition.FadeOutTransition
+import org.newdawn.slick.state.transition.FadeInTransition
 
 object MainMenuScreen {
   val ID = 2
@@ -16,6 +18,8 @@ object MainMenuScreen {
 class MainMenuScreen extends BasicGameState {
   override def getID = MainMenuScreen.ID
 
+  var game: StateBasedGame = null
+
   val mainMenu = new Menu(new Vector2f(500, 300))
   mainMenu.add("Choose Castle", handleMenu)
   mainMenu.add("Build New Castle", handleMenu)
@@ -23,7 +27,7 @@ class MainMenuScreen extends BasicGameState {
   mainMenu.add("Exit", handleMenu)
 
   override def init(container: GameContainer, game: StateBasedGame) {
-
+    this.game = game
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
@@ -38,7 +42,7 @@ class MainMenuScreen extends BasicGameState {
   private def handleMenu(text: String, position: Vector2f) = {
     text match {
       case "Choose Castle" =>
-      case "Build New Castle" =>
+      case "Build New Castle" => game.enterState(CreateCastleScreen.ID, new FadeOutTransition(), new FadeInTransition())
       //case "Download Castles" =>
       case "Exit" => sys.exit
     }

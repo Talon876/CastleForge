@@ -14,9 +14,9 @@ import java.io.File
 import org.nolat.castleforge.xml.MapSave
 
 object Castle {
-  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]], castleName: String, authorNam: String, descript: String) : Castle = {
+  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]], castleName: String, authorNam: String, descript: String): Castle = {
     val mapsFolderStr: String = Config.WorkingDirectory + "/maps"
-    val mapsFolder : File = new File(mapsFolderStr)
+    val mapsFolder: File = new File(mapsFolderStr)
     mapsFolder.mkdirs()
     val file: File = new File(mapsFolderStr + "/" + authorNam + "-" + castleName + ".xml")
     val castle = new Castle(curState, file, castleName, authorNam, descript)
@@ -24,7 +24,7 @@ object Castle {
     //TODO: determine if we want to save here for debugging purposes I will leave it for now
     castle
   }
-  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]], fileLocation: File, castleName: String, authorNam: String, descript: String) : Castle = {
+  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]], fileLocation: File, castleName: String, authorNam: String, descript: String): Castle = {
     new Castle(curState, fileLocation, castleName, authorNam, descript)
   }
 }
@@ -72,7 +72,6 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) 
   }
 
   def getFloorsToRender(): List[Floor] = {
-    //map.flatten.toList //List(map(0)(0))
     var tempList = new ListBuffer[Floor]
     for (x <- cameraBounds._1 to cameraBounds._2) {
       for (y <- cameraBounds._3 to cameraBounds._4) {

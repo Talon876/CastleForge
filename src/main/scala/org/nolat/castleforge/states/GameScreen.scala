@@ -78,7 +78,7 @@ class GameScreen extends BasicGameState {
     hud.keyReleased(key, c)
 
     if (key == Input.KEY_F9) {
-      game.enterState(ExperimentScreen.ID, new RotateTransition(), new EmptyTransition())
+      game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
     } else if (key == Input.KEY_F10) {
       game.enterState(ExperimentScreen2.ID, new EmptyTransition(), new EmptyTransition())
     }
