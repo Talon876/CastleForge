@@ -10,6 +10,10 @@ import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.CastleUtil
 import org.nolat.castleforge.castle.items.attributes.Collectable
+import org.newdawn.slick.state.StateBasedGame
+import org.newdawn.slick.GameContainer
+import org.newdawn.slick.Graphics
+import org.newdawn.slick.Color
 
 class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDColor with Quantity with Shape with Collectable {
   idcolor = IDColor.fromString(_color)
@@ -42,4 +46,9 @@ class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDCo
     }
   }
 
+  override def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {
+    this.sprite.getAnimation.draw(x, y, this.color)
+    g.setColor(Color.yellow)
+    if (quantity > 1) g.drawString("x" + quantity, x + 5, y + 40)
+  }
 }

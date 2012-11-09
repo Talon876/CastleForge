@@ -20,17 +20,17 @@ class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with I
 
   sprite = new Sprite(getItemType)
   if (lit) {
-    println("torch is lit. lumens: " + lumen)
+    //println("torch is lit. lumens: " + lumen)
     sprite.setAnimation(lumen)
   } else {
-    println("torch is off. lumens: " + lumen)
+    //println("torch is off. lumens: " + lumen)
     sprite.setAnimation("off")
   }
 
   override def getItemType = Sprites.torch
 
   override def getParamList = {
-    
+
     Seq(torchstate.toString, Luminosity.toString(luminosity), IDColor.toString(idcolor))
   }
 
@@ -50,7 +50,6 @@ class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with I
       case Luminosity.LOW => .1f
       case Luminosity.MEDIUM => .15f
       case Luminosity.HIGH => .2f
-
     }
   }
 }

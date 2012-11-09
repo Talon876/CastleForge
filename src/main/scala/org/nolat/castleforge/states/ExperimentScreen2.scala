@@ -82,8 +82,6 @@ class ExperimentScreen2 extends BasicGameState {
     playerInventory.position = new Vector2f(grooves.position.x + 16, grooves.position.y + 16)
     hud add playerInventory
 
-    val torches = CastleUtil.getAllRoomsContainingItem(castle, classOf[Pusher])
-    println("pushers: " + torches)
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
