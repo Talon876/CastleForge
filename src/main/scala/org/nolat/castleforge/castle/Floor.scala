@@ -12,7 +12,7 @@ import org.nolat.castleforge.castle.items.Pusher
 import org.nolat.castleforge.castle.items.attributes.Direction
 import org.newdawn.slick.Color
 
-class Floor(private var _item: Option[Item], val x: Int, val y: Int, val roomIDs: String = "0") extends PlayerListener {
+class Floor(private var _item: Option[Item], var x: Int, var y: Int, val roomIDs: String = "0") extends PlayerListener {
   //TODO: allow updating roomIDs for editor
   updateFloor()
 
@@ -109,6 +109,11 @@ class Floor(private var _item: Option[Item], val x: Int, val y: Int, val roomIDs
 
   }
 
+  def setXY(x :Int, y : Int)
+  {
+    this.x = x
+    this.y = y
+  }
   def sharesRoomId(otherIDs: String): Boolean = sharesRoomId(otherIDs, false)
 
   override def toString() = "Floor(" + roomIDs + ", " + getTilePosition + ", " + itemName + ")\n"

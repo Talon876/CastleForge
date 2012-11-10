@@ -64,7 +64,11 @@ class TitleScreen extends BasicGameState {
       game.enterState(MainMenuScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black))
 
     } else if (key == Input.KEY_F9) {
-      game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
+      //SharedStateData.loadOriginal = false
+      //SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/talon-everything.xml")
+      //game.enterState(CastleLoading.ID, new FadeOutTransition(Color.black), new EmptyTransition())
+      
+      game.enterState(ExperimentScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black))
     } else if (key == Input.KEY_F10) {
       SharedStateData.loadOriginal = false
       SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/talon-everything.xml")

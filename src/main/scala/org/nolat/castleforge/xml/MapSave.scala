@@ -7,10 +7,10 @@ import scala.collection.mutable.ArrayBuffer
 import scala.math.BigDecimal.int2bigDecimal
 import scala.math.BigInt.int2bigInt
 import scala.xml.XML
-import org.nolat.castleforge.castle.{Castle => CastleStructure}
+import org.nolat.castleforge.castle.{ Castle => CastleStructure }
 import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.Inventory
-import org.nolat.castleforge.castle.items.{Item => CastleItem}
+import org.nolat.castleforge.castle.items.{ Item => CastleItem }
 import org.nolat.castleforge.Config
 
 object MapSave {
@@ -19,7 +19,7 @@ object MapSave {
       val xml = scalaxb.toXML[Castle](castle, None, Some("castle"), defaultScope)
       XML.save(saveFile.getAbsolutePath(), xml(0), "UTF-8", true, null)
     }
-  
+
   private def saveCastle(castle: CastleStructure, state: Seq[State], saveFile: File) {
     val meta = new Meta(castle.name, castle.authorName, castle.description)
     val version = 1
@@ -27,7 +27,7 @@ object MapSave {
     save(xmlCastle, saveFile)
   }
 
-  def save(castle: CastleStructure, isEditor: Boolean = false, saveFile: Option[File] = None) {
+  def save(castle: CastleStructure, isEditor: Boolean = false, saveFile: Option[File] = None): File = {
     var state: Seq[State] = Nil
     if (isEditor) {
       /*
@@ -44,16 +44,22 @@ object MapSave {
 	   * It will save the players inventory and the current state of the map
 	   * to state id 1 which is the checkpoint state
 	   */
-      if(castle.fileLocation == null) //all non editor castles should be loaded from files
+      if (castle.fileLocation == null) //all non editor castles should be loaded from files
       {
-        return
+        return null
       }
       val origState = MapUtils.getState(castle.fileLocation, 0)
       state = List[State](origState, new State(AB2State(castle.map), inv2ItemType(castle.inventory), 1))
     }
     saveFile match {
-      case None => saveCastle(castle, state, castle.fileLocation)
-      case Some(f) => saveCastle(castle, state, f)
+      case None => {
+        saveCastle(castle, state, castle.fileLocation)
+        castle.fileLocation
+      }
+      case Some(f) => {
+        saveCastle(castle, state, f)
+        f
+      }
     }
   }
   private def AB2Roomlayout(buffer: ArrayBuffer[ArrayBuffer[Int]]): Seq[String] = {
@@ -67,9 +73,9 @@ object MapSave {
   private def seq2Row(seq: Seq[Floor]): Row = {
     new Row(seq.map(t => tile2CastleForgeTileType(t)): _*)
   }
-  
+
   private def tile2CastleForgeTileType(tile: Floor): CastleForgeTileType = {
-    tile.item match { 
+    tile.item match {
       //TODO: change tile.roomIDs to proper getter
       case Some(i) => new CastleForgeTileType(Some(item2Item(i)), tile.roomIDs) //if the tile has an item save it
       case None => new CastleForgeTileType(None, tile.roomIDs) //save with a blank "inventory"
@@ -80,7 +86,7 @@ object MapSave {
 
   }
   private def tile2CastleForgeItemType(tile: Floor): CastleForgeItemType = {
-    tile.item match { 
+    tile.item match {
       case Some(i) => new CastleForgeItemType(item2InvItem(i)) //if the tile has an item save it
       case None => new CastleForgeItemType() //save with a blank "inventory"
     }
@@ -93,7 +99,7 @@ object MapSave {
     val sequence = List(inv.flatten.map {
       item => item2InvItem(item)
     }: _*)
-    
+
     var items: Option[CastleForgeItemType] = None
     if (sequence.length > 0) //not perfect scala but it needs to check if there are any actual items in the inventory
     {

@@ -9,22 +9,34 @@ import org.newdawn.slick.Input
 import org.newdawn.slick.geom.Vector2f
 import org.newdawn.slick.state.BasicGameState
 import org.newdawn.slick.state.StateBasedGame
-import org.newdawn.slick.state.transition.EmptyTransition
-import org.nolat.castleforge.Config
+import org.newdawn.slick.state.transition.FadeInTransition
+import org.newdawn.slick.state.transition.FadeOutTransition
 import org.nolat.castleforge.castle.Castle
+import org.nolat.castleforge.castle.CastleUtil
 import org.nolat.castleforge.castle.Floor
-import org.nolat.castleforge.castle.Player
-import org.nolat.castleforge.castle.items._
-import org.nolat.castleforge.graphics.Sprite
+import org.nolat.castleforge.castle.items.CheckPoint
+import org.nolat.castleforge.castle.items.CrystalBall
+import org.nolat.castleforge.castle.items.Door
+import org.nolat.castleforge.castle.items.EndPoint
+import org.nolat.castleforge.castle.items.Ice
+import org.nolat.castleforge.castle.items.Item
+import org.nolat.castleforge.castle.items.Key
+import org.nolat.castleforge.castle.items.Match
+import org.nolat.castleforge.castle.items.Obstacle
+import org.nolat.castleforge.castle.items.Pusher
+import org.nolat.castleforge.castle.items.Sign
+import org.nolat.castleforge.castle.items.SpawnPoint
+import org.nolat.castleforge.castle.items.Teleporter
+import org.nolat.castleforge.castle.items.Torch
+import org.nolat.castleforge.castle.items.Wall
 import org.nolat.castleforge.tools.Lerper
 import org.nolat.castleforge.ui.ElementInventory
 import org.nolat.castleforge.ui.ElementPlayerDebug
+import org.nolat.castleforge.ui.ElementSign
 import org.nolat.castleforge.ui.HUD
 import org.nolat.castleforge.ui.HUDElement
-import org.nolat.castleforge.ui.Menu
 import org.nolat.castleforge.xml.MapSave
-import org.nolat.castleforge.xml.MapLoad
-import org.nolat.castleforge.ui.ElementSign
+import org.nolat.castleforge.castle.Expansions
 
 object ExperimentScreen {
   val ID = 3
@@ -82,103 +94,7 @@ object ExperimentScreen {
     "type7",
     "type8")
   val teleType = List[String]("sender", "receiver", "bidirectional")
-}
-class ExperimentScreen extends BasicGameState {
-  var game: StateBasedGame = null
 
-  override def getID = ExperimentScreen.ID
-
-  var castle: Castle = null
-
-  var hud: HUD = null
-  var playerDebug: ElementPlayerDebug = null
-  var signElement: ElementSign = null
-
-  var lstItem = ArrayBuffer[Item]()
-
-  val authorName = "Steve"
-  val mapName = "Test Map"
-  override def enter(container: GameContainer, game: StateBasedGame) {
-    hud = new HUD()
-    if (SharedStateData.mapFile == null) { //hasn't loaded from the File
-      castle = Castle(list2Floors(allCombinations()), mapName , authorName, "This is a test Map")
-    } else {
-      castle = SharedStateData.loadedCastle //grab loaded castle
-    }
-
-    val borders = new HUDElement(HUD.border)
-    hud add borders
-
-    val grooves = new HUDElement(HUD.grooves)
-    grooves.position = new Vector2f(728, 8)
-    hud add grooves
-
-    val logo = new HUDElement(HUD.logo)
-    logo.position = new Vector2f(728, 588)
-    hud add logo
-
-    playerDebug = new ElementPlayerDebug(castle.player)
-    playerDebug.position = new Vector2f(8, 8 + 64 * 9)
-    hud add playerDebug
-
-    signElement = new ElementSign(castle.player)
-    signElement.position = new Vector2f(54, 100)
-    hud add signElement
-
-    val playerInventory = new ElementInventory(castle.player)
-    playerInventory.position = new Vector2f(grooves.position.x + 16, grooves.position.y + 16)
-    hud add playerInventory
-  }
-  override def init(container: GameContainer, game: StateBasedGame) {
-    this.game = game
-  }
-
-  override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
-    Lerper.lerpers.foreach(_.update(delta))
-    castle.update(container, game, delta)
-    castle.player.update(container, game, delta)
-    hud.update(container, game, delta)
-  }
-
-  override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
-    g.setBackground(Color.black)
-    g.setColor(Color.white)
-    castle.render(container, game, g)
-    castle.player.render(container, game, g)
-    g.setColor(Color.black)
-    hud.render(container, game, g)
-  }
-
-  override def keyReleased(key: Int, c: Char) {
-    if (key == Input.KEY_F9) {
-      game.enterState(ExperimentScreen.ID, new EmptyTransition(), new EmptyTransition())
-    } else if (key == Input.KEY_F10) {
-      game.enterState(ExperimentScreen2.ID, new EmptyTransition(), new EmptyTransition())
-    } else if (key == Input.KEY_1) {
-      val mapFile = new File("D:\\" + "maps/" + authorName + "-" + mapName + ".xml")
-      MapSave.save(castle, false, Some(mapFile))
-      SharedStateData.loadOriginal = false
-      SharedStateData.mapFile = mapFile //simulates selecting a map file slow HDD
-      game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition()) //loads the map into a castle
-    } else if (key == Input.KEY_2) {
-      //      castle.inventory.addItem(Item("key", List("blue", "pentagon", "1")).get)
-      //      castle.inventory.addItem(Collectable("key", List("red", "diamond", "1")).get)
-      //      castle.inventory.addItem(Collectable("key", List("orange", "square", "1")).get)
-      //      castle.inventory.addItem(Collectable("key", List("yellow", "triangle", "1")).get)
-    } else if (key == Input.KEY_4) {
-      SharedStateData.loadOriginal = false
-      SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/" + authorName + "-" + mapName + ".xml") //simulates selecting a map file
-      game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition()) //loads the map into a castle
-    } else if (key == Input.KEY_5)
-    {
-      SharedStateData.loadOriginal = true //tests whole map reset functionality
-      SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/" + authorName + "-" + mapName + ".xml") //simulates selecting a map file
-      game.enterState(CastleLoading.ID, new EmptyTransition(), new EmptyTransition()) //loads the map into a castle
-    }
-    else if (key == Input.KEY_F3) {
-      playerDebug.toggle()
-    }
-  }
   def list2Floors(items: List[Item]): ArrayBuffer[ArrayBuffer[Floor]] = {
     val floors: ArrayBuffer[ArrayBuffer[Floor]] = new ArrayBuffer[ArrayBuffer[Floor]]
     var row: Int = 0
@@ -312,5 +228,100 @@ class ExperimentScreen extends BasicGameState {
   }
   def createWall(list: ArrayBuffer[Item]) {
     list.append(new Wall())
+  }
+}
+class ExperimentScreen extends BasicGameState {
+  var game: StateBasedGame = null
+
+  override def getID = ExperimentScreen.ID
+
+  var castle: Castle = null
+
+  var hud: HUD = null
+  var playerDebug: ElementPlayerDebug = null
+  var signElement: ElementSign = null
+
+  var lstItem = ArrayBuffer[Item]()
+
+  val authorName = "Steve"
+  val mapName = "Test Map"
+  var loaded = false;
+  override def enter(container: GameContainer, game: StateBasedGame) {
+    loaded = false;
+    hud = new HUD()
+    if (SharedStateData.mapFile == null) { //hasn't loaded from the File
+      castle = Castle(ExperimentScreen.list2Floors(ExperimentScreen.allCombinations()), mapName, authorName, "This is a test Map")
+    } else {
+      SharedStateData.loadedCastle = SharedStateData.mapFile //load the map
+      castle = SharedStateData.loadedCastle //grab loaded castle
+      SharedStateData.mapFile = null
+    }
+
+    val borders = new HUDElement(HUD.border)
+    hud add borders
+
+    val grooves = new HUDElement(HUD.grooves)
+    grooves.position = new Vector2f(728, 8)
+    hud add grooves
+
+    val logo = new HUDElement(HUD.logo)
+    logo.position = new Vector2f(728, 588)
+    hud add logo
+
+    playerDebug = new ElementPlayerDebug(castle.player)
+    playerDebug.position = new Vector2f(8, 8 + 64 * 9)
+    hud add playerDebug
+
+    signElement = new ElementSign(castle.player)
+    signElement.position = new Vector2f(54, 100)
+    hud add signElement
+
+    val playerInventory = new ElementInventory(castle.player)
+    playerInventory.position = new Vector2f(grooves.position.x + 16, grooves.position.y + 16)
+    hud add playerInventory
+    loaded = true;
+  }
+  override def init(container: GameContainer, game: StateBasedGame) {
+    this.game = game
+  }
+
+  override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+    Lerper.lerpers.foreach(_.update(delta))
+    castle.update(container, game, delta)
+    castle.player.update(container, game, delta)
+    hud.update(container, game, delta)
+  }
+
+  override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
+    if (loaded) {
+      g.setBackground(Color.black)
+      g.setColor(Color.white)
+      castle.render(container, game, g)
+      castle.player.render(container, game, g)
+      g.setColor(Color.black)
+      hud.render(container, game, g)
+    }
+  }
+
+  override def keyReleased(key: Int, c: Char) {
+    if (key == Input.KEY_F9) {
+      val saveLocation: File = MapSave.save(Castle(ExperimentScreen.list2Floors(ExperimentScreen.allCombinations()), mapName, authorName, "This is a test Map"), true)
+      SharedStateData.mapFile = saveLocation
+      SharedStateData.loadOriginal = false
+      game.enterState(ExperimentScreen.ID, new FadeOutTransition(), new FadeInTransition())
+    } else if (key == Input.KEY_F10) {
+      SharedStateData.mapFile = castle.fileLocation
+      SharedStateData.loadOriginal = false
+      game.enterState(ExperimentScreen.ID, new FadeOutTransition(), new FadeInTransition())
+    } else if (key == Input.KEY_F8) {
+      CastleUtil.expandCastle(castle, Expansions.ALL, 5)
+    } else if (key == Input.KEY_F7) {
+      CastleUtil.expandCastle(castle, Expansions.LEFT, 5)
+      CastleUtil.expandCastle(castle, Expansions.RIGHT, 5)
+      CastleUtil.expandCastle(castle, Expansions.TOP, 5)
+      CastleUtil.expandCastle(castle, Expansions.BOTTOM, 5)
+    } else if (key == Input.KEY_F3) {
+      playerDebug.toggle()
+    }
   }
 }
