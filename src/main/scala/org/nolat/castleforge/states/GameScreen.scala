@@ -43,7 +43,6 @@ class GameScreen extends BasicGameState {
     if (!container.isPaused) {
       Lerper.lerpers.foreach(_.update(delta))
       castle.update(container, game, delta)
-      castle.player.update(container, game, delta)
     }
 
     if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) container.setPaused(!container.isPaused)
@@ -55,7 +54,6 @@ class GameScreen extends BasicGameState {
       g.setBackground(Color.black)
       g.setColor(Color.white)
       castle.render(container, game, g)
-      castle.player.render(container, game, g)
       g.setColor(Color.black)
       hud.render(container, game, g)
       handleFade(g)
