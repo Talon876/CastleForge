@@ -24,7 +24,7 @@ object Castle {
     //TODO: determine if we want to save here for debugging purposes I will leave it for now
     castle
   }
-  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]], fileLocation: File, castleName: String, authorNam: String, descript: String): Castle = {
+  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]], fileLocation: File, castleName: String = "untitled" + Config.random.nextInt(100000), authorNam: String = "default", descript: String = ""): Castle = {
     new Castle(curState, fileLocation, castleName, authorNam, descript)
   }
 }
@@ -50,6 +50,7 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) 
     _inventory.addItems(inv.flatten: _*)
   }
   val lighting = new Lighting(this)
+  var isEditor = false
 
   updateFloorTransitions()
 
@@ -64,11 +65,13 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     lighting.update()
     map.flatten.foreach(_.update(this, container, game, delta))
+    player.update(container, game, delta)
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     Config.backdrop.draw(0, 0)
     getFloorsToRender.foreach(_.render(container, game, g))
+    if (!isEditor) player.render(container, game, g)
   }
 
   def getFloorsToRender(): List[Floor] = {
@@ -92,7 +95,6 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) 
   }
 
   def translate(x: Int, y: Int): (Int, Int) = {
-    //(-player.tileOffset._1 * 64, -player.tileOffset._2 * 64)
     (-player.movementOffset._1.toInt, -player.movementOffset._2.toInt)
   }
 

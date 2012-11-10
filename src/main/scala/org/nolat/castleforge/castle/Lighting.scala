@@ -10,17 +10,6 @@ class Lighting(castle: Castle) {
     val torches = CastleUtil.getAllRoomsContainingItem(castle, classOf[Torch])
     //set baseline darkness on all tiles in rooms with torches
     torches.foreach(torchTile => setBaseline(torchTile.item.get.asInstanceOf[Torch]))
-    //    val tilesInRoomsWithTorches = CastleUtil.getFloorsSharingRoomIds(castle, torches.map(_.roomIDs), true)
-    //    tilesInRoomsWithTorches.foreach { tile =>
-    //      tile.item match {
-    //        case Some(itm) =>
-    //          itm match {
-    //            case w: Wall =>
-    //            case _ => tile.darkness = .8f
-    //          }
-    //        case None => tile.darkness = .8f
-    //      }
-    //    }
 
     torches.foreach(torchTile => handleRoom(torchTile.item.get.asInstanceOf[Torch]))
   }
@@ -31,7 +20,6 @@ class Lighting(castle: Castle) {
     affectedTiles.foreach { tile =>
       tile.darkness = .85f
     }
-
   }
 
   private def handleRoom(torch: Torch) {

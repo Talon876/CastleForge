@@ -145,7 +145,6 @@ class Player(var castle: Castle) extends GameItem {
     lastTile = sourceFloor
     val destFloor = castle.getFloorAtPositionWithOffset(tilePosition, movementMap(md.keyPressed))
 
-    //println("Destination Floor: " + destFloor.itemName + ": blocking? " + destFloor.isBlockingMovement)
     if (!destFloor.isBlockingMovement || md.ghost) {
       lastMove = md
       if (!md.ghost) sourceFloor.onPlayerExit(this, destFloor) //only send events when not ghosting
@@ -185,26 +184,41 @@ class Player(var castle: Castle) extends GameItem {
   }
 
   private def handleInput(container: GameContainer) {
-    if (container.getInput().isKeyDown(Input.KEY_W)) {
-      attemptMove(Input.KEY_W)
-    } else if (container.getInput().isKeyDown(Input.KEY_S)) {
-      attemptMove(Input.KEY_S)
-    } else if (container.getInput().isKeyDown(Input.KEY_A)) {
-      attemptMove(Input.KEY_A)
-    } else if (container.getInput().isKeyDown(Input.KEY_D)) {
-      attemptMove(Input.KEY_D)
-    } else if (container.getInput().isKeyDown(Input.KEY_U)) {
-      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
-      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
-      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
-      enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
-      playMovement()
-    } else if (container.getInput().isKeyDown(Input.KEY_I)) {
-      inventory.addItem(Item("key", List("red", "diamond", "1")).get.asInstanceOf[Collectable])
-    } else if (container.getInput().isKeyDown(Input.KEY_E)) {
-      inventory.clear()
-    } else if (container.getInput().isKeyDown(Input.KEY_O)) {
-      inventory.addItem(Item("crystal_ball").get.asInstanceOf[Collectable])
+    if (!castle.isEditor) {
+
+      if (container.getInput().isKeyDown(Input.KEY_W)) {
+        attemptMove(Input.KEY_W)
+      } else if (container.getInput().isKeyDown(Input.KEY_S)) {
+        attemptMove(Input.KEY_S)
+      } else if (container.getInput().isKeyDown(Input.KEY_A)) {
+        attemptMove(Input.KEY_A)
+      } else if (container.getInput().isKeyDown(Input.KEY_D)) {
+        attemptMove(Input.KEY_D)
+      } else if (container.getInput().isKeyDown(Input.KEY_U)) {
+        //enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
+        //enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
+        //enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
+        //enqueueMove(MoveDescription(Input.KEY_A, "walking_right", 1.25f))
+        //playMovement()
+      } else if (container.getInput().isKeyDown(Input.KEY_I)) {
+        //inventory.addItem(Item("key", List("red", "diamond", "1")).get.asInstanceOf[Collectable])
+      } else if (container.getInput().isKeyDown(Input.KEY_E)) {
+        //inventory.clear()
+      } else if (container.getInput().isKeyDown(Input.KEY_O)) {
+        //inventory.addItem(Item("crystal_ball").get.asInstanceOf[Collectable])
+      }
+    } else {
+      val faster = container.getInput.isKeyDown(Input.KEY_LSHIFT) || container.getInput.isKeyDown(Input.KEY_RSHIFT)
+      val speed = 5f * (if (faster) 2f else 1f)
+      if (container.getInput().isKeyDown(Input.KEY_W)) {
+        attemptMove(MoveDescription(Input.KEY_W, "walking_up", speed, true))
+      } else if (container.getInput().isKeyDown(Input.KEY_S)) {
+        attemptMove(MoveDescription(Input.KEY_S, "walking_down", speed, true))
+      } else if (container.getInput().isKeyDown(Input.KEY_A)) {
+        attemptMove(MoveDescription(Input.KEY_A, "walking_left", speed, true))
+      } else if (container.getInput().isKeyDown(Input.KEY_D)) {
+        attemptMove(MoveDescription(Input.KEY_D, "walking_right", speed, true))
+      }
     }
   }
 

@@ -15,6 +15,7 @@ object HUD {
   var logo: Image = null
   var custom: Image = null
   var sign: Image = null
+  var selector: Image = null
 
   def init() = {
     border = new Image("images/interface/borders.png")
@@ -22,6 +23,7 @@ object HUD {
     logo = new Image("images/interface/logo.png")
     custom = new Image("images/nothing.png")
     sign = new Image("images/interface/sign.png")
+    selector = new Image("images/interface/selector.png")
   }
 }
 

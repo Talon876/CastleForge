@@ -108,7 +108,9 @@ object CastleUtil {
   }
 
   def getAllRoomsContainingItem(castle: Castle, clazz: Class[_ <: Item]): List[Floor] = {
-    castle.map.flatten.filter(floor => isItemAt(castle, floor.getTilePosition, clazz)).toList
+    castle.map.flatten.filter { floor =>
+      isItemAt(castle, floor.getTilePosition, clazz)
+    }.toList
   }
 
   def getFloorsSharingRoomIds(castle: Castle, floor: Floor, exactMatch: Boolean = true): List[Floor] = {
