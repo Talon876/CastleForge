@@ -36,7 +36,7 @@ import org.nolat.castleforge.ui.ElementSign
 import org.nolat.castleforge.ui.HUD
 import org.nolat.castleforge.ui.HUDElement
 import org.nolat.castleforge.xml.MapSave
-import org.nolat.castleforge.castle.Expansions
+import org.nolat.castleforge.castle.ExpansionDirection
 
 object ExperimentScreen {
   val ID = 3
@@ -314,12 +314,12 @@ class ExperimentScreen extends BasicGameState {
       SharedStateData.loadOriginal = false
       game.enterState(ExperimentScreen.ID, new FadeOutTransition(), new FadeInTransition())
     } else if (key == Input.KEY_F8) {
-      CastleUtil.expandCastle(castle, Expansions.ALL, 5)
+      CastleUtil.expandCastle(castle, ExpansionDirection.ALL, 5)
     } else if (key == Input.KEY_F7) {
-      CastleUtil.expandCastle(castle, Expansions.LEFT, 5)
-      CastleUtil.expandCastle(castle, Expansions.RIGHT, 5)
-      CastleUtil.expandCastle(castle, Expansions.TOP, 5)
-      CastleUtil.expandCastle(castle, Expansions.BOTTOM, 5)
+      CastleUtil.expandCastle(castle, ExpansionDirection.LEFT, 5)
+      CastleUtil.expandCastle(castle, ExpansionDirection.RIGHT, 5)
+      CastleUtil.expandCastle(castle, ExpansionDirection.TOP, 5)
+      CastleUtil.expandCastle(castle, ExpansionDirection.BOTTOM, 5)
     } else if (key == Input.KEY_F3) {
       playerDebug.toggle()
     }
