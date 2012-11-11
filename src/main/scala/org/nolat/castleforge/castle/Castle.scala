@@ -64,7 +64,7 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) 
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     lighting.update()
-    map.flatten.foreach(_.update(this, container, game, delta))
+    getFloorsToRender.foreach(_.update(this, container, game, delta))
     player.update(container, game, delta)
   }
 
@@ -81,7 +81,7 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) 
         tempList += map(y)(x)
       }
     }
-    tempList.filter(floor =>
+    if (isEditor) tempList.toList else tempList.filter(floor =>
       floor.sharesRoomId(player.container)).toList
   }
 

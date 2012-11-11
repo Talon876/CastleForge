@@ -47,6 +47,7 @@ trait IDColor extends Attribute {
 object Quantity {
   val ZERO = 0
   val ONE = 1
+  val TWO = 2
   val THREE = 3
   val FIVE = 5
   val TEN = 10
@@ -57,6 +58,7 @@ object Quantity {
     quantity.toLowerCase match {
       case "0" => ZERO
       case "1" => ONE
+      case "2" => TWO
       case "3" => THREE
       case "5" => FIVE
       case "10" => TEN
@@ -70,6 +72,7 @@ object Quantity {
     quantity match {
       case 0 => ZERO
       case 1 => ONE
+      case 2 => TWO
       case 3 => THREE
       case 5 => FIVE
       case 10 => TEN
@@ -117,8 +120,8 @@ object Luminosity {
       case _ => LOW
     }
   }
-  
-  def toString(lumen: Luminosity) : String ={
+
+  def toString(lumen: Luminosity): String = {
     lumen.luminosity match {
       case LOW => "low"
       case MEDIUM => "medium"
@@ -126,7 +129,7 @@ object Luminosity {
       case _ => "low"
     }
   }
-  def toString(lumen: Int) : String ={
+  def toString(lumen: Int): String = {
     lumen match {
       case LOW => "low"
       case MEDIUM => "medium"

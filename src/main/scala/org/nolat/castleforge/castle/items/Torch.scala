@@ -50,4 +50,6 @@ class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with I
       case Luminosity.HIGH => .2f
     }
   }
+
+  override def getOptions = List("torchstate", "luminosity")
 }

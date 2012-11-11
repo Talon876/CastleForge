@@ -43,4 +43,6 @@ class Teleporter(val teleType: String, _idcolor: String) extends Item with IDCol
   private def senderEnter(player: Player, srcFloor: Floor) {
     player.teleportMove(CastleUtil.findMatchingTeleporter(player.castle, this).getTilePosition, "teleporting", speedMod)
   }
+
+  override def getOptions = List("color", "teleportertype")
 }

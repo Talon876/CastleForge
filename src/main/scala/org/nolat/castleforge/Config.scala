@@ -13,6 +13,7 @@ import scala.collection.parallel.immutable.ParMap
 import org.nolat.castleforge.xml.SpriteLoad
 import scala.util.Random
 import org.nolat.castleforge.ui.HUD
+import org.nolat.castleforge.ui.editor.Tool
 
 object Config {
   val Title = "CastleForge"
@@ -50,6 +51,7 @@ object Config {
     spritesheets = Sprites.values.map { sprite => (sprite.toString, Loader.getSpriteSheet(sprite)) }.toMap
 
     HUD.init()
+    Tool.init()
   }
 
 }

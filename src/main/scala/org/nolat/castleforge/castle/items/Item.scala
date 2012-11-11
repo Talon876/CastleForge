@@ -31,9 +31,27 @@ object Item {
       case "crystal_ball" => Some(new CrystalBall())
       case "ice" => Some(new Ice)
       case "wall" => Some(new Wall)
+      //the rest are defaults for the ones that usually require params
+      case "checkpoint" => Some(new CheckPoint(false))
+      case "door" => Some(new Door(0, "", ""))
+      case "endpoint" => Some(new EndPoint("The End"))
+      case "key" => Some(new Key("white", "diamond", 1))
+      case "match" => Some(new Match(1))
+      case "obstacle" => Some(new Obstacle("hole"))
+      case "pusher" => Some(new Pusher("up"))
+      case "sign" => Some(new Sign("Hello"))
+      case "spawnpoint" => Some(new SpawnPoint(true))
+      case "teleporter" => Some(new Teleporter("bidirectional", "blue"))
+      case "torch" => Some(new Torch(false, "high", "white"))
       case _ => None
     }
   }
+
+  val itemTypes = List(
+    "checkpoint", "door", "endpoint", "ice", "obstacle", "pusher",
+    "sign", "spawnpoint", "teleporter", "torch")
+
+  val collectables = List("key", "match", "crystal_ball")
 }
 
 abstract class Item extends GameItem with PlayerListener {
@@ -41,4 +59,6 @@ abstract class Item extends GameItem with PlayerListener {
   def getParamList: Seq[String] = Nil
   var isBlockingMovement: Boolean = false
   var container: Floor = null
+
+  def getOptions = List("")
 }

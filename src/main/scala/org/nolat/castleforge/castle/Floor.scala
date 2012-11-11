@@ -12,7 +12,7 @@ import org.nolat.castleforge.castle.items.Pusher
 import org.nolat.castleforge.castle.items.attributes.Direction
 import org.newdawn.slick.Color
 
-class Floor(private var _item: Option[Item], var x: Int, var y: Int, val roomIDs: String = "0") extends PlayerListener {
+class Floor(private var _item: Option[Item], var x: Int, var y: Int, private var _roomIDs: String = "0") extends PlayerListener {
   //TODO: allow updating roomIDs for editor
   updateFloor()
 
@@ -22,8 +22,21 @@ class Floor(private var _item: Option[Item], var x: Int, var y: Int, val roomIDs
     updateFloor()
   }
 
+  def roomIDs = _roomIDs
+
+  def roomIDs_=(roomIds: String) = {
+    _roomIDs = roomIds
+    sprite.setAnimation("type" + ((_roomIDs.split(",")(0).toInt % 2) + 1))
+    if (_roomIDs == "0") {
+      sprite.setAnimation("type4")
+    }
+  }
+
   var sprite = new Sprite(Sprites.floor)
-  sprite.setAnimation("type" + ((roomIDs.split(",")(0).toInt % 2) + 1))
+  sprite.setAnimation("type" + ((_roomIDs.split(",")(0).toInt % 2) + 1))
+  if (_roomIDs == "0") {
+    sprite.setAnimation("type4")
+  }
   //sprite.setRandomAnimation(List(0.0f, 1f, 0.0f, 0.0f))
 
   var darkness = 0.15f
@@ -109,8 +122,7 @@ class Floor(private var _item: Option[Item], var x: Int, var y: Int, val roomIDs
 
   }
 
-  def setXY(x :Int, y : Int)
-  {
+  def setXY(x: Int, y: Int) {
     this.x = x
     this.y = y
   }

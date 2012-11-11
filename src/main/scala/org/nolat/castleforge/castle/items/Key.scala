@@ -51,4 +51,6 @@ class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDCo
     g.setColor(Color.yellow)
     if (quantity > 1) g.drawString("x" + quantity, x + 5, y + 40)
   }
+
+  override def getOptions = List("color", "shape", "quantity")
 }

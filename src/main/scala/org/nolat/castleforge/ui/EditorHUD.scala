@@ -4,6 +4,8 @@ import org.nolat.castleforge.castle.Castle
 import org.newdawn.slick.geom.Vector2f
 import org.newdawn.slick.Input
 import org.newdawn.slick.GameContainer
+import org.nolat.castleforge.ui.editor.ElementToolSelector
+import org.nolat.castleforge.ui.editor.ElementToolManager
 
 class EditorHUD(castle: Castle, container: GameContainer) extends HUD {
   val borders = new HUDElement(HUD.border)
@@ -24,8 +26,16 @@ class EditorHUD(castle: Castle, container: GameContainer) extends HUD {
   val floorSelector = new ElementFloorSelector(castle, container)
   floorSelector.position = new Vector2f(8, 8)
   this.container.getInput.addMouseListener(floorSelector)
-
   this add floorSelector
+
+  val toolSelector = new ElementToolSelector(castle, container)
+  toolSelector.position = new Vector2f(grooves.position.x + 16 + 32, grooves.position.y + 16)
+  this add toolSelector
+
+  val toolManager = new ElementToolManager(castle, toolSelector)
+  toolManager.position = new Vector2f(8, 8)
+  floorSelector.onToolReleased = toolManager.toolReleased
+  this add toolManager
 
   def toggleMinimap() = minimap.toggle()
 

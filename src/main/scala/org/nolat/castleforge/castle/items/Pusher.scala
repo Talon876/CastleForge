@@ -41,4 +41,6 @@ class Pusher(_direction: String) extends Item with Direction {
       case Direction.WEST => player.attemptMove(Input.KEY_A, "gliding_left", speedMod)
     }
   }
+
+  override def getOptions = List("direction")
 }

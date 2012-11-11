@@ -13,6 +13,10 @@ class HUDElement(var image: Image) extends Renderable {
   var position: Vector2f = new Vector2f(0f, 0f)
   var offset: Vector2f = new Vector2f(0f, 0f)
 
+  def enter(container: GameContainer, game: StateBasedGame) {
+
+  }
+
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     image.draw(position.x + offset.x, position.y + offset.y)
   }

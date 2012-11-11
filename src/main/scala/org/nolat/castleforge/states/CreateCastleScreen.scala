@@ -13,6 +13,7 @@ import org.nolat.castleforge.castle.items.Item
 import org.nolat.castleforge.ui.EditorHUD
 import org.nolat.castleforge.tools.Lerper
 import org.nolat.castleforge.Config
+import org.nolat.castleforge.castle.CastleUtil
 
 object CreateCastleScreen {
   val ID = 7
@@ -31,11 +32,12 @@ class CreateCastleScreen extends BasicGameState {
   }
 
   override def enter(container: GameContainer, game: StateBasedGame) {
-    println("entered create castle")
     container.setDefaultMouseCursor()
     castle = Castle(generateBlankCastle, null)
+    CastleUtil.removeItem(castle, (10, 10))
     castle.isEditor = true
     hud = new EditorHUD(castle, container)
+    hud.enter(container, game)
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
@@ -54,7 +56,6 @@ class CreateCastleScreen extends BasicGameState {
     hud.keyReleased(key, c)
     key match {
       case Input.KEY_BACK => //game.enterState(MainMenuScreen.ID, new FadeOutTransition(), new FadeInTransition())
-      case Input.KEY_TAB =>
       case _ =>
     }
   }
@@ -62,25 +63,26 @@ class CreateCastleScreen extends BasicGameState {
   private def generateBlankCastle(): ArrayBuffer[ArrayBuffer[Floor]] = {
     var map = new ArrayBuffer[ArrayBuffer[Floor]]()
 
-    (0 to 300).foreach { col =>
+    (0 to 20).foreach { col =>
       var row = new ArrayBuffer[Floor]
-      (0 to 300).foreach { r =>
-        row += new Floor(None, r, col, "0")
+      (0 to 20).foreach { r =>
+        row += new Floor(None, r, col, "1")
       }
       map += row
     }
-    map(145)(150).item = Item("checkpoint", List("false"))
-    map(150)(145).item = Item("checkpoint", List("false"))
-    map(155)(150).item = Item("checkpoint", List("false"))
-    map(150)(155).item = Item("checkpoint", List("false"))
-    map(150)(150).item = Item("spawnpoint", List("true"))
+    //    map(145)(150).item = Item("checkpoint", List("false"))
+    //    map(150)(145).item = Item("checkpoint", List("false"))
+    //    map(155)(150).item = Item("checkpoint", List("false"))
+    //    map(150)(155).item = Item("checkpoint", List("false"))
+    map(10)(10).item = Item("spawnpoint", List("true"))
+    //map(145)(145).item = Item("torch", List("false", "high", "white"))
 
-    (1 to 1000).foreach { i =>
-      val point = (Config.random.nextInt(300), Config.random.nextInt(300))
-      val point2 = (Config.random.nextInt(300), Config.random.nextInt(300))
-      map(point._1)(point._2).item = Item("ice")
-      map(point2._1)(point2._2).item = Item("wall")
-    }
+    //    (1 to 10).foreach { i =>
+    //      val point = (Config.random.nextInt(30), Config.random.nextInt(30))
+    //      val point2 = (Config.random.nextInt(30), Config.random.nextInt(30))
+    //      map(point._1)(point._2).item = Item("ice")
+    //      map(point2._1)(point2._2).item = Item("wall")
+    //    }
     map
   }
 }

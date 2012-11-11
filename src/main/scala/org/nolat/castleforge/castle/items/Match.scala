@@ -52,4 +52,6 @@ class Match(_quantity: Int) extends Item with Quantity with Collectable {
       case _ => false
     }
   }
+
+  override def getOptions = List("quantity")
 }

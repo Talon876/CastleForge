@@ -48,6 +48,11 @@ class Player(var castle: Castle) extends GameItem {
 
   private var moveQueue: Queue[MoveDescription] = new Queue()
 
+  /**
+   * Used by the Editor to know when to update the floor selection
+   */
+  var moved: (MoveDescription) => Unit = { m => }
+
   val movementMap = Map(
     Input.KEY_W -> (0, -1),
     Input.KEY_S -> (0, 1),
@@ -89,13 +94,19 @@ class Player(var castle: Castle) extends GameItem {
     movementOffset = (tileOffset._1 * 64, tileOffset._2 * 64)
     //    println("Position: " + tilePosition)
     //    println("Offset: " + tileOffset)
-
+    moved(lastMove)
     sprite.setAnimation("idle")
     state = PlayerState.IDLE
     val destItem = castle.map(tilePosition._2)(tilePosition._1)
     if (!lastMove.ghost) destItem.onPlayerEnter(this, lastTile) //only send updates when not ghosting
 
     playMovement()
+  }
+
+  def adjustEditorPosition(destinationTile: (Int, Int)) = {
+    if (castle.isEditor) {
+      teleportMove(destinationTile, "walking_up", 1000f)
+    }
   }
 
   def teleportMove(destinationTile: (Int, Int), animation: String, speedModifier: Float) {
@@ -145,7 +156,7 @@ class Player(var castle: Castle) extends GameItem {
     lastTile = sourceFloor
     val destFloor = castle.getFloorAtPositionWithOffset(tilePosition, movementMap(md.keyPressed))
 
-    if (!destFloor.isBlockingMovement || md.ghost) {
+    if ((!destFloor.isBlockingMovement || md.ghost) && handleExpansion(destFloor, md)) {
       lastMove = md
       if (!md.ghost) sourceFloor.onPlayerExit(this, destFloor) //only send events when not ghosting
       sprite.setAnimation(md.animation)
@@ -170,6 +181,25 @@ class Player(var castle: Castle) extends GameItem {
       movementLerper.msToLerp = (sprite.animationLength.toFloat / md.speedModifier).toInt //adjust lerp length to animation length and apply speed modifier
     } else {
       //println("You shall not pass!")
+    }
+  }
+
+  private def handleExpansion(srcFloor: Floor, md: MoveDescription) = {
+    if (castle.isEditor) {
+      val expansion = CastleUtil.isEdge(castle, srcFloor.getTilePosition)
+      if (expansion != ExpansionDirection.NONE) {
+        val expanded = md.keyPressed match {
+          case Input.KEY_W => CastleUtil.expandCastle(castle, ExpansionDirection.TOP, 1)
+          case Input.KEY_A => CastleUtil.expandCastle(castle, ExpansionDirection.LEFT, 1)
+          case Input.KEY_S => CastleUtil.expandCastle(castle, ExpansionDirection.BOTTOM, 1)
+          case Input.KEY_D => CastleUtil.expandCastle(castle, ExpansionDirection.RIGHT, 1)
+        }
+        expanded //walk depending on if it expanded
+      } else {
+        true //walk if it didn't need expansion
+      }
+    } else {
+      true //should walk if not editor
     }
   }
 

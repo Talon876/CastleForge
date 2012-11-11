@@ -33,6 +33,10 @@ class HUD extends Renderable {
   var offset: Vector2f = new Vector2f(0f, 0f)
   val elements = new ListBuffer[HUDElement]
 
+  def enter(container: GameContainer, game: StateBasedGame) {
+    elements.foreach(_.enter(container, game))
+  }
+
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     elements.foreach(_.update(container, game, delta))
   }

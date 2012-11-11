@@ -81,6 +81,10 @@ object CastleUtil {
     castle.map(coords._2)(coords._1).item = None
   }
 
+  def addItem(castle: Castle, coords: (Int, Int), item: Option[Item]) {
+    castle.map(coords._2)(coords._1).item = item
+  }
+
   def distanceBetweenTiles(floor1: Floor, floor2: Floor): Int = distanceBetweenTiles(floor1.getTilePosition, floor2.getTilePosition)
 
   def distanceBetweenTiles(tile1: (Int, Int), tile2: (Int, Int)): Int = {
@@ -93,8 +97,16 @@ object CastleUtil {
     castle.map(coords._2)(coords._1)
   }
 
+  def floorsAt(castle: Castle, coordsList: List[(Int, Int)]) = {
+    coordsList.map(floorAt(castle, _))
+  }
+
   def itemAt(castle: Castle, coords: (Int, Int)): Option[Item] = {
     castle.map(coords._2)(coords._1).item
+  }
+
+  def itemsAt(castle: Castle, coordsList: List[(Int, Int)]) = {
+    coordsList.map(itemAt(castle, _))
   }
 
   //http://stackoverflow.com/questions/5485817/can-i-perform-matching-on-a-type-parameter-in-scala-to-see-if-it-implements-a-tr
@@ -211,7 +223,9 @@ object CastleUtil {
           newMap(row).append(f)
         }
       }
+      val position = castle.player.tilePosition //store player's old tile position
       castle.map = newMap
+      castle.player.adjustEditorPosition((position._1 + amount, position._2)) //move back to that position  +1 down
       true
     } else {
       false
@@ -264,7 +278,9 @@ object CastleUtil {
           }
         }
       }
+      val position = castle.player.tilePosition //store player's old tile position
       castle.map = newMap
+      castle.player.adjustEditorPosition((position._1, position._2 + amount)) //move back to that position  +1 down
       true
     } else {
       false
@@ -298,5 +314,41 @@ object CastleUtil {
       false
     }
   }
+
+  def getSelectedCoordinates(castle: Castle, first: (Int, Int), second: (Int, Int)) = {
+    val x1 = if (first._2 <= second._2) first._2 else second._2
+    val y1 = if (first._1 <= second._1) first._1 else second._1
+    val x2 = if (second._2 >= first._2) second._2 else first._2
+    val y2 = if (second._1 >= first._1) second._1 else first._1
+    (x1 to x2).map { x =>
+      (y1 to y2).map { y =>
+        (y, x)
+      }.toList
+    }.toList
+  }
+
+  def getPerimeter(region: List[List[(Int, Int)]]) = {
+    //println(region.flatten.head + " to " + region.flatten.reverse.head)
+    val first = region.flatten.head
+    val last = region.flatten.reverse.head
+    region.flatten.filter { coord =>
+      val a = coord._1
+      val b = coord._2
+      (a == first._1 || a == last._1) ||
+        (b == first._2 || b == last._2)
+    }
+  }
+
+  def getInsideRegion(region: List[List[(Int, Int)]]) = {
+    val first = region.flatten.head
+    val last = region.flatten.reverse.head
+    region.flatten.filter { coord =>
+      val a = coord._1
+      val b = coord._2
+      !((a == first._1 || a == last._1) ||
+        (b == first._2 || b == last._2))
+    }
+  }
+
 }
 

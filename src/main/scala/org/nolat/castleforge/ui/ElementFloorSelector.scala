@@ -11,6 +11,8 @@ import org.newdawn.slick.Color
 import org.nolat.castleforge.castle.CastleUtil
 import org.newdawn.slick.MouseListener
 import org.newdawn.slick.Input
+import org.nolat.castleforge.tools.MoveDescription
+import org.nolat.castleforge.castle.items.Item
 
 class ElementFloorSelector(castle: Castle, container: GameContainer) extends HUDElement(HUD.custom) with ComponentListener with MouseListener {
   lazy val areas = (0 to 10).map { col =>
@@ -23,43 +25,105 @@ class ElementFloorSelector(castle: Castle, container: GameContainer) extends HUD
     }
   }
 
+  var first = (0, 0)
+  var second = (0, 0)
+  var selection: List[List[(Int, Int)]] = Nil
+  var mouseDown = false
+
+  var onToolReleased: (List[List[(Int, Int)]]) => Unit = { t => }
+
+  override def enter(container: GameContainer, game: StateBasedGame) {
+    castle.player.moved = playerMoved
+  }
+
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
 
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     areas.flatten.foreach(_.render(container, g))
+    renderSelection(g, absoluteToLocal(selection.flatten))
+  }
+
+  private def renderSelection(g: Graphics, selection: List[(Int, Int)]) = {
+    selection.foreach { coord =>
+      g.setColor(new Color(0, 200, 0, .2f))
+      g.fillRect(position.x + coord._1 * 64, position.y + coord._2 * 64, 64, 64)
+    }
+  }
+
+  private def absoluteToLocal(coords: List[(Int, Int)]) = {
+    coords.map { coord =>
+      (coord._1 - castle.player.tilePosition._1 + 5, coord._2 - castle.player.tilePosition._2 + 5)
+    }.filter { coord =>
+      coord._1 >= 0 && coord._1 <= 10 && coord._2 >= 0 && coord._2 <= 10
+    }
   }
 
   private def getMOA() = {
+    val candidates = areas.flatten.filter(_.isMouseOver)
+    if (candidates.size > 0) Some(candidates(0)) else None
+  }
 
+  private def getAbsCoords(moa: MouseOverArea) = {
+    val relativeCoords = ((moa.getX - position.x.toInt) / 64 - 5, (moa.getY - position.y.toInt) / 64 - 5)
+    val absCoords = (relativeCoords._1 + castle.player.tilePosition._1, relativeCoords._2 + castle.player.tilePosition._2)
+    absCoords
   }
 
   override def componentActivated(source: AbstractComponent) {
-    val moa = source.asInstanceOf[MouseOverArea]
-    val relativeCoords = ((moa.getX - position.x.toInt) / 64 - 5, (moa.getY - position.y.toInt) / 64 - 5)
-    val absCoords = (relativeCoords._1 + castle.player.tilePosition._1, relativeCoords._2 + castle.player.tilePosition._2)
-    println(relativeCoords + " " + absCoords + " " + CastleUtil.floorAt(castle, absCoords).itemName)
   }
 
   override def mouseClicked(button: Int, x: Int, y: Int, clickCount: Int) {
-    println("clicked: " + x + " " + y)
+
   }
 
   override def mouseDragged(oldx: Int, oldy: Int, newx: Int, newy: Int) {
-    //println("dragged: " + oldx + " " + newy + " to " + newx + " " + newy)
+    getMOA match {
+      case Some(moa) => {
+        second = getAbsCoords(moa)
+        selection = CastleUtil.getSelectedCoordinates(castle, first, second)
+      }
+      case None => //nop
+    }
   }
 
-  override def mouseMoved(oldx: Int, oldy: Int, newx: Int, newy: Int) {
-    //println("moved: " + oldx + " " + newy + " to " + newx + " " + newy)
+  private def playerMoved(md: MoveDescription) {
+    if (mouseDown) {
+      getMOA match {
+        case Some(moa) => {
+          second = getAbsCoords(moa)
+          selection = CastleUtil.getSelectedCoordinates(castle, first, second)
+        }
+        case None => //nop
+      }
+    }
   }
+
+  override def mouseMoved(oldx: Int, oldy: Int, newx: Int, newy: Int) {}
 
   override def mousePressed(button: Int, x: Int, y: Int) {
-    println("pressed: " + x + " " + y)
+    mouseDown = true
+    getMOA match {
+      case Some(moa) => {
+        first = getAbsCoords(moa)
+      }
+      case None => //nop
+    }
   }
 
   override def mouseReleased(button: Int, x: Int, y: Int) {
-    println("released: " + x + " " + y)
+    mouseDown = false
+    getMOA match {
+      case Some(moa) => {
+        second = getAbsCoords(moa)
+        selection = CastleUtil.getSelectedCoordinates(castle, first, second)
+        onToolReleased(selection)
+        selection = Nil
+      }
+      case None => //nop
+    }
+
   }
 
   override def mouseWheelMoved(change: Int) {}
