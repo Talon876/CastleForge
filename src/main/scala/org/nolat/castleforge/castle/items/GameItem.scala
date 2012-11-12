@@ -15,11 +15,9 @@ trait GameItem {
   var color: Color = Color.white
 
   def update(castle: Castle, container: GameContainer, game: StateBasedGame, delta: Int) {
-    if (sprite != null) sprite.getAnimation.update(delta)
   }
 
   def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {
     this.sprite.getAnimation.draw(x, y, this.color)
-    //if (sprite != null) sprite.getAnimation.draw(position.x, position.y, color)
   }
 }

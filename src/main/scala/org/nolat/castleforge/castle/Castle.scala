@@ -39,6 +39,7 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) 
     _map = mp;
     //update all Floors in map so that they use this classes translate
     updateFloorTransitions()
+    lighting.update()
   }
 
   private val _player: Player = new Player(this)
@@ -50,6 +51,7 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) 
     _inventory.addItems(inv.flatten: _*)
   }
   val lighting = new Lighting(this)
+  lighting.update()
   var isEditor = false
 
   updateFloorTransitions()
@@ -63,7 +65,6 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) 
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
-    lighting.update()
     getFloorsToRender.foreach(_.update(this, container, game, delta))
     player.update(container, game, delta)
   }

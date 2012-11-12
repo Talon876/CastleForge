@@ -8,6 +8,7 @@ import org.nolat.castleforge.castle.items.attributes.Luminosity
 import org.nolat.castleforge.castle.items.attributes.TorchState
 import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.castle.Floor
+import org.nolat.castleforge.castle.CastleUtil
 
 class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with IDColor with Luminosity with TorchState {
   torchstate = TorchState.fromBoolean(lit)
@@ -33,13 +34,16 @@ class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with I
   }
 
   override def onPlayerEnter(player: Player, srcFloor: Floor) {
-    player.inventory.getMatch match {
-      case Some(m) => {
-        lit = true
-        sprite.setAnimation(lumen)
-        player.inventory.decrementItem(m)
+    if (!lit) {
+      player.inventory.getMatch match {
+        case Some(m) => {
+          lit = true
+          sprite.setAnimation(lumen)
+          player.inventory.decrementItem(m)
+          player.castle.lighting.update()
+        }
+        case None =>
       }
-      case None =>
     }
   }
 
