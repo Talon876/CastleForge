@@ -5,6 +5,7 @@ import org.nolat.castleforge.castle.items.attributes.CheckPointState
 import java.lang.Class
 import scala.collection.mutable.ArrayBuffer
 import org.nolat.castleforge.castle.ExpansionDirection._
+import org.nolat.castleforge.Config
 
 object CastleUtil {
 
@@ -157,11 +158,11 @@ object CastleUtil {
     val rows = map.size
     if (coords._1 + 1 >= cols) {
       ExpansionDirection.RIGHT
-    } else if (coords._1 - 1 <= 0) {
+    } else if (coords._1 - 1 < 0) {
       ExpansionDirection.LEFT
     } else if (coords._2 + 1 >= rows) {
       ExpansionDirection.BOTTOM
-    } else if (coords._2 - 1 <= 0) {
+    } else if (coords._2 - 1 < 0) {
       ExpansionDirection.TOP
     } else { ExpansionDirection.NONE } //No expansion needed
   }
@@ -198,7 +199,12 @@ object CastleUtil {
           }
         }
       }
+      val tposition = castle.player.tilePosition //store player's old tile position
+      val tOffset = castle.player.tileOffset
       castle.map = newMap
+      castle.player.tileOffset = (tOffset._1 + amount, tOffset._2 + amount)
+      castle.player.tilePosition = (tposition._1 + amount, tposition._2 + amount)
+      castle.player.movementOffset = (castle.player.tileOffset._1 * 64, castle.player.tileOffset._2 * 64)
       true
     } else {
       false
@@ -223,9 +229,12 @@ object CastleUtil {
           newMap(row).append(f)
         }
       }
-      val position = castle.player.tilePosition //store player's old tile position
+      val tposition = castle.player.tilePosition //store player's old tile position
+      val tOffset = castle.player.tileOffset
       castle.map = newMap
-      castle.player.adjustEditorPosition((position._1 + amount, position._2)) //move back to that position  +1 down
+      castle.player.tileOffset = (tOffset._1 + amount, tOffset._2)
+      castle.player.tilePosition = (tposition._1 + amount, tposition._2)
+      castle.player.movementOffset = (castle.player.tileOffset._1 * 64, castle.player.tileOffset._2 * 64)
       true
     } else {
       false
@@ -278,9 +287,12 @@ object CastleUtil {
           }
         }
       }
-      val position = castle.player.tilePosition //store player's old tile position
+      val tposition = castle.player.tilePosition //store player's old tile position
+      val tOffset = castle.player.tileOffset
       castle.map = newMap
-      castle.player.adjustEditorPosition((position._1, position._2 + amount)) //move back to that position  +1 down
+      castle.player.tileOffset = (tOffset._1, tOffset._2 + amount)
+      castle.player.tilePosition = (tposition._1, tposition._2 + amount)
+      castle.player.movementOffset = (castle.player.tileOffset._1 * 64, castle.player.tileOffset._2 * 64)
       true
     } else {
       false

@@ -37,6 +37,7 @@ import org.nolat.castleforge.ui.HUD
 import org.nolat.castleforge.ui.HUDElement
 import org.nolat.castleforge.xml.MapSave
 import org.nolat.castleforge.castle.ExpansionDirection
+import org.nolat.castleforge.ui.MainHUD
 
 object ExperimentScreen {
   val ID = 3
@@ -237,9 +238,7 @@ class ExperimentScreen extends BasicGameState {
 
   var castle: Castle = null
 
-  var hud: HUD = null
-  var playerDebug: ElementPlayerDebug = null
-  var signElement: ElementSign = null
+  var hud: MainHUD = null
 
   var lstItem = ArrayBuffer[Item]()
 
@@ -248,7 +247,6 @@ class ExperimentScreen extends BasicGameState {
   var loaded = false;
   override def enter(container: GameContainer, game: StateBasedGame) {
     loaded = false;
-    hud = new HUD()
     if (SharedStateData.mapFile == null) { //hasn't loaded from the File
       castle = Castle(ExperimentScreen.list2Floors(ExperimentScreen.allCombinations()), mapName, authorName, "This is a test Map")
     } else {
@@ -256,29 +254,8 @@ class ExperimentScreen extends BasicGameState {
       castle = SharedStateData.loadedCastle //grab loaded castle
       SharedStateData.mapFile = null
     }
-
-    val borders = new HUDElement(HUD.border)
-    hud add borders
-
-    val grooves = new HUDElement(HUD.grooves)
-    grooves.position = new Vector2f(728, 8)
-    hud add grooves
-
-    val logo = new HUDElement(HUD.logo)
-    logo.position = new Vector2f(728, 588)
-    hud add logo
-
-    playerDebug = new ElementPlayerDebug(castle.player)
-    playerDebug.position = new Vector2f(8, 8 + 64 * 9)
-    hud add playerDebug
-
-    signElement = new ElementSign(castle.player)
-    signElement.position = new Vector2f(54, 100)
-    hud add signElement
-
-    val playerInventory = new ElementInventory(castle.player)
-    playerInventory.position = new Vector2f(grooves.position.x + 16, grooves.position.y + 16)
-    hud add playerInventory
+    castle.isEditor = true
+    hud = new MainHUD(castle, game)
     loaded = true;
   }
   override def init(container: GameContainer, game: StateBasedGame) {
@@ -286,9 +263,12 @@ class ExperimentScreen extends BasicGameState {
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
-    Lerper.lerpers.foreach(_.update(delta))
-    castle.update(container, game, delta)
-    castle.player.update(container, game, delta)
+    if (!container.isPaused) {
+      Lerper.lerpers.foreach(_.update(delta))
+      castle.update(container, game, delta)
+    }
+
+    if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) container.setPaused(!container.isPaused)
     hud.update(container, game, delta)
   }
 
@@ -297,7 +277,6 @@ class ExperimentScreen extends BasicGameState {
       g.setBackground(Color.black)
       g.setColor(Color.white)
       castle.render(container, game, g)
-      castle.player.render(container, game, g)
       g.setColor(Color.black)
       hud.render(container, game, g)
     }
@@ -320,8 +299,6 @@ class ExperimentScreen extends BasicGameState {
       CastleUtil.expandCastle(castle, ExpansionDirection.RIGHT, 5)
       CastleUtil.expandCastle(castle, ExpansionDirection.TOP, 5)
       CastleUtil.expandCastle(castle, ExpansionDirection.BOTTOM, 5)
-    } else if (key == Input.KEY_F3) {
-      playerDebug.toggle()
     }
   }
 }
