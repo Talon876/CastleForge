@@ -21,4 +21,5 @@ class AddRoomTool(x: Int, y: Int, castle: Castle, container: GameContainer) exte
     Tool.addroom.draw(x, y)
     super.render(container, game, g)
   }
+
 }

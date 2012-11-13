@@ -132,10 +132,13 @@ class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extend
   private def handleHiddenDoor(player: Player) = handleNormalDoor(player)
 
   override def getOptions = {
-    doorType match {
-      case 0 => List("doortype")
-      case 1 => List("doortype", "color", "shape")
-      case 2 => List("doortype")
-    }
+    List("doortype", "color", "shape")
+  }
+
+  override def setOptions(options: List[Any]) {
+    doorType = options(0).asInstanceOf[Int]
+    idcolor = options(1).asInstanceOf[Color]
+    shape = options(2).asInstanceOf[String]
+    keySprite.setAnimation(shape)
   }
 }

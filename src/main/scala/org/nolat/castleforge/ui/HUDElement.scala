@@ -17,6 +17,10 @@ class HUDElement(var image: Image) extends Renderable {
 
   }
 
+  override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+
+  }
+
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     image.draw(position.x + offset.x, position.y + offset.y)
   }

@@ -61,4 +61,5 @@ abstract class Item extends GameItem with PlayerListener {
   var container: Floor = null
 
   def getOptions = List("")
+  def setOptions(options: List[Any]) {}
 }

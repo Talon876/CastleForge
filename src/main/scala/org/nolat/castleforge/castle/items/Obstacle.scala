@@ -12,6 +12,7 @@ class Obstacle(oType: String) extends Item {
 
   sprite = new Sprite(getItemType)
   sprite.setAnimation(oType)
+  sprite.setRandomAnimation
   isBlockingMovement = true
 
   override def getItemType = Sprites.obstacle

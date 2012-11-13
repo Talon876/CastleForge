@@ -27,7 +27,7 @@ class Lighting(castle: Castle) {
 
     (1 to torch.luminosity).foreach { radii =>
       availableTiles.filter(tile => CastleUtil.distanceBetweenTiles(torch.container.getTilePosition, tile.getTilePosition) <= radii).foreach { tile =>
-        torch.lit match {
+        torch.torchstate match {
           case true => tile.darkness = scala.math.max(tile.darkness - torch.brightnessDecrement, 0) //if it's going to be negative, make it 0 (max brightness)
           case false => //tile.darkness = .8f
         }

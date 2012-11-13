@@ -54,4 +54,8 @@ class Match(_quantity: Int) extends Item with Quantity with Collectable {
   }
 
   override def getOptions = List("quantity")
+
+  override def setOptions(options: List[Any]) {
+    quantity = options(0).asInstanceOf[Int]
+  }
 }

@@ -39,6 +39,8 @@ object IDColor {
       case PURPLE => "purple"
     }
   }
+
+  def values = List(WHITE, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE)
 }
 trait IDColor extends Attribute {
   var idcolor = IDColor.WHITE
@@ -66,6 +68,7 @@ object Quantity {
       case "20" => TWENTY
       case _ => quantity.intOption.getOrElse(ZERO)
     }
+
   }
 
   def fromInt(quantity: Int) = {
@@ -82,6 +85,8 @@ object Quantity {
     }
 
   }
+
+  def values = List(ONE, TWO, THREE, FIVE, TEN, FIFTEEN, TWENTY)
 }
 trait Quantity extends Attribute {
   var quantity = Quantity.ZERO
@@ -102,6 +107,8 @@ object Shape {
       case _ => DIAMOND
     }
   }
+
+  def values = List(DIAMOND, STAR, PENTAGON, TRIANGLE)
 }
 trait Shape extends Attribute {
   var shape = Shape.DIAMOND
@@ -137,6 +144,8 @@ object Luminosity {
       case _ => "low"
     }
   }
+
+  def values = List(LOW, MEDIUM, HIGH)
 }
 trait Luminosity extends Attribute {
   var luminosity = Luminosity.LOW
@@ -157,7 +166,7 @@ object Direction {
       case _ => NORTH
     }
   }
-
+  def values = List(EAST, NORTH, WEST, SOUTH)
 }
 trait Direction extends Attribute {
   var direction = Direction.NORTH
@@ -169,6 +178,7 @@ object TorchState {
   def fromBoolean(bool: Boolean) = {
     if (bool) ON else OFF
   }
+  def values = List(ON, OFF)
 }
 trait TorchState {
   var torchstate = TorchState.ON

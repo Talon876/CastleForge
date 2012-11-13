@@ -43,4 +43,8 @@ class Pusher(_direction: String) extends Item with Direction {
   }
 
   override def getOptions = List("direction")
+
+  override def setOptions(options: List[Any]) {
+    direction = options(0).asInstanceOf[Int]
+  }
 }

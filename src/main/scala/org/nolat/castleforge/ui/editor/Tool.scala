@@ -17,10 +17,32 @@ object Tool {
   var deleteroom: Image = null
   var eraser: Image = null
 
+  var colors: Image = null
+  var quantities: Image = null
+  var shapes: Image = null
+  var directions: Image = null
+
+  var lumens: Image = null
+  var teleporterTypes: Image = null
+  var doorType: Image = null
+
+  var torchstates: Image = null
+
   def init() = {
     addroom = new Image("images/tools/roomadd.png")
     deleteroom = new Image("images/tools/roomdelete.png")
     eraser = new Image("images/tools/eraser.png")
+
+    colors = new Image("images/tools/colors.png")
+    quantities = new Image("images/tools/quantities.png")
+    shapes = new Image("images/tools/shapes.png")
+    directions = new Image("images/tools/directions.png")
+
+    lumens = new Image("images/tools/lumens.png")
+    teleporterTypes = new Image("images/tools/teleportertypes.png")
+    doorType = new Image("images/tools/doortypes.png")
+
+    torchstates = new Image("images/tools/torchstates.png")
   }
 }
 abstract class Tool(val x: Int, val y: Int, val castle: Castle, container: GameContainer) extends Renderable with ComponentListener {
@@ -44,6 +66,8 @@ abstract class Tool(val x: Int, val y: Int, val castle: Castle, container: GameC
 
   def getOptions: List[String] = Nil
 
+  def setOptions(options: List[Any]) {}
+
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
 
   }
@@ -55,4 +79,5 @@ abstract class Tool(val x: Int, val y: Int, val castle: Castle, container: GameC
   override def componentActivated(source: AbstractComponent) {
     onClick(this)
   }
+
 }

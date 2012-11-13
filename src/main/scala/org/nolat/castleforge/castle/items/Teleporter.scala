@@ -9,8 +9,9 @@ import org.newdawn.slick.Input
 import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.CastleUtil
+import org.newdawn.slick.Color
 
-class Teleporter(val teleType: String, _idcolor: String) extends Item with IDColor {
+class Teleporter(var teleType: String, _idcolor: String) extends Item with IDColor {
   idcolor = IDColor.fromString(_idcolor)
   def this(paramList: List[String]) = {
     this(paramList(0), paramList(1))
@@ -18,12 +19,7 @@ class Teleporter(val teleType: String, _idcolor: String) extends Item with IDCol
   val speedMod = 5f
 
   sprite = new Sprite(getItemType)
-  teleType match {
-    case "sender" => sprite.setAnimation("sender")
-    case "receiver" => sprite.setAnimation("receiver")
-    case "bidirectional" => sprite.setAnimation("bidirectional")
-  }
-  color = idcolor
+  makeSpriteMatchOptions()
 
   override def getItemType = Sprites.teleporter
 
@@ -45,4 +41,19 @@ class Teleporter(val teleType: String, _idcolor: String) extends Item with IDCol
   }
 
   override def getOptions = List("color", "teleportertype")
+
+  override def setOptions(options: List[Any]) {
+    idcolor = options(0).asInstanceOf[Color]
+    teleType = options(1).asInstanceOf[String]
+    makeSpriteMatchOptions()
+  }
+
+  def makeSpriteMatchOptions() {
+    teleType match {
+      case "sender" => sprite.setAnimation("sender")
+      case "receiver" => sprite.setAnimation("receiver")
+      case "bidirectional" => sprite.setAnimation("bidirectional")
+    }
+    color = idcolor
+  }
 }

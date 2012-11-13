@@ -11,9 +11,9 @@ import org.nolat.castleforge.castle.items.Item
 import org.newdawn.slick.Color
 import org.nolat.castleforge.castle.Castle
 
-class ElementToolSelector(castle: Castle, container: GameContainer) extends HUDElement(HUD.custom) with ComponentListener {
+class ElementToolSelector(castle: Castle, container: GameContainer) extends HUDElement(HUD.custom) {
 
-  var onToolChanged: (Tool) => Unit = { t => }
+  var onToolChanged: (Tool) => Unit = { t => println("default onToolChanged") }
 
   lazy val itemTools = Item.itemTypes.zipWithIndex.map {
     case (iType, idx) =>
@@ -92,11 +92,8 @@ class ElementToolSelector(castle: Castle, container: GameContainer) extends HUDE
   }
 
   private def setCurrentTool(tool: Tool) {
+    println("ToolSelector set current tool and onToolChanged")
     selected = tool
     onToolChanged(selected)
-  }
-
-  override def componentActivated(source: AbstractComponent) {
-
   }
 }

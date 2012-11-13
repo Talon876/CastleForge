@@ -16,8 +16,11 @@ class ElementToolManager(castle: Castle, toolSelector: ElementToolSelector) exte
         CastleUtil.floorAt(castle, coord)
       }
     }
-    //Thread.dumpStack()
     currentTool.apply(floorRegion)
+  }
+
+  def optionsChanged(options: List[Any]) {
+    currentTool.setOptions(options)
   }
 
 }

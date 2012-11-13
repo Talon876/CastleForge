@@ -10,7 +10,7 @@ import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.CastleUtil
 
-class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with IDColor with Luminosity with TorchState {
+class Torch(private var lit: Boolean, lumen: String, _color: String) extends Item with IDColor with Luminosity with TorchState {
   torchstate = TorchState.fromBoolean(lit)
   luminosity = Luminosity.fromString(lumen)
   idcolor = IDColor.fromString(_color)
@@ -20,11 +20,7 @@ class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with I
   }
 
   sprite = new Sprite(getItemType)
-  if (lit) {
-    sprite.setAnimation(lumen)
-  } else {
-    sprite.setAnimation("off")
-  }
+  makeSpriteMatchOptions()
 
   override def getItemType = Sprites.torch
 
@@ -34,10 +30,10 @@ class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with I
   }
 
   override def onPlayerEnter(player: Player, srcFloor: Floor) {
-    if (!lit) {
+    if (!torchstate) {
       player.inventory.getMatch match {
         case Some(m) => {
-          lit = true
+          torchstate = true
           sprite.setAnimation(lumen)
           player.inventory.decrementItem(m)
           player.castle.lighting.update()
@@ -56,4 +52,18 @@ class Torch(var lit: Boolean, lumen: String, _color: String) extends Item with I
   }
 
   override def getOptions = List("torchstate", "luminosity")
+
+  override def setOptions(options: List[Any]) {
+    torchstate = options(0).asInstanceOf[Boolean]
+    luminosity = options(1).asInstanceOf[Int]
+    makeSpriteMatchOptions()
+  }
+
+  def makeSpriteMatchOptions() = {
+    if (torchstate) {
+      sprite.setAnimation(Luminosity.toString(luminosity))
+    } else {
+      sprite.setAnimation("off")
+    }
+  }
 }

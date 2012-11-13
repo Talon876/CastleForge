@@ -25,8 +25,7 @@ class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDCo
   }
 
   sprite = new Sprite(getItemType)
-  sprite.setAnimation(shape)
-  color = idcolor
+  makeSpriteReprsentOptions()
 
   override def getItemType = Sprites.key
 
@@ -47,10 +46,24 @@ class Key(_color: String, _shape: String, _quantity: Int) extends Item with IDCo
   }
 
   override def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {
+
     this.sprite.getAnimation.draw(x, y, this.color)
     g.setColor(Color.yellow)
     if (quantity > 1) g.drawString("x" + quantity, x + 5, y + 40)
   }
 
-  override def getOptions = List("color", "shape", "quantity")
+  override def getOptions = List("color", "quantity", "shape")
+
+  override def setOptions(options: List[Any]) {
+    idcolor = options(0).asInstanceOf[Color]
+    quantity = options(1).asInstanceOf[Int]
+    shape = options(2).asInstanceOf[String]
+
+    makeSpriteReprsentOptions()
+  }
+
+  def makeSpriteReprsentOptions() {
+    sprite.setAnimation(shape)
+    color = idcolor
+  }
 }
