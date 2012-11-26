@@ -22,7 +22,9 @@ class ItemTool(var item: Item, x: Int, y: Int, castle: Castle, container: GameCo
 
   override def apply(region: List[List[Floor]]) {
     region.flatten.foreach { floor =>
-      CastleUtil.addItem(castle, floor.getTilePosition, Item(item.getItemType, item.getParamList.toList))
+      if (!floor.roomIDlist.contains(0)) { //don't put items in floors with id = 0
+        CastleUtil.addItem(castle, floor.getTilePosition, Item(item.getItemType, item.getParamList.toList))
+      }
     }
   }
 

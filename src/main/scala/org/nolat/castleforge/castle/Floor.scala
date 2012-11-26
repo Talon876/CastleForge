@@ -22,6 +22,12 @@ class Floor(private var _item: Option[Item], var x: Int, var y: Int, private var
     updateFloor()
   }
 
+  def roomIDlist = _roomIDs.split(",").map(_.toInt)
+
+  def roomIDlist_=(roomIds: List[Int]) = {
+    roomIDs = roomIds.mkString(",")
+  }
+
   def roomIDs = _roomIDs
 
   def roomIDs_=(roomIds: String) = {
@@ -37,7 +43,6 @@ class Floor(private var _item: Option[Item], var x: Int, var y: Int, private var
   if (_roomIDs == "0") {
     sprite.setAnimation("type4")
   }
-  //sprite.setRandomAnimation(List(0.0f, 1f, 0.0f, 0.0f))
 
   var darkness = 0.15f
 
@@ -72,6 +77,9 @@ class Floor(private var _item: Option[Item], var x: Int, var y: Int, private var
     //draw darkness
     g.setColor(new Color(0, 0, 0, darkness))
     g.fillRect(newX + translate(newX, newY)._1, newY + translate(newX, newY)._2, Config.TileWidth, Config.TileHeight)
+
+    g.setColor(Color.white)
+    g.drawString(roomIDs, newX + translate(newX, newY)._1, newY + translate(newX, newY)._2)
   }
 
   private def updateFloor() = {

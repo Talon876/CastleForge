@@ -14,6 +14,7 @@ import org.nolat.castleforge.ui.EditorHUD
 import org.nolat.castleforge.tools.Lerper
 import org.nolat.castleforge.Config
 import org.nolat.castleforge.castle.CastleUtil
+import org.nolat.castleforge.castle.ExpansionDirection
 
 object CreateCastleScreen {
   val ID = 7
@@ -34,7 +35,8 @@ class CreateCastleScreen extends BasicGameState {
   override def enter(container: GameContainer, game: StateBasedGame) {
     container.setDefaultMouseCursor()
     castle = Castle(generateBlankCastle, null)
-    CastleUtil.removeItem(castle, (10, 10))
+    CastleUtil.removeItem(castle, (2, 2))
+    CastleUtil.expandCastle(castle, ExpansionDirection.ALL, 3)
     castle.isEditor = true
     hud = new EditorHUD(castle, container)
     hud.enter(container, game)
@@ -63,10 +65,15 @@ class CreateCastleScreen extends BasicGameState {
   private def generateBlankCastle(): ArrayBuffer[ArrayBuffer[Floor]] = {
     var map = new ArrayBuffer[ArrayBuffer[Floor]]()
 
-    (0 to 20).foreach { col =>
+    (0 to 4).foreach { col =>
       var row = new ArrayBuffer[Floor]
-      (0 to 20).foreach { r =>
-        row += new Floor(None, r, col, "1")
+      (0 to 4).foreach { r =>
+        if (col == 0 || col == 4 || r == 0 || r == 4) {
+          row += new Floor(Item("wall"), r, col, "0,1")
+        } else {
+          row += new Floor(None, r, col, "1")
+        }
+
       }
       map += row
     }
@@ -74,7 +81,7 @@ class CreateCastleScreen extends BasicGameState {
     //    map(150)(145).item = Item("checkpoint", List("false"))
     //    map(155)(150).item = Item("checkpoint", List("false"))
     //    map(150)(155).item = Item("checkpoint", List("false"))
-    map(10)(10).item = Item("spawnpoint", List("true"))
+    map(2)(2).item = Item("spawnpoint", List("true"))
     //map(145)(145).item = Item("torch", List("false", "high", "white"))
 
     //    (1 to 10).foreach { i =>

@@ -362,5 +362,27 @@ object CastleUtil {
     }
   }
 
+  def getRoomPerimeter(region: List[List[Floor]]): List[Floor] = {
+    val first = region.flatten.head.getTilePosition
+    val last = region.flatten.reverse.head.getTilePosition
+    region.flatten.filter { coord =>
+      val a = coord.getTilePosition._1
+      val b = coord.getTilePosition._2
+      (a == first._1 || a == last._1) ||
+        (b == first._2 || b == last._2)
+    }
+  }
+
+  def getRoomInsideRegion(region: List[List[Floor]]): List[Floor] = {
+    val first = region.flatten.head.getTilePosition
+    val last = region.flatten.reverse.head.getTilePosition
+    region.flatten.filter { coord =>
+      val a = coord.getTilePosition._1
+      val b = coord.getTilePosition._2
+      !((a == first._1 || a == last._1) ||
+        (b == first._2 || b == last._2))
+    }
+  }
+
 }
 
