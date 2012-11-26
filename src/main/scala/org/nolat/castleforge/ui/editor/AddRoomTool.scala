@@ -6,15 +6,19 @@ import org.nolat.castleforge.castle.Floor
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.Graphics
 import org.nolat.castleforge.castle.CastleUtil
+import org.nolat.castleforge.castle.items.Item
 
 class AddRoomTool(x: Int, y: Int, castle: Castle, container: GameContainer) extends Tool(x, y, castle, container) {
 
   override def apply(region: List[List[Floor]]) {
-    //    val coords = region.flatten.map(_.getTilePosition)
-    //    CastleUtil.floorsAt(castle, CastleUtil.getPerimeter(coords)).foreach {
-    //      floor =>
-    //        CastleUtil.addItem(castle, floor.getTilePosition, Item("wall"))
-    //    }
+    println("creating room")
+    if (region.flatten.size >= 9) {
+      val perim = CastleUtil.getRoomPerimeter(region)
+      val inside = CastleUtil.getRoomInsideRegion(region)
+      perim.foreach { border =>
+        CastleUtil.addItem(castle, border.getTilePosition, Item("wall"))
+      }
+    }
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {

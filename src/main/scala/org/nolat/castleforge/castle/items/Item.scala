@@ -23,6 +23,11 @@ object Item {
       case "spawnpoint" => Some(new SpawnPoint(params))
       case "teleporter" => Some(new Teleporter(params))
       case "torch" => Some(new Torch(params))
+      //items without params
+      case "crystal_ball" => Some(new CrystalBall())
+      case "ice" => Some(new Ice())
+      case "wall" => Some(new Wall())
+
       case _ => None
     }
   }

@@ -184,9 +184,20 @@ class Player(var castle: Castle) extends GameItem {
     }
   }
 
+  private def extendLocation(keyPressed: Int, srcPosition: (Int, Int), amount: Int): (Int, Int) = {
+    keyPressed match {
+      case Input.KEY_W => (srcPosition._1, srcPosition._2 - amount)
+      case Input.KEY_A => (srcPosition._1 - amount, srcPosition._2)
+      case Input.KEY_S => (srcPosition._1, srcPosition._2 + amount)
+      case Input.KEY_D => (srcPosition._1 + amount, srcPosition._2)
+      case _ => srcPosition
+    }
+  }
+
   private def handleExpansion(srcFloor: Floor, md: MoveDescription) = {
     if (castle.isEditor) {
-      val expansion = CastleUtil.isEdge(castle, srcFloor.getTilePosition)
+      val expansion = CastleUtil.isEdge(castle, extendLocation(md.keyPressed, srcFloor.getTilePosition, 4))
+
       if (expansion != ExpansionDirection.NONE) {
         val expanded = md.keyPressed match {
           case Input.KEY_W => CastleUtil.expandCastle(castle, ExpansionDirection.TOP, 1)
