@@ -43,6 +43,14 @@ class ElementFloorSelector(castle: Castle, container: GameContainer) extends HUD
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     areas.flatten.foreach(_.render(container, g))
     renderSelection(g, absoluteToLocal(selection.flatten))
+
+    if (selection != Nil) {
+      g.setColor(new Color(255, 255, 255, 32))
+      g.fillRoundRect(8, 8, 42, 18, 6)
+      g.setColor(Color.black)
+      g.drawString(selection.size + "x" + selection(0).size, 10, 10)
+    }
+
   }
 
   private def renderSelection(g: Graphics, selection: List[(Int, Int)]) = {
@@ -121,7 +129,9 @@ class ElementFloorSelector(castle: Castle, container: GameContainer) extends HUD
         onToolReleased(selection)
         selection = Nil
       }
-      case None => //nop
+      case None => {
+        selection = Nil
+      }
     }
 
   }

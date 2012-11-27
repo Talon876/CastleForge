@@ -200,10 +200,10 @@ class Player(var castle: Castle) extends GameItem {
 
       if (expansion != ExpansionDirection.NONE) {
         val expanded = md.keyPressed match {
-          case Input.KEY_W => CastleUtil.expandCastle(castle, ExpansionDirection.TOP, 1)
-          case Input.KEY_A => CastleUtil.expandCastle(castle, ExpansionDirection.LEFT, 1)
-          case Input.KEY_S => CastleUtil.expandCastle(castle, ExpansionDirection.BOTTOM, 1)
-          case Input.KEY_D => CastleUtil.expandCastle(castle, ExpansionDirection.RIGHT, 1)
+          case Input.KEY_W => CastleUtil.expandCastle(castle, ExpansionDirection.TOP, 3)
+          case Input.KEY_A => CastleUtil.expandCastle(castle, ExpansionDirection.LEFT, 3)
+          case Input.KEY_S => CastleUtil.expandCastle(castle, ExpansionDirection.BOTTOM, 3)
+          case Input.KEY_D => CastleUtil.expandCastle(castle, ExpansionDirection.RIGHT, 3)
         }
         expanded //walk depending on if it expanded
       } else {

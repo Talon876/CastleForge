@@ -12,6 +12,7 @@ import org.newdawn.slick.gui.AbstractComponent
 import org.nolat.castleforge.castle.Floor
 import org.nolat.castleforge.castle.Castle
 import org.nolat.castleforge.castle.CastleUtil
+import org.nolat.castleforge.castle.items.Door
 
 class ItemTool(var item: Item, x: Int, y: Int, castle: Castle, container: GameContainer) extends Tool(x, y, castle, container) {
 
@@ -23,7 +24,12 @@ class ItemTool(var item: Item, x: Int, y: Int, castle: Castle, container: GameCo
   override def apply(region: List[List[Floor]]) {
     region.flatten.foreach { floor =>
       if (!floor.roomIDlist.contains(0)) { //don't put items in floors with id = 0
-        CastleUtil.addItem(castle, floor.getTilePosition, Item(item.getItemType, item.getParamList.toList))
+        item match {
+          case d: Door => { //only place door at a 2-room intersection
+            if (floor.roomIDlist.size == 2) CastleUtil.addItem(castle, floor.getTilePosition, Item(item.getItemType, item.getParamList.toList))
+          }
+          case _ => CastleUtil.addItem(castle, floor.getTilePosition, Item(item.getItemType, item.getParamList.toList))
+        }
       }
     }
   }

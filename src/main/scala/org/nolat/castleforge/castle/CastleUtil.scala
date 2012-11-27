@@ -102,6 +102,18 @@ object CastleUtil {
     coordsList.map(floorAt(castle, _))
   }
 
+  def getNeighbors(castle: Castle, srcTile: Floor): List[Floor] = {
+    var cardinals = List((0, 1), //down
+      (1, 0), //right
+      (0, -1), //up
+      (-1, 0)) //left
+
+    val neighbors = cardinals.map { direction =>
+      (srcTile.getTilePosition._1 + direction._1, srcTile.getTilePosition._2 + direction._2)
+    }
+    floorsAt(castle, neighbors)
+  }
+
   def itemAt(castle: Castle, coords: (Int, Int)): Option[Item] = {
     castle.map(coords._2)(coords._1).item
   }

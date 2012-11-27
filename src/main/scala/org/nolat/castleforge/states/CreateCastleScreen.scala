@@ -34,9 +34,10 @@ class CreateCastleScreen extends BasicGameState {
 
   override def enter(container: GameContainer, game: StateBasedGame) {
     container.setDefaultMouseCursor()
+    //todo check sharedstate for castle, if there is one, load it, else create the default
     castle = Castle(generateBlankCastle, null)
     CastleUtil.removeItem(castle, (2, 2))
-    CastleUtil.expandCastle(castle, ExpansionDirection.ALL, 3)
+    CastleUtil.expandCastle(castle, ExpansionDirection.ALL, 5)
     castle.isEditor = true
     hud = new EditorHUD(castle, container)
     hud.enter(container, game)
