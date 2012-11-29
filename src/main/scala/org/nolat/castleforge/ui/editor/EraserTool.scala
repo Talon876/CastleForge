@@ -7,12 +7,23 @@ import org.newdawn.slick.Graphics
 import org.nolat.castleforge.castle.Castle
 import org.nolat.castleforge.castle.CastleUtil
 import org.nolat.castleforge.castle.items.Wall
+import org.nolat.castleforge.castle.items.Door
+import org.nolat.castleforge.castle.items.Item
 
 class EraserTool(x: Int, y: Int, castle: Castle, container: GameContainer) extends Tool(x, y, castle, container) {
 
   override def apply(region: List[List[Floor]]) {
     filterOutWalls(region.flatten).foreach { floor =>
-      CastleUtil.removeItem(castle, floor.getTilePosition)
+      floor.item match {
+        case Some(itm) => itm match {
+          case d: Door => { //when doors are deleted they become walls
+            CastleUtil.removeItem(castle, floor.getTilePosition)
+            CastleUtil.addItem(castle, floor.getTilePosition, Item("wall"))
+          }
+          case _ => CastleUtil.removeItem(castle, floor.getTilePosition)
+        }
+        case None => //nop
+      }
     }
   }
 

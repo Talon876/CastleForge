@@ -19,15 +19,12 @@ object GameScreen {
   val ID = 6
 }
 
-class GameScreen extends BasicGameState {
+class GameScreen extends BasicGameState with FadeIn {
   var game: StateBasedGame = null
   override def getID = GameScreen.ID
 
   var castle: Castle = null
   var hud: MainHUD = null
-
-  var fadingIn = false
-  var opacity = 1f
 
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
@@ -57,18 +54,6 @@ class GameScreen extends BasicGameState {
       g.setColor(Color.black)
       hud.render(container, game, g)
       handleFade(g)
-    }
-  }
-
-  private def handleFade(g: Graphics) {
-    if (fadingIn) {
-      g.setColor(new Color(0, 0, 0, opacity))
-      g.fillRect(0, 0, Config.Resolution.getX, Config.Resolution.getY)
-      opacity -= .01f
-      if (opacity < 0f) {
-        fadingIn = false
-        opacity = 1f
-      }
     }
   }
 

@@ -8,8 +8,9 @@ import org.nolat.castleforge.ui.editor.ElementToolSelector
 import org.nolat.castleforge.ui.editor.ElementToolManager
 import org.nolat.castleforge.ui.editor.ElementToolOptions
 import org.nolat.castleforge.ui.editor.Tool
+import org.newdawn.slick.state.StateBasedGame
 
-class EditorHUD(castle: Castle, container: GameContainer) extends HUD {
+class EditorHUD(castle: Castle, container: GameContainer, game: StateBasedGame) extends HUD {
   val borders = new HUDElement(HUD.border)
   this add borders
 
@@ -44,6 +45,10 @@ class EditorHUD(castle: Castle, container: GameContainer) extends HUD {
   toolOptions.position = new Vector2f(toolSelector.position.x + 6, toolSelector.position.y + 64 * 3 + 32)
   toolOptions.onOptionsChanged = toolManager.optionsChanged
   this add toolOptions
+
+  val pauseMenu = new ElementEditorMenu(castle, game)
+  pauseMenu.position = new Vector2f(8, 8)
+  this add pauseMenu
 
   def toggleMinimap() = minimap.toggle()
 

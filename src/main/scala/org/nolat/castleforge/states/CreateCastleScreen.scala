@@ -20,7 +20,7 @@ object CreateCastleScreen {
   val ID = 7
 }
 
-class CreateCastleScreen extends BasicGameState {
+class CreateCastleScreen extends BasicGameState with FadeIn {
   var game: StateBasedGame = null
   override def getID = CreateCastleScreen.ID
 
@@ -29,7 +29,6 @@ class CreateCastleScreen extends BasicGameState {
 
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
-
   }
 
   override def enter(container: GameContainer, game: StateBasedGame) {
@@ -39,13 +38,18 @@ class CreateCastleScreen extends BasicGameState {
     CastleUtil.removeItem(castle, (2, 2))
     CastleUtil.expandCastle(castle, ExpansionDirection.ALL, 5)
     castle.isEditor = true
-    hud = new EditorHUD(castle, container)
+    hud = new EditorHUD(castle, container, game)
     hud.enter(container, game)
+
+    fadingIn = true
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
-    Lerper.lerpers.foreach(_.update(delta))
-    castle.update(container, game, delta)
+    if (!container.isPaused) {
+      Lerper.lerpers.foreach(_.update(delta))
+      castle.update(container, game, delta)
+    }
+    if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) container.setPaused(!container.isPaused)
     hud.update(container, game, delta)
   }
 
@@ -53,6 +57,7 @@ class CreateCastleScreen extends BasicGameState {
     castle.render(container, game, g)
     g.setColor(Color.black)
     hud.render(container, game, g)
+    handleFade(g)
   }
 
   override def keyReleased(key: Int, c: Char) {
@@ -65,7 +70,6 @@ class CreateCastleScreen extends BasicGameState {
 
   private def generateBlankCastle(): ArrayBuffer[ArrayBuffer[Floor]] = {
     var map = new ArrayBuffer[ArrayBuffer[Floor]]()
-
     (0 to 4).foreach { col =>
       var row = new ArrayBuffer[Floor]
       (0 to 4).foreach { r =>
@@ -78,19 +82,7 @@ class CreateCastleScreen extends BasicGameState {
       }
       map += row
     }
-    //    map(145)(150).item = Item("checkpoint", List("false"))
-    //    map(150)(145).item = Item("checkpoint", List("false"))
-    //    map(155)(150).item = Item("checkpoint", List("false"))
-    //    map(150)(155).item = Item("checkpoint", List("false"))
     map(2)(2).item = Item("spawnpoint", List("true"))
-    //map(145)(145).item = Item("torch", List("false", "high", "white"))
-
-    //    (1 to 10).foreach { i =>
-    //      val point = (Config.random.nextInt(30), Config.random.nextInt(30))
-    //      val point2 = (Config.random.nextInt(30), Config.random.nextInt(30))
-    //      map(point._1)(point._2).item = Item("ice")
-    //      map(point2._1)(point2._2).item = Item("wall")
-    //    }
     map
   }
 }

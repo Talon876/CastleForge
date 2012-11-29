@@ -25,8 +25,21 @@ class ItemTool(var item: Item, x: Int, y: Int, castle: Castle, container: GameCo
     region.flatten.foreach { floor =>
       if (!floor.roomIDlist.contains(0)) { //don't put items in floors with id = 0
         item match {
-          case d: Door => { //only place door at a 2-room intersection
-            if (floor.roomIDlist.size == 2) CastleUtil.addItem(castle, floor.getTilePosition, Item(item.getItemType, item.getParamList.toList))
+          case d: Door => {
+            if (floor.roomIDlist.size == 2) { //only check neighbors to place door if it's a 2-room intersection
+
+              val left = CastleUtil.floorAt(castle, (floor.getTilePosition._1 - 1, floor.getTilePosition._2))
+              val right = CastleUtil.floorAt(castle, (floor.getTilePosition._1 + 1, floor.getTilePosition._2))
+              val up = CastleUtil.floorAt(castle, (floor.getTilePosition._1, floor.getTilePosition._2 - 1))
+              val down = CastleUtil.floorAt(castle, (floor.getTilePosition._1, floor.getTilePosition._2 + 1))
+              //left neighbor and right neighbor have to belong to only 1 roomid
+              //or top neighbor and bottom neighbor have to belong to only 1 room id
+              val leftRight = left.roomIDlist.size == 1 && right.roomIDlist.size == 1
+              val topBottom = up.roomIDlist.size == 1 && down.roomIDlist.size == 1
+              if (leftRight || topBottom) {
+                CastleUtil.addItem(castle, floor.getTilePosition, Item(item.getItemType, item.getParamList.toList))
+              }
+            }
           }
           case _ => CastleUtil.addItem(castle, floor.getTilePosition, Item(item.getItemType, item.getParamList.toList))
         }
