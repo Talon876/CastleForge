@@ -61,7 +61,7 @@ object MapLoad {
         inventory = itemType2Inventory(castleXML.state(1).inventory)
       }
     }
-    castle = CastleStructure(tiles, castleFile, castleXML.meta.name, castleXML.meta.author, castleXML.meta.description)
+    castle = CastleStructure(tiles, castleXML.meta.name, castleXML.meta.author, castleXML.meta.description)
     castle.inventory = inventory
     castle
   }

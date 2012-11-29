@@ -34,7 +34,7 @@ class CreateCastleScreen extends BasicGameState with FadeIn {
   override def enter(container: GameContainer, game: StateBasedGame) {
     container.setDefaultMouseCursor()
     //todo check sharedstate for castle, if there is one, load it, else create the default
-    castle = Castle(generateBlankCastle, null)
+    castle = Castle(generateBlankCastle)
     CastleUtil.removeItem(castle, (2, 2))
     CastleUtil.expandCastle(castle, ExpansionDirection.ALL, 5)
     castle.isEditor = true

@@ -14,21 +14,20 @@ import java.io.File
 import org.nolat.castleforge.xml.MapSave
 
 object Castle {
-  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]], castleName: String, authorNam: String, descript: String): Castle = {
-    val mapsFolderStr: String = Config.WorkingDirectory + "/maps"
-    val mapsFolder: File = new File(mapsFolderStr)
-    mapsFolder.mkdirs()
-    val file: File = new File(mapsFolderStr + "/" + authorNam + "-" + castleName + ".xml")
-    val castle = new Castle(curState, file, castleName, authorNam, descript)
+  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]],castleName: String = "untitled" + Config.random.nextInt(100000), authorNam: String = "default", descript: String = ""): Castle = {
+    val castle = new Castle(curState, castleName, authorNam, descript)
     MapSave.save(castle, true)
     //TODO: determine if we want to save here for debugging purposes I will leave it for now
     castle
   }
-  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]], fileLocation: File, castleName: String = "untitled" + Config.random.nextInt(100000), authorNam: String = "default", descript: String = ""): Castle = {
-    new Castle(curState, fileLocation, castleName, authorNam, descript)
+  def getSaveLocation(authorNam: String, castleName: String): File = {
+    val mapsFolderStr: String = Config.WorkingDirectory + "/maps"
+    val mapsFolder: File = new File(mapsFolderStr)
+    mapsFolder.mkdirs()
+    new File(mapsFolderStr + "/" + authorNam + "-" + castleName + ".xml")
   }
 }
-class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) extends Renderable {
+class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   var name: String = "Default"
   var authorName: String = "Default Name"
   var description: String = ""
@@ -56,14 +55,17 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]], val fileLocation: File) 
 
   updateFloorTransitions()
 
-  def this(curState: ArrayBuffer[ArrayBuffer[Floor]], fileLoc: File, nam: String, authorNam: String, descript: String) {
-    this(curState, fileLoc)
+  def this(curState: ArrayBuffer[ArrayBuffer[Floor]], nam: String, authorNam: String, descript: String) {
+    this(curState)
     name = nam
     authorName = authorNam
     description = descript
 
   }
 
+  def fileLocation() : File = {
+    Castle.getSaveLocation(authorName, name)
+  }
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
     getFloorsToRender.foreach(_.update(this, container, game, delta))
     player.update(container, game, delta)
