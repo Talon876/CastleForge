@@ -13,11 +13,12 @@ object TextOptionPane {
 class TextOptionPane(container: GameContainer, x: Int, val y: Int, parent: ElementToolOptions) extends OptionPane(parent) {
 
   lazy val textfield = {
-    val t = new LoggedTextField(container, Config.guiFont, x + 20, y + 20, 64 * 7 - 32, 24)
+    val t = new LoggedTextField(container, Config.guiFont, x + 20, Config.Resolution.getY + 1, 64 * 7 - 32, 24)
+    t.setFocus(false)
     t
   }
 
-  private var lastFocusState = false
+  private var lastFocusState = true
 
   override def reset() = {
     println("hiding textfield")
@@ -37,14 +38,17 @@ class TextOptionPane(container: GameContainer, x: Int, val y: Int, parent: Eleme
       TextOptionPane.textfieldInFocus = false
     }
 
-    lastFocusState = textfield.hasFocus
     if (!hidden && container.isPaused) { //menu is up, so lose focus
       textfield.setFocus(false)
       TextOptionPane.textfieldInFocus = false
+      println("textfield lost focus because it's hidden and container is paused")
     } else if (!hidden && !container.isPaused) { //not hidden and no longer paused, give focus back
       textfield.setFocus(true)
       TextOptionPane.textfieldInFocus = true
+      println("textfiled gained focus because it's not hidden and container isn't paused")
     }
+
+    lastFocusState = textfield.hasFocus
   }
 
   override def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {

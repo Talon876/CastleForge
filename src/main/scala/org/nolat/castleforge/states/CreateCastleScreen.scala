@@ -1,6 +1,7 @@
 package org.nolat.castleforge.states
 
 import scala.collection.mutable.ArrayBuffer
+
 import org.newdawn.slick.Color
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
@@ -8,15 +9,12 @@ import org.newdawn.slick.Input
 import org.newdawn.slick.state.BasicGameState
 import org.newdawn.slick.state.StateBasedGame
 import org.nolat.castleforge.castle.Castle
-import org.nolat.castleforge.castle.Floor
-import org.nolat.castleforge.castle.items.Item
-import org.nolat.castleforge.ui.EditorHUD
-import org.nolat.castleforge.tools.Lerper
-import org.nolat.castleforge.Config
 import org.nolat.castleforge.castle.CastleUtil
 import org.nolat.castleforge.castle.ExpansionDirection
-import java.io.File
-import org.nolat.castleforge.xml.MapLoad
+import org.nolat.castleforge.castle.Floor
+import org.nolat.castleforge.castle.items.Item
+import org.nolat.castleforge.tools.Lerper
+import org.nolat.castleforge.ui.EditorHUD
 
 object CreateCastleScreen {
   val ID = 7
