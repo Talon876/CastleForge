@@ -1,12 +1,12 @@
 package org.nolat.castleforge.ui.editor
 
+import org.newdawn.slick.Color
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
 import org.newdawn.slick.state.StateBasedGame
 import org.nolat.castleforge.ui.HUD
 import org.nolat.castleforge.ui.HUDElement
 import org.nolat.castleforge.castle.items.attributes._
-import org.newdawn.slick.Color
 
 class ElementToolOptions extends HUDElement(HUD.custom) {
 
@@ -17,18 +17,21 @@ class ElementToolOptions extends HUDElement(HUD.custom) {
 
   override def enter(container: GameContainer, game: StateBasedGame) {
     optionPanes = Map(
-      "color" -> new OptionPane(Tool.colors, IDColor.values, container, this),
-      "quantity" -> new OptionPane(Tool.quantities, Quantity.values, container, this),
-      "shape" -> new OptionPane(Tool.shapes, Shape.values, container, this),
-      "luminosity" -> new OptionPane(Tool.lumens, Luminosity.values, container, this),
-      "direction" -> new OptionPane(Tool.directions, Direction.values, container, this),
-      "torchstate" -> new OptionPane(Tool.torchstates, TorchState.values, container, this),
-      "teleportertype" -> new OptionPane(Tool.teleporterTypes, List("sender", "receiver", "bidirectional"), container, this),
-      "doortype" -> new OptionPane(Tool.doorType, List(0, 1, 2), container, this))
+      "color" -> new RadioOptionPane(Tool.colors, IDColor.values, container, this),
+      "quantity" -> new RadioOptionPane(Tool.quantities, Quantity.values, container, this),
+      "shape" -> new RadioOptionPane(Tool.shapes, Shape.values, container, this),
+      "luminosity" -> new RadioOptionPane(Tool.lumens, Luminosity.values, container, this),
+      "direction" -> new RadioOptionPane(Tool.directions, Direction.values, container, this),
+      "torchstate" -> new RadioOptionPane(Tool.torchstates, TorchState.values, container, this),
+      "teleportertype" -> new RadioOptionPane(Tool.teleporterTypes, List("sender", "receiver", "bidirectional"), container, this),
+      "doortype" -> new RadioOptionPane(Tool.doorType, List(0, 1, 2), container, this),
+      "text" -> new TextOptionPane(container, position.x.toInt, position.y.toInt + 4, this))
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
-
+    optionPanes.foreach {
+      case (option, pane) => pane.update(container, game, delta)
+    }
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
@@ -51,21 +54,29 @@ class ElementToolOptions extends HUDElement(HUD.custom) {
     }.toList intersect options).size
   }
 
+  //called when a new tool is selected
   def updateTool(newTool: Tool) {
-    println("tool updated")
     options = newTool.getOptions
+    optionPanes.get("text").get.reset() //move the textfield out of the window every time a new tool is selected so it can't get focus when invisible
 
     options.zipWithIndex.foreach {
       case (option, idx) =>
         optionPanes.get(option) match {
           case Some(o) => {
-            o.updateMoas(position.x.toInt, (position.y + (idx * 64) + 4).toInt)
-            //o.selected = 0 //set each option to first as default
-            //o.selectedCoords = (position.x.toInt, (position.y + (idx * 64) + 4).toInt)
+            o match {
+              case rop: RadioOptionPane => rop.updateMoas(position.x.toInt, (position.y + (idx * 64) + 4).toInt)
+              case top: TextOptionPane => {
+                println("showing textfield")
+                top.textfield.setLocation(top.textfield.getX(), top.y + 20) //move the textfield to the correct location for tools that should have it
+                top.textfield.setText("")
+              }
+              case _ => //nop
+            }
           }
           case None => //nop
         }
     }
+
   }
 
   def getSelectedOptions = {
@@ -73,7 +84,10 @@ class ElementToolOptions extends HUDElement(HUD.custom) {
       case (option, idx) =>
         optionPanes.get(option) match {
           case Some(o) => {
-            o.getSelectedOption
+            o match {
+              case rop: RadioOptionPane => rop.getSelectedOption
+              case _ => //nop
+            }
           }
           case None => //nop
         }

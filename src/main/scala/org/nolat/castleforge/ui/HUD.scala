@@ -7,6 +7,7 @@ import scala.collection.mutable.ListBuffer
 import org.nolat.castleforge.tools.Lerper
 import org.nolat.castleforge.graphics.Renderable
 import org.newdawn.slick.Graphics
+import org.nolat.castleforge.ui.editor.TextOptionPane
 
 object HUD {
 
@@ -16,6 +17,10 @@ object HUD {
   var custom: Image = null
   var sign: Image = null
   var selector: Image = null
+  var save: Image = null
+  var saveOver: Image = null
+  var back: Image = null
+  var backOver: Image = null
 
   def init() = {
     border = new Image("images/interface/borders.png")
@@ -24,6 +29,10 @@ object HUD {
     custom = new Image("images/nothing.png")
     sign = new Image("images/interface/sign.png")
     selector = new Image("images/interface/selector.png")
+    save = new Image("images/interface/save.png")
+    saveOver = new Image("images/interface/saveOver.png")
+    back = new Image("images/interface/back.png")
+    backOver = new Image("images/interface/backOver.png")
   }
 }
 
@@ -34,6 +43,7 @@ class HUD extends Renderable {
   val elements = new ListBuffer[HUDElement]
 
   def enter(container: GameContainer, game: StateBasedGame) {
+    TextOptionPane.textfieldInFocus = false
     elements.foreach(_.enter(container, game))
   }
 

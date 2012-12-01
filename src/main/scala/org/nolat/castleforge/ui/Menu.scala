@@ -16,7 +16,7 @@ class Menu(var position: Vector2f) extends Renderable {
   val menuItems = MutableList[MenuItem]()
 
   var colorSelected = Color.white
-  var colorNotselected = Color.darkGray
+  var colorNotselected = Color.darkGray.darker.darker
 
   private var selectedIndex = 0
 

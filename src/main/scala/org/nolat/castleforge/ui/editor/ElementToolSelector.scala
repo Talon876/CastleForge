@@ -92,7 +92,6 @@ class ElementToolSelector(castle: Castle, container: GameContainer) extends HUDE
   }
 
   private def setCurrentTool(tool: Tool) {
-    println("ToolSelector set current tool and onToolChanged")
     selected = tool
     onToolChanged(selected)
   }

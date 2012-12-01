@@ -17,4 +17,12 @@ class Sign(signText: String) extends Item with Readable {
   override def getParamList = {
     Seq(displayText)
   }
+
+  override def getOptions = {
+    List("text")
+  }
+
+  override def setOptions(options: List[Any]) {
+    displayText = options(0).asInstanceOf[String]
+  }
 }

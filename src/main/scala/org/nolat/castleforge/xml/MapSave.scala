@@ -28,6 +28,7 @@ object MapSave {
   }
 
   def save(castle: CastleStructure, isEditor: Boolean = false, saveFile: Option[File] = None): File = {
+    println("saving to " + castle.fileLocation.getAbsolutePath() + " (editor=" + isEditor + ")")
     var state: Seq[State] = Nil
     if (isEditor) {
       /*

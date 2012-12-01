@@ -16,6 +16,7 @@ import scala.collection.mutable.Queue
 import org.nolat.castleforge.tools.MoveDescription
 import org.nolat.castleforge.castle.items._
 import org.nolat.castleforge.castle.items.attributes.Collectable
+import org.nolat.castleforge.ui.editor.TextOptionPane
 
 object PlayerState extends Enumeration {
   type PlayerState = Value
@@ -249,16 +250,18 @@ class Player(var castle: Castle) extends GameItem {
         //inventory.addItem(Item("crystal_ball").get.asInstanceOf[Collectable])
       }
     } else {
-      val faster = container.getInput.isKeyDown(Input.KEY_LSHIFT) || container.getInput.isKeyDown(Input.KEY_RSHIFT)
-      val speed = 5f * (if (faster) 2f else 1f)
-      if (container.getInput().isKeyDown(Input.KEY_W)) {
-        attemptMove(MoveDescription(Input.KEY_W, "walking_up", speed, true))
-      } else if (container.getInput().isKeyDown(Input.KEY_S)) {
-        attemptMove(MoveDescription(Input.KEY_S, "walking_down", speed, true))
-      } else if (container.getInput().isKeyDown(Input.KEY_A)) {
-        attemptMove(MoveDescription(Input.KEY_A, "walking_left", speed, true))
-      } else if (container.getInput().isKeyDown(Input.KEY_D)) {
-        attemptMove(MoveDescription(Input.KEY_D, "walking_right", speed, true))
+      if (!TextOptionPane.textfieldInFocus) { //don't handle input if the textfield is in focus
+        val faster = container.getInput.isKeyDown(Input.KEY_LSHIFT) || container.getInput.isKeyDown(Input.KEY_RSHIFT)
+        val speed = 5f * (if (faster) 2f else 1f)
+        if (container.getInput().isKeyDown(Input.KEY_W)) {
+          attemptMove(MoveDescription(Input.KEY_W, "walking_up", speed, true))
+        } else if (container.getInput().isKeyDown(Input.KEY_S)) {
+          attemptMove(MoveDescription(Input.KEY_S, "walking_down", speed, true))
+        } else if (container.getInput().isKeyDown(Input.KEY_A)) {
+          attemptMove(MoveDescription(Input.KEY_A, "walking_left", speed, true))
+        } else if (container.getInput().isKeyDown(Input.KEY_D)) {
+          attemptMove(MoveDescription(Input.KEY_D, "walking_right", speed, true))
+        }
       }
     }
   }

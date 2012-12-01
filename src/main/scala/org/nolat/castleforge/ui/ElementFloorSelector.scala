@@ -13,8 +13,9 @@ import org.newdawn.slick.MouseListener
 import org.newdawn.slick.Input
 import org.nolat.castleforge.tools.MoveDescription
 import org.nolat.castleforge.castle.items.Item
+import org.nolat.castleforge.states.CreateCastleScreen
 
-class ElementFloorSelector(castle: Castle, container: GameContainer) extends HUDElement(HUD.custom) with ComponentListener with MouseListener {
+class ElementFloorSelector(castle: Castle, container: GameContainer, game: StateBasedGame) extends HUDElement(HUD.custom) with ComponentListener with MouseListener {
   lazy val areas = (0 to 10).map { col =>
     (0 to 10).map { row =>
       //(row * 64, col * 64, 0)
@@ -121,19 +122,20 @@ class ElementFloorSelector(castle: Castle, container: GameContainer) extends HUD
   }
 
   override def mouseReleased(button: Int, x: Int, y: Int) {
-    mouseDown = false
-    getMOA match {
-      case Some(moa) => {
-        second = getAbsCoords(moa)
-        selection = CastleUtil.getSelectedCoordinates(castle, first, second)
-        onToolReleased(selection)
-        selection = Nil
-      }
-      case None => {
-        selection = Nil
+    if (game.getCurrentStateID == CreateCastleScreen.ID) {
+      mouseDown = false
+      getMOA match {
+        case Some(moa) => {
+          second = getAbsCoords(moa)
+          selection = CastleUtil.getSelectedCoordinates(castle, first, second)
+          onToolReleased(selection)
+          selection = Nil
+        }
+        case None => {
+          selection = Nil
+        }
       }
     }
-
   }
 
   override def mouseWheelMoved(change: Int) {}

@@ -9,6 +9,7 @@ import org.nolat.castleforge.ui.editor.ElementToolManager
 import org.nolat.castleforge.ui.editor.ElementToolOptions
 import org.nolat.castleforge.ui.editor.Tool
 import org.newdawn.slick.state.StateBasedGame
+import org.nolat.castleforge.ui.editor.TextOptionPane
 
 class EditorHUD(castle: Castle, container: GameContainer, game: StateBasedGame) extends HUD {
   val borders = new HUDElement(HUD.border)
@@ -26,7 +27,7 @@ class EditorHUD(castle: Castle, container: GameContainer, game: StateBasedGame) 
   minimap.position = new Vector2f(8 + 64 - 12, 8 + 64 - 12)
   this add minimap
 
-  val floorSelector = new ElementFloorSelector(castle, container)
+  val floorSelector = new ElementFloorSelector(castle, container, game)
   floorSelector.position = new Vector2f(8, 8)
   this.container.getInput.addMouseListener(floorSelector)
   this add floorSelector
@@ -43,24 +44,38 @@ class EditorHUD(castle: Castle, container: GameContainer, game: StateBasedGame) 
 
   val toolOptions = new ElementToolOptions()
   toolOptions.position = new Vector2f(toolSelector.position.x + 6, toolSelector.position.y + 64 * 3 + 32)
-  toolOptions.onOptionsChanged = toolManager.optionsChanged
+  toolOptions.onOptionsChanged = toolManager.optionsChanged //called when the optionmenu moa is clicked
   this add toolOptions
 
   val pauseMenu = new ElementEditorMenu(castle, game)
   pauseMenu.position = new Vector2f(8, 8)
   this add pauseMenu
 
+  val helpMenu = new ElementEditorHelp()
+  helpMenu.position = new Vector2f(8 + 64 - 12, 8 + 64 - 12)
+  this add helpMenu
+
   def toggleMinimap() = minimap.toggle()
 
-  def keyReleased(key: Int, c: Char) {
-    key match {
-      case Input.KEY_SPACE => toggleMinimap()
-      case _ =>
-    }
+  def toggleHelp() = helpMenu.toggle()
 
+  def keyReleased(key: Int, c: Char) {
+    if (container.isPaused) {
+      minimap.active = false
+      helpMenu.active = false
+    } else {
+      if (!TextOptionPane.textfieldInFocus) { //don't allow toggling if a textfield is in focus
+        key match {
+          case Input.KEY_SPACE => toggleMinimap()
+          case Input.KEY_F1 => toggleHelp()
+          case _ =>
+        }
+      }
+    }
   }
 
   def toolChanged(newTool: Tool) {
+    println("EditorHUD:toolChanged: " + newTool.getOptions)
     toolOptions.updateTool(newTool)
   }
 

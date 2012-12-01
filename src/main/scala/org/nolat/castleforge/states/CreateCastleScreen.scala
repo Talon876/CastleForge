@@ -15,6 +15,8 @@ import org.nolat.castleforge.tools.Lerper
 import org.nolat.castleforge.Config
 import org.nolat.castleforge.castle.CastleUtil
 import org.nolat.castleforge.castle.ExpansionDirection
+import java.io.File
+import org.nolat.castleforge.xml.MapLoad
 
 object CreateCastleScreen {
   val ID = 7
@@ -33,10 +35,15 @@ class CreateCastleScreen extends BasicGameState with FadeIn {
 
   override def enter(container: GameContainer, game: StateBasedGame) {
     container.setDefaultMouseCursor()
-    //todo check sharedstate for castle, if there is one, load it, else create the default
-    castle = Castle(generateBlankCastle)
-    CastleUtil.removeItem(castle, (2, 2))
-    CastleUtil.expandCastle(castle, ExpansionDirection.ALL, 5)
+
+    if (SharedStateData.loadedCastle == null) { //hasn't loaded from the File
+      castle = Castle(generateBlankCastle) //use default
+      //CastleUtil.removeItem(castle, (2, 2)) //remove the spawn
+      CastleUtil.expandCastle(castle, ExpansionDirection.ALL, 5) //expand so that there's no 'blank tiles' in sight or directly next to border (so no indexoutofbounds when creating rooms next to border)
+    } else {
+      castle = SharedStateData.loadedCastle //grab loaded castle
+    }
+
     castle.isEditor = true
     hud = new EditorHUD(castle, container, game)
     hud.enter(container, game)
@@ -45,12 +52,14 @@ class CreateCastleScreen extends BasicGameState with FadeIn {
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+    hud.update(container, game, delta)
     if (!container.isPaused) {
       Lerper.lerpers.foreach(_.update(delta))
       castle.update(container, game, delta)
     }
-    if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) container.setPaused(!container.isPaused)
-    hud.update(container, game, delta)
+    if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+      container.setPaused(!container.isPaused)
+    }
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {

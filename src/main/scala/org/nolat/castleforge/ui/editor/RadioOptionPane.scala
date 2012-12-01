@@ -1,6 +1,7 @@
 package org.nolat.castleforge.ui.editor
 
 import org.nolat.castleforge.graphics.Renderable
+
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.GameContainer
 import org.newdawn.slick.Graphics
@@ -11,7 +12,14 @@ import org.newdawn.slick.gui.AbstractComponent
 import org.newdawn.slick.gui.ComponentListener
 import org.newdawn.slick.Color
 
-class OptionPane(optionImage: Image, options: List[Any], container: GameContainer, parent: ElementToolOptions) extends ComponentListener {
+abstract class OptionPane(parent: ElementToolOptions) {
+  def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics)
+  def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+
+  }
+  def reset() = {}
+}
+class RadioOptionPane(optionImage: Image, options: List[Any], container: GameContainer, parent: ElementToolOptions) extends OptionPane(parent) with ComponentListener {
   var moas = {
     options.zipWithIndex.map {
       case (option, idx) =>
@@ -24,21 +32,14 @@ class OptionPane(optionImage: Image, options: List[Any], container: GameContaine
   var selected = 0
   var selectedCoords = (0, 0)
 
-  def update(container: GameContainer, game: StateBasedGame, delta: Int) {
-
-  }
-
-  def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {
+  override def render(x: Int, y: Int, container: GameContainer, game: StateBasedGame, g: Graphics) {
     optionImage.draw(x, y)
     moas.foreach(_.render(container, g))
-    if (selected >= 0) {
-      //HUD.selector.draw(selectedCoords._1, selectedCoords._2, Color.green)
-    }
   }
 
   override def componentActivated(source: AbstractComponent) {
     val moa = source.asInstanceOf[MouseOverArea]
-    println(options((moa.getX - parent.position.x.toInt) / 64))
+    //println(options((moa.getX - parent.position.x.toInt) / 64))
     selected = (moa.getX - parent.position.x.toInt) / 64
     selectedCoords = (moa.getX, moa.getY)
     parent.onOptionsChanged(parent.getSelectedOptions)

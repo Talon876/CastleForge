@@ -6,6 +6,7 @@ import org.newdawn.slick.state.BasicGameState
 import org.newdawn.slick.state.StateBasedGame
 import org.nolat.castleforge.Config
 import org.newdawn.slick.state.transition.EmptyTransition
+import org.newdawn.slick.Color
 
 object CastleLoading {
   val ID = 5
@@ -36,6 +37,8 @@ class CastleLoading extends BasicGameState {
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
+    Config.backdrop.draw(0, 0)
+    g.setColor(Color.black)
     Config.UIFont.drawString(600, 300, "Loading")
     if (!rendered) {
       rendered = true

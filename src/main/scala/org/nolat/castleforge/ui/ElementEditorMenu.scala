@@ -14,6 +14,7 @@ import org.newdawn.slick.state.transition.FadeInTransition
 import org.nolat.castleforge.states.MainMenuScreen
 import org.nolat.castleforge.xml.MapSave
 import org.nolat.castleforge.Config
+import org.nolat.castleforge.states.SaveScreen
 
 class ElementEditorMenu(castle: Castle, game: StateBasedGame) extends HUDElement(HUD.custom) {
 
@@ -47,11 +48,11 @@ class ElementEditorMenu(castle: Castle, game: StateBasedGame) extends HUDElement
   private def handleMenu(text: String, position: Vector2f) {
     text match {
       case "Save" => {
-        println("saving map")
-        castle.authorName = "TestBro"
-        castle.name = "Castle" + Config.random.nextInt(10000)
         castle.description = "A castle with " + castle.map.flatten.size + " tiles."
-        MapSave.save(castle, true, Some(castle.fileLocation))
+        SharedStateData.loadedCastle = castle
+        game.enterState(SaveScreen.ID)
+
+        //MapSave.save(castle, true, Some(castle.fileLocation))
       }
       case "Main Menu" => {
         container.setPaused(false)

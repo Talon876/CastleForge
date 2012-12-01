@@ -14,10 +14,11 @@ import java.io.File
 import org.nolat.castleforge.xml.MapSave
 
 object Castle {
-  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]],castleName: String = "untitled" + Config.random.nextInt(100000), authorNam: String = "default", descript: String = ""): Castle = {
+  def apply(curState: ArrayBuffer[ArrayBuffer[Floor]], castleName: String = "untitled" + Config.random.nextInt(100000), authorNam: String = "default", descript: String = ""): Castle = {
     val castle = new Castle(curState, castleName, authorNam, descript)
-    MapSave.save(castle, true)
+    //MapSave.save(castle, true)
     //TODO: determine if we want to save here for debugging purposes I will leave it for now
+    //probably don't want to save here since it'll be saved under default-untitled293842 and then when they go to save manually, it'll get renamed and there will be 2 files. or if they choose not to save it there will be a near empty file saved
     castle
   }
   def getSaveLocation(authorNam: String, castleName: String): File = {
@@ -63,7 +64,7 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
 
   }
 
-  def fileLocation() : File = {
+  def fileLocation(): File = {
     Castle.getSaveLocation(authorName, name)
   }
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
