@@ -7,7 +7,11 @@ import org.nolat.castleforge.castle.Castle
 object SharedStateData {
   private var _loadedCastle: Castle = null
 
-  def loadedCastle = _loadedCastle
+  def loadedCastle = {
+    var temp = _loadedCastle
+    _loadedCastle = null
+    temp
+  }
 
   def loadedCastle_=(mapFile: File) = {
     if (mapFile != null) {
