@@ -25,7 +25,7 @@ object Castle {
     val mapsFolderStr: String = Config.WorkingDirectory + "/maps"
     val mapsFolder: File = new File(mapsFolderStr)
     mapsFolder.mkdirs()
-    new File(mapsFolderStr + "/" + authorNam + "-" + castleName + ".xml")
+    new File(mapsFolderStr + "/" + authorNam + "-" + castleName + ".map") //now a .map file
   }
 }
 class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {

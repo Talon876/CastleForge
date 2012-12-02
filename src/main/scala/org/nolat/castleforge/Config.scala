@@ -35,6 +35,7 @@ object Config {
 
   var UIFont: TrueTypeFont = null
   var guiFont: TrueTypeFont = null
+  var castleSelectFont: TrueTypeFont = null
   var TitleScreenBackground: Image = null
   var backdrop: Image = null
 
@@ -45,6 +46,7 @@ object Config {
     TitleScreenBackground = new Image("images/titlescreen.png")
     backdrop = new Image("images/backdrop.png")
     UIFont = new TrueTypeFont(augustaFont.deriveFont(Font.PLAIN, 48), true)
+    castleSelectFont = new TrueTypeFont(defaultFont.deriveFont(Font.PLAIN, 24), true)
     guiFont = new TrueTypeFont(defaultFont.deriveFont(Font.PLAIN, 16), true)
 
     animationData = Sprites.values.map { sprite => (sprite.toString, Loader.getAnimData(sprite)) }.toMap

@@ -37,6 +37,21 @@ class TitleScreen extends BasicGameState {
   }
 
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
+    //Moved input checking into update because isKeyPressed caches if a key is pressed since the last check of isKeyPressed
+    //Since the rest of the menus use this keyReleased does not reset isKeyPressed and causes a the next menu to think enter has been pressed
+    if (container.getInput().isKeyPressed(Input.KEY_ENTER)) {
+      game.enterState(MainMenuScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black))
+
+    } else if (container.getInput().isKeyPressed(Input.KEY_F9)) {
+      //SharedStateData.loadOriginal = false
+      //SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/talon-everything.xml")
+      //game.enterState(CastleLoading.ID, new FadeOutTransition(Color.black), new EmptyTransition())
+      game.enterState(ExperimentScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black))
+    } else if (container.getInput().isKeyPressed(Input.KEY_F10)) {
+      SharedStateData.loadOriginal = true
+      SharedStateData.loadedCastle = new File(Config.WorkingDirectory + "/maps/talon-everything.xml")
+      game.enterState(CastleLoading.ID, new FadeOutTransition(Color.black), new EmptyTransition())
+    }
     if (decreasing) {
       alpha -= .01f
       if (alpha <= .3f) {
@@ -59,20 +74,6 @@ class TitleScreen extends BasicGameState {
   }
 
   override def keyReleased(key: Int, c: Char) {
-    if (key == Input.KEY_RETURN) {
 
-      game.enterState(MainMenuScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black))
-
-    } else if (key == Input.KEY_F9) {
-      //SharedStateData.loadOriginal = false
-      //SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/talon-everything.xml")
-      //game.enterState(CastleLoading.ID, new FadeOutTransition(Color.black), new EmptyTransition())
-
-      game.enterState(ExperimentScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black))
-    } else if (key == Input.KEY_F10) {
-      SharedStateData.loadOriginal = true
-      SharedStateData.mapFile = new File(Config.WorkingDirectory + "/maps/talon-everything.xml")
-      game.enterState(CastleLoading.ID, new FadeOutTransition(Color.black), new EmptyTransition())
-    }
   }
 }

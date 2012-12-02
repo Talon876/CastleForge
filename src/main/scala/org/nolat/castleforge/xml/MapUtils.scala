@@ -24,7 +24,6 @@ object MapUtils {
       val map = MapLoad.getXMLMap(file, Config.mapXsd) 
       Some(map.meta)
     }
-    catch{case _ =>}
-    None
+    catch{case _ => None}
   }
 }

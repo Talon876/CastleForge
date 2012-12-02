@@ -41,7 +41,7 @@ class MainMenuScreen extends BasicGameState {
 
   private def handleMenu(text: String, position: Vector2f) = {
     text match {
-      case "Choose Castle" =>
+      case "Choose Castle" => game.enterState(CastleSelectScreen.ID, null, null)
       case "Build New Castle" => game.enterState(CreateCastleScreen.ID, null, null)
       //case "Download Castles" =>
       case "Exit" => sys.exit

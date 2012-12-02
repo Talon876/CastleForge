@@ -15,5 +15,6 @@ class CastleForge(title: String) extends StateBasedGame(title) {
     addState(new GameScreen())
     addState(new CreateCastleScreen())
     addState(new SaveScreen())
+    addState(new CastleSelectScreen())
   }
 }

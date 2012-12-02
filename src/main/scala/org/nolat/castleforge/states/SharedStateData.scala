@@ -7,6 +7,18 @@ import org.nolat.castleforge.castle.Castle
 object SharedStateData {
   private var _loadedCastle: Castle = null
 
+  private var _screenToLoad: Int = GameScreen.ID
+  
+  def screenToLoad = { //screenToLoad defaults to GameScreen and will reset to GameScreen needs to be set to load the Editor
+    var temp = _screenToLoad
+    _screenToLoad = GameScreen.ID
+    temp
+  }
+  
+  def screenToLoad_= (screen : Int){
+    _screenToLoad = screen
+  }
+  
   def loadedCastle = {
     var temp = _loadedCastle
     _loadedCastle = null
@@ -16,6 +28,7 @@ object SharedStateData {
   def loadedCastle_=(mapFile: File) = {
     if (mapFile != null) {
       _loadedCastle = MapLoad.loadMap(mapFile, loadOriginal)
+      _mapFile = null
     } else {
       _loadedCastle = null
     }

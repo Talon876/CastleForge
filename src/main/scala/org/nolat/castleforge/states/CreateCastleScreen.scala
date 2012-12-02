@@ -33,13 +33,14 @@ class CreateCastleScreen extends BasicGameState with FadeIn {
 
   override def enter(container: GameContainer, game: StateBasedGame) {
     container.setDefaultMouseCursor()
-
-    if (SharedStateData.loadedCastle == null) { //hasn't loaded from the File
+    
+    val temp: Castle = SharedStateData.loadedCastle
+    if (temp == null) { //hasn't loaded from the File
       castle = Castle(generateBlankCastle) //use default
       //CastleUtil.removeItem(castle, (2, 2)) //remove the spawn
       CastleUtil.expandCastle(castle, ExpansionDirection.ALL, 5) //expand so that there's no 'blank tiles' in sight or directly next to border (so no indexoutofbounds when creating rooms next to border)
     } else {
-      castle = SharedStateData.loadedCastle //grab loaded castle
+      castle = temp //grab loaded castle
     }
 
     castle.isEditor = true
