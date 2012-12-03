@@ -32,6 +32,7 @@ class GameScreen extends BasicGameState with FadeIn {
 
   override def enter(container: GameContainer, game: StateBasedGame) {
     castle = SharedStateData.loadedCastle
+    castle.game = game
     hud = new MainHUD(castle, game)
     fadingIn = true
   }

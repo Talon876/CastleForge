@@ -22,6 +22,7 @@ object HUD {
   var back: Image = null
   var backOver: Image = null
   var castleRow: Image = null
+  var castleSelection: Image = null
 
   def init() = {
     border = new Image("images/interface/borders.png")
@@ -35,6 +36,7 @@ object HUD {
     back = new Image("images/interface/back.png")
     backOver = new Image("images/interface/backOver.png")
     castleRow = new Image("images/interface/castlerow.png")
+    castleSelection = new Image("images/interface/castleselection.png")
   }
 }
 

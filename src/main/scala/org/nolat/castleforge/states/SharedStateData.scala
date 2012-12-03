@@ -8,17 +8,17 @@ object SharedStateData {
   private var _loadedCastle: Castle = null
 
   private var _screenToLoad: Int = GameScreen.ID
-  
+
   def screenToLoad = { //screenToLoad defaults to GameScreen and will reset to GameScreen needs to be set to load the Editor
     var temp = _screenToLoad
     _screenToLoad = GameScreen.ID
     temp
   }
-  
-  def screenToLoad_= (screen : Int){
+
+  def screenToLoad_=(screen: Int) {
     _screenToLoad = screen
   }
-  
+
   def loadedCastle = {
     var temp = _loadedCastle
     _loadedCastle = null
@@ -44,4 +44,6 @@ object SharedStateData {
     _mapFile = map
   }
   var loadOriginal = false //If true it will always load state 0 if false it will load state 1 if it exists or state 0
+
+  var winString = ""
 }

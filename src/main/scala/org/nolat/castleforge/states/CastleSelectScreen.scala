@@ -25,7 +25,8 @@ class CastleSelectScreen extends BasicGameState {
 
   var game: StateBasedGame = null
 
-  var castleMenu = new CastleSelectMenu(new Vector2f(100, 100))
+  val castleMenuPosition = new Vector2f(353, 120)
+  var castleMenu = new CastleSelectMenu(castleMenuPosition)
 
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
@@ -35,7 +36,7 @@ class CastleSelectScreen extends BasicGameState {
     val mapsFolderStr: String = Config.WorkingDirectory + "/maps"
     val mapsFolder: File = new File(mapsFolderStr)
     mapsFolder.mkdirs()
-    castleMenu = new CastleSelectMenu(new Vector2f(100, 100))
+    castleMenu = new CastleSelectMenu(castleMenuPosition)
     val files = mapsFolder.listFiles().filter(f => f.getName().substring(f.getName().length - 3) == "map")
     files.foreach { f =>
       castleMenu.add(f, handleMenu)
@@ -51,7 +52,8 @@ class CastleSelectScreen extends BasicGameState {
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
     Config.stonewall.draw(0, 0)
-    Config.UIFont.drawString(200, 20, "Castle Selection", Color.black)
+
+    HUD.castleSelection.draw(Config.Resolution.getX / 2 - HUD.castleSelection.getWidth / 2, 0)
     castleMenu.render(container, game, g)
   }
 

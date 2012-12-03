@@ -49,6 +49,8 @@ class CastleSelectMenu(var position: Vector2f) extends Renderable {
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
+    //println(position)
+    //position = new Vector2f(353, 120)
     if (menuItems.length > 0) {
       var yOffset = 0
       for (i <- topIdx to bottomIdx) {
@@ -149,6 +151,11 @@ class CastleSelectMenu(var position: Vector2f) extends Renderable {
 
     override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
       var yOffset = position.y
+
+      if (isSelected) {
+        Config.castleSelectFont.drawString(975, yOffset + 25, "<Enter> play", Color.white)
+        Config.castleSelectFont.drawString(975, yOffset + 25 + 30, "<E> edit", Color.white)
+      }
 
       HUD.castleRow.draw(position.x, yOffset)
       Config.castleSelectFont.drawString(position.x + 10, yOffset + 4, "Creator: " + authorName, if (isSelected) colorSelected else colorNotselected)

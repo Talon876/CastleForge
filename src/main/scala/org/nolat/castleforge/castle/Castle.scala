@@ -32,6 +32,7 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
   var name: String = "Default"
   var authorName: String = "Default Name"
   var description: String = ""
+  var game: StateBasedGame = null
 
   private var _map: ArrayBuffer[ArrayBuffer[Floor]] = curState
   def map = _map

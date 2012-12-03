@@ -5,6 +5,11 @@ import org.nolat.castleforge.graphics.Sprite
 import org.nolat.castleforge.castle.items.attributes.Readable
 import org.nolat.castleforge.castle.Player
 import org.nolat.castleforge.castle.Floor
+import org.nolat.castleforge.states.SharedStateData
+import org.nolat.castleforge.states.WinScreen
+import org.newdawn.slick.state.transition.FadeOutTransition
+import org.newdawn.slick.Color
+import org.newdawn.slick.state.transition.FadeInTransition
 
 class EndPoint(endText: String) extends Item with Readable {
   displayText = endText
@@ -23,7 +28,9 @@ class EndPoint(endText: String) extends Item with Readable {
   }
 
   override def onPlayerEnter(player: Player, srcFloor: Floor) {
-    println(displayText)
+    //println(displayText)
+    SharedStateData.winString = displayText
+    player.castle.game.enterState(WinScreen.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black))
   }
 
   override def getOptions = {

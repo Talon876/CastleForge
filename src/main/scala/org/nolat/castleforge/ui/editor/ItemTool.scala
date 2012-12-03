@@ -41,7 +41,11 @@ class ItemTool(var item: Item, x: Int, y: Int, castle: Castle, container: GameCo
               }
             }
           }
-          case _ => CastleUtil.addItem(castle, floor.getTilePosition, Item(item.getItemType, item.getParamList.toList))
+          case _ => {
+            if (floor.roomIDlist.size == 1) { //items that aren't doors can't be placed on walls
+              CastleUtil.addItem(castle, floor.getTilePosition, Item(item.getItemType, item.getParamList.toList))
+            }
+          }
         }
       }
     }
