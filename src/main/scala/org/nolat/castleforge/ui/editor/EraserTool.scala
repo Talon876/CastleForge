@@ -13,6 +13,7 @@ import org.nolat.castleforge.castle.items.Item
 class EraserTool(x: Int, y: Int, castle: Castle, container: GameContainer) extends Tool(x, y, castle, container) {
 
   override def apply(region: List[List[Floor]]) {
+    //region.flatten.foreach { floor => CastleUtil.removeItem(castle, floor.getTilePosition) }
     filterOutWalls(region.flatten).foreach { floor =>
       floor.item match {
         case Some(itm) => itm match {

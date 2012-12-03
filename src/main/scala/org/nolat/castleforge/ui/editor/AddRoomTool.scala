@@ -10,7 +10,8 @@ import org.nolat.castleforge.castle.items.Item
 
 class AddRoomTool(x: Int, y: Int, castle: Castle, container: GameContainer) extends Tool(x, y, castle, container) {
 
-  var id = 2
+  //var id = castle
+  def id = castle.nextRoomId
 
   override def apply(region: List[List[Floor]]) {
     val width = region.size
@@ -32,17 +33,19 @@ class AddRoomTool(x: Int, y: Int, castle: Castle, container: GameContainer) exte
 
       if (validPerim && validInside) {
 
+        val currentRoomId = id
+
         perim.foreach { border =>
           CastleUtil.addItem(castle, border.getTilePosition, Item("wall"))
 
-          border.roomIDlist = List(border.roomIDlist, List(id)).flatten //ad the current id
+          border.roomIDlist = List(border.roomIDlist, List(currentRoomId)).flatten //ad the current id
 
           val listWithout0 = border.roomIDlist.filter(i => i != 0)
           border.roomIDlist = border.roomIDlist.filter(i => i != 0) //remove the 0
         }
 
         inside.foreach { floor =>
-          floor.roomIDlist = List(id)
+          floor.roomIDlist = List(currentRoomId)
         }
 
         //add 0 to ones where necessary (an adjancent tile id is == "0")
@@ -59,7 +62,7 @@ class AddRoomTool(x: Int, y: Int, castle: Castle, container: GameContainer) exte
           }
         }
 
-        id += 1
+        // id += 1
       } else {
         println("inside perim: " + validInside + " " + validPerim)
       }

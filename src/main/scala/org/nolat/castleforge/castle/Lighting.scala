@@ -5,20 +5,28 @@ import org.nolat.castleforge.castle.items.Wall
 
 class Lighting(castle: Castle) {
 
-  def update() = {
-    //get all torches
-    val torches = CastleUtil.getAllRoomsContainingItem(castle, classOf[Torch])
-    //set baseline darkness on all tiles in rooms with torches
-    torches.foreach(torchTile => setBaseline(torchTile.item.get.asInstanceOf[Torch]))
+  def reset() = {
+    castle.map.flatten.foreach(tile => tile.darkness = .15f)
+  }
 
-    torches.foreach(torchTile => handleRoom(torchTile.item.get.asInstanceOf[Torch]))
+  def update() = {
+
+    if (!castle.isEditor) { //don't update lighting in the editor
+
+      //get all torches
+      val torches = CastleUtil.getAllRoomsContainingItem(castle, classOf[Torch])
+      //set baseline darkness on all tiles in rooms with torches
+      torches.foreach(torchTile => setBaseline(torchTile.item.get.asInstanceOf[Torch]))
+
+      torches.foreach(torchTile => handleRoom(torchTile.item.get.asInstanceOf[Torch]))
+    }
   }
 
   private def setBaseline(torch: Torch) {
     val affectedTiles = filterOutWalls(CastleUtil.getFloorsSharingRoomIds(castle, torch.container.roomIDs, true))
 
     affectedTiles.foreach { tile =>
-      tile.darkness = .85f
+      tile.darkness = .80f
     }
   }
 

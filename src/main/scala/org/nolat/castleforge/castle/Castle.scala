@@ -122,4 +122,18 @@ class Castle(curState: ArrayBuffer[ArrayBuffer[Floor]]) extends Renderable {
       }
     }
   }
+
+  def nextRoomId = {
+    var maxRoomId = 0
+    map.flatten.foreach {
+      tile =>
+        tile.roomIDlist.foreach { id =>
+          if (id > maxRoomId) {
+            maxRoomId = id
+            //println("new max is " + maxRoomId)
+          }
+        }
+    }
+    maxRoomId + 1
+  }
 }

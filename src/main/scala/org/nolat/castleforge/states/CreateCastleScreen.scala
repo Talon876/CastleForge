@@ -33,7 +33,7 @@ class CreateCastleScreen extends BasicGameState with FadeIn {
 
   override def enter(container: GameContainer, game: StateBasedGame) {
     container.setDefaultMouseCursor()
-    
+
     val temp: Castle = SharedStateData.loadedCastle
     if (temp == null) { //hasn't loaded from the File
       castle = Castle(generateBlankCastle) //use default
@@ -44,6 +44,7 @@ class CreateCastleScreen extends BasicGameState with FadeIn {
     }
 
     castle.isEditor = true
+    castle.lighting.reset()
     hud = new EditorHUD(castle, container, game)
     hud.enter(container, game)
 
