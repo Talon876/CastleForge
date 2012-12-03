@@ -11,8 +11,8 @@ object Verification {
   def verifyTeleporters(castle: Castle): List[String] = {
     var results: List[String] = List()
     val senders: List[Floor] = findAllSenderTeleporters(castle)
-    val receivers: List[Floor] = findAllSenderTeleporters(castle)
-    val bidirectionals: List[Floor] = findAllSenderTeleporters(castle)
+    val receivers: List[Floor] = findAllReceiverTeleporters(castle)
+    val bidirectionals: List[Floor] = findAllBidirectionalTeleporters(castle)
     IDColor.values.foreach { clr =>
       val sendersClr: List[Floor] = senders.filter { flr =>
         flr.item match {
@@ -34,7 +34,7 @@ object Verification {
       }
       if (bidirectionalClr.length > 0) {
         if (sendersClr.length > 0 || recieverClr.length > 0) { //If there is any bidirectional teles there cannot be senders/receivers of that color
-          val error = "Bidirectional teleporter(s) and a sender and/or reciever of color" + IDColor.toString(clr)
+          val error = "Bidirectional teleporter(s) and a sender and/or receiver of color" + IDColor.toString(clr)
           results = error :: results
         } else if (bidirectionalClr.length == 1) {
           val error = "Only one bidirectional teleporter of " + IDColor.toString(clr)

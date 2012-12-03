@@ -65,7 +65,7 @@ class CastleSelectMenu(var position: Vector2f) extends Renderable {
   def setIndecies() {
     topIdx = math.max(0, selectedIndex - (itemsDisplayed / 2))
     if (topIdx == 0 && selectedIndex == 0) {
-      bottomIdx = itemsDisplayed - 1;
+      bottomIdx = math.min(menuItems.size - 1, itemsDisplayed - 1);
     } else {
       bottomIdx = math.min(menuItems.size - 1, selectedIndex + (itemsDisplayed / 2) + ((selectedIndex - topIdx) % (itemsDisplayed / 2)))
       //selectedIndex + (itemsDisplayed / 2) puts half of the items below the current selected one
