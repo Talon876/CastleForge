@@ -78,8 +78,8 @@ class Floor(private var _item: Option[Item], var x: Int, var y: Int, private var
     g.setColor(new Color(0, 0, 0, darkness))
     g.fillRect(newX + translate(newX, newY)._1, newY + translate(newX, newY)._2, Config.TileWidth, Config.TileHeight)
 
-    //g.setColor(Color.white)
-    //g.drawString(roomIDs, newX + translate(newX, newY)._1, newY + translate(newX, newY)._2)
+    //    g.setColor(Color.white)
+    //    g.drawString(roomIDs, newX + translate(newX, newY)._1, newY + translate(newX, newY)._2)
     //g.drawString("" + getTilePosition, newX + translate(newX, newY)._1, newY + translate(newX, newY)._2 + 32)
   }
 

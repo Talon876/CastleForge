@@ -9,7 +9,7 @@ import org.nolat.castleforge.castle.items.Wall
 
 class ElementEditorHelp() extends HUDElement(HUD.custom) {
 
-  var active = false
+  var active = true
 
   def toggle() = active = !active
 
