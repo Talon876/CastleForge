@@ -38,6 +38,7 @@ object Config {
   var castleSelectFont: TrueTypeFont = null
   var TitleScreenBackground: Image = null
   var backdrop: Image = null
+  var stonewall: Image = null
 
   var animationData: Map[String, Map[String, AnimationData]] = null
   var spritesheets: Map[String, SpriteSheet] = null
@@ -45,6 +46,7 @@ object Config {
   def init() = {
     TitleScreenBackground = new Image("images/titlescreen.png")
     backdrop = new Image("images/backdrop.png")
+    stonewall = new Image("images/interface/stonewall.png")
     UIFont = new TrueTypeFont(augustaFont.deriveFont(Font.PLAIN, 48), true)
     castleSelectFont = new TrueTypeFont(defaultFont.deriveFont(Font.PLAIN, 24), true)
     guiFont = new TrueTypeFont(defaultFont.deriveFont(Font.PLAIN, 16), true)

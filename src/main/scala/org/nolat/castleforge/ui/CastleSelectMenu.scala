@@ -20,7 +20,7 @@ class CastleSelectMenu(var position: Vector2f) extends Renderable {
   var colorSelected = Color.white
   var colorNotselected = Color.darkGray.darker.darker
   var charactersPerLine: Int = 100
-  var itemsDisplayed: Int = 5
+  var itemsDisplayed: Int = 4
   private var selectedIndex = 0
   private var topIdx: Int = math.max(0, selectedIndex - (itemsDisplayed / 2))
   private var bottomIdx: Int = math.min(menuItems.size - 1, selectedIndex + (itemsDisplayed / 2))
@@ -55,7 +55,7 @@ class CastleSelectMenu(var position: Vector2f) extends Renderable {
         val item: CastleSelectMenuItem = menuItems.get(i).get
         item.position = new Vector2f(position.x, position.y + yOffset)
         item.render(container, game, g)
-        yOffset = yOffset + item.height + 4
+        yOffset = yOffset + item.height + 40
       }
     } else {
       Config.castleSelectFont.drawString(position.x, position.y, "No .map files found in " + Config.WorkingDirectory + "/maps", colorNotselected)
@@ -149,11 +149,13 @@ class CastleSelectMenu(var position: Vector2f) extends Renderable {
 
     override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
       var yOffset = position.y
-      Config.castleSelectFont.drawString(position.x, yOffset, authorName, if (isSelected) colorSelected else colorNotselected)
+
+      HUD.castleRow.draw(position.x, yOffset)
+      Config.castleSelectFont.drawString(position.x + 10, yOffset + 4, "Creator: " + authorName, if (isSelected) colorSelected else colorNotselected)
       yOffset = yOffset + Config.castleSelectFont.getHeight(authorName) + 4
-      Config.castleSelectFont.drawString(position.x, yOffset, castleName, if (isSelected) colorSelected else colorNotselected)
+      Config.castleSelectFont.drawString(position.x + 10, yOffset - 1, "Title: " + castleName, if (isSelected) colorSelected else colorNotselected)
       yOffset = yOffset + Config.castleSelectFont.getHeight(castleName) + 4
-      Config.castleSelectFont.drawString(position.x, yOffset, description, if (isSelected) colorSelected else colorNotselected)
+      Config.castleSelectFont.drawString(position.x + 10, yOffset - 6, "Desc: " + description, if (isSelected) colorSelected else colorNotselected)
       yOffset = yOffset + Config.castleSelectFont.getHeight(authorName)
     }
   }

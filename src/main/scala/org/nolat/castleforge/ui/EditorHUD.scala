@@ -10,18 +10,24 @@ import org.nolat.castleforge.ui.editor.ElementToolOptions
 import org.nolat.castleforge.ui.editor.Tool
 import org.newdawn.slick.state.StateBasedGame
 import org.nolat.castleforge.ui.editor.TextOptionPane
+import org.nolat.castleforge.Config
 
 class EditorHUD(castle: Castle, container: GameContainer, game: StateBasedGame) extends HUD {
-  val borders = new HUDElement(HUD.border)
-  this add borders
 
   val grooves = new HUDElement(HUD.grooves)
   grooves.position = new Vector2f(728, 8)
   this add grooves
 
+  val logoBG = new HUDElement(HUD.grooves)
+  logoBG.position = new Vector2f(728, Config.Resolution.getY - HUD.grooves.getHeight)
+  this add logoBG
+
   val logo = new HUDElement(HUD.logo)
   logo.position = new Vector2f(728, 588)
   this add logo
+
+  val borders = new HUDElement(HUD.border)
+  this add borders
 
   val minimap = new ElementMiniMap(castle)
   minimap.position = new Vector2f(8 + 64 - 12, 8 + 64 - 12)
@@ -75,7 +81,7 @@ class EditorHUD(castle: Castle, container: GameContainer, game: StateBasedGame) 
   }
 
   def toolChanged(newTool: Tool) {
-    println("EditorHUD:toolChanged: " + newTool.getOptions)
+    //println("EditorHUD:toolChanged: " + newTool.getOptions)
     toolOptions.updateTool(newTool)
   }
 

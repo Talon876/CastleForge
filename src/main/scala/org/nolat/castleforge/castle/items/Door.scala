@@ -82,7 +82,7 @@ class Door(var doorType: Int, _idColor: String = "", _shape: String = "") extend
       if (CastleUtil.distanceBetweenTiles(this.container, castle.player.container) <= 3 && castle.player.inventory.hasCrystalBall)
         opacity = .8f //make door obvious
       else
-        opacity = .25f //hide door
+        opacity = if (castle.isEditor) .25f else .001f //hide door
     }
   }
 

@@ -5,18 +5,24 @@ import org.newdawn.slick.geom.Vector2f
 import org.newdawn.slick.Input
 import org.nolat.castleforge.castle.Castle
 import org.newdawn.slick.state.StateBasedGame
+import org.nolat.castleforge.Config
 
 class MainHUD(castle: Castle, game: StateBasedGame) extends HUD {
-  val borders = new HUDElement(HUD.border)
-  this add borders
 
   val grooves = new HUDElement(HUD.grooves)
   grooves.position = new Vector2f(728, 8)
   this add grooves
 
+  val logoBG = new HUDElement(HUD.grooves)
+  logoBG.position = new Vector2f(728, Config.Resolution.getY - HUD.grooves.getHeight)
+  this add logoBG
+
   val logo = new HUDElement(HUD.logo)
   logo.position = new Vector2f(728, 588)
   this add logo
+
+  val borders = new HUDElement(HUD.border)
+  this add borders
 
   val playerDebug = new ElementPlayerDebug(castle.player)
   playerDebug.position = new Vector2f(8, 8 + 64 * 9)

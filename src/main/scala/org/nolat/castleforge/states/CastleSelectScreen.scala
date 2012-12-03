@@ -1,6 +1,5 @@
 package org.nolat.castleforge.states
-import org.newdawn.slick.state.transition.EmptyTransition
-
+import org.newdawn.slick.state.transition.EmptyTransition
 import org.newdawn.slick.state.BasicGameState
 import org.newdawn.slick.state.StateBasedGame
 import org.newdawn.slick.GameContainer
@@ -15,6 +14,7 @@ import org.nolat.castleforge.ui.CastleSelectMenu
 import org.newdawn.slick.Input
 import java.io.File
 import org.newdawn.slick.state.transition.EmptyTransition
+import org.nolat.castleforge.ui.HUD
 
 object CastleSelectScreen {
   val ID = 9
@@ -50,7 +50,7 @@ class CastleSelectScreen extends BasicGameState {
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
-    Config.backdrop.draw(0, 0)
+    Config.stonewall.draw(0, 0)
     Config.UIFont.drawString(200, 20, "Castle Selection", Color.black)
     castleMenu.render(container, game, g)
   }

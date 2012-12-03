@@ -50,7 +50,7 @@ class ItemTool(var item: Item, x: Int, y: Int, castle: Castle, container: GameCo
   override def getOptions() = item.getOptions
 
   override def setOptions(options: List[Any]) = {
-    println("ItemTool: options: " + options)
+    //println("ItemTool: options: " + options)
     item.setOptions(options)
   }
 }

@@ -21,7 +21,7 @@ class TextOptionPane(container: GameContainer, x: Int, val y: Int, parent: Eleme
   private var lastFocusState = true
 
   override def reset() = {
-    println("hiding textfield")
+    // println("hiding textfield")
     textfield.setLocation(textfield.getX(), Config.Resolution.getY + 1)
     textfield.setText("")
   }
@@ -31,21 +31,21 @@ class TextOptionPane(container: GameContainer, x: Int, val y: Int, parent: Eleme
   override def update(container: GameContainer, game: StateBasedGame, delta: Int) {
 
     if (textfield.hasFocus && lastFocusState == false) {
-      println("textfield got focus")
+      //("textfield got focus")
       TextOptionPane.textfieldInFocus = true
     } else if (!textfield.hasFocus && lastFocusState == true) {
-      println("textfield lost focus")
+      //println("textfield lost focus")
       TextOptionPane.textfieldInFocus = false
     }
 
     if (!hidden && container.isPaused) { //menu is up, so lose focus
       textfield.setFocus(false)
       TextOptionPane.textfieldInFocus = false
-      println("textfield lost focus because it's hidden and container is paused")
+      //println("textfield lost focus because it's hidden and container is paused")
     } else if (!hidden && !container.isPaused) { //not hidden and no longer paused, give focus back
       textfield.setFocus(true)
       TextOptionPane.textfieldInFocus = true
-      println("textfiled gained focus because it's not hidden and container isn't paused")
+      //println("textfiled gained focus because it's not hidden and container isn't paused")
     }
 
     lastFocusState = textfield.hasFocus

@@ -60,7 +60,7 @@ class SaveScreen extends BasicGameState with ComponentListener {
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
-    Config.backdrop.draw(0, 0)
+    Config.stonewall.draw(0, 0)
     g.setColor(Color.black)
     Config.UIFont.drawString(220, 30, "Author Name: ")
     Config.UIFont.drawString(240, 80, "Castle Name: ")

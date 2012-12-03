@@ -17,6 +17,7 @@ import org.newdawn.slick.state.transition.BlobbyTransition
 import org.newdawn.slick.state.transition.FadeOutTransition
 import org.newdawn.slick.state.transition.FadeInTransition
 import java.io.File
+import org.nolat.castleforge.ui.HUD
 
 object TitleScreen {
   val ID = 1
@@ -69,7 +70,8 @@ class TitleScreen extends BasicGameState {
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
-    Config.TitleScreenBackground.draw(0, 0)
+    Config.stonewall.draw(0, 0)
+    HUD.logo.draw(Config.Resolution.getX / 2 - HUD.logo.getWidth / 2, 40)
     Config.UIFont.drawString(Config.Resolution.getX / 2 - 100, Config.Resolution.getY - 100, "Press enter", new Color(0, 0, 0, alpha))
   }
 

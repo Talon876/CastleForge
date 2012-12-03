@@ -10,6 +10,7 @@ import org.nolat.castleforge.ui.Menu
 import org.newdawn.slick.geom.Vector2f
 import org.newdawn.slick.state.transition.FadeOutTransition
 import org.newdawn.slick.state.transition.FadeInTransition
+import org.nolat.castleforge.ui.HUD
 
 object MainMenuScreen {
   val ID = 2
@@ -35,7 +36,8 @@ class MainMenuScreen extends BasicGameState {
   }
 
   override def render(container: GameContainer, game: StateBasedGame, g: Graphics) {
-    Config.TitleScreenBackground.draw(0, 0)
+    Config.stonewall.draw(0, 0)
+    HUD.logo.draw(Config.Resolution.getX / 2 - HUD.logo.getWidth / 2, 40)
     mainMenu.render(container, game, g)
   }
 
