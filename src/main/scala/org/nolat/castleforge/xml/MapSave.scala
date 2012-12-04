@@ -25,7 +25,7 @@ object MapSave {
   }
   val cloner: Cloner = new Cloner();
   //cloner.setDumpClonedClasses(true);
-  setupCloner()
+  //setupCloner()
 
   def dummyInit() { //does nothing but allows MapSave to be initalized
   }
@@ -63,20 +63,23 @@ object MapSave {
         }
       }
     } else {
-      println("Clone starting")
-      CodeTimer.start()
-      val map = cloneMap(castle.map)
-      val inv = cloneInventory(castle.inventory)
-      CodeTimer.finish()
+      //println("Clone starting")
+      //CodeTimer.start()
+      //val map = cloneMap(castle.map)
+      //val inv = cloneInventory(castle.inventory)
+      val map = castle.map
+      val inv = castle.inventory
+      //CodeTimer.finish()
       saveDone = future {
-        println("Saving starting")
-        CodeTimer.start()
+        //println("Saving starting")
+        //CodeTimer.start()
         
         /*
 	   * This is used when saving a checkpoint while playing through a castle
 	   * It will save the players inventory and the current state of the map
 	   * to state id 1 which is the checkpoint state
 	   */
+        //Thread.sleep(500)
         if (castle.fileLocation == null) //all non editor castles should be loaded from files
         {
           return
@@ -86,20 +89,20 @@ object MapSave {
         saveFile match {
           case None => {
             saveCastle(castle, state, castle.fileLocation)
-            CodeTimer.finish()
-            println("Save finished")
+            //CodeTimer.finish()
+          //  println("Save finished")
             true //done
           }
           case Some(f) => {
             saveCastle(castle, state, f)
-            CodeTimer.finish()
-            println("Save finished")
+            //CodeTimer.finish()
+            //println("Save finished")
             true //done
           }
         }
         
       }
-      println("is not waiting on saving to be done")
+     // println("is not waiting on saving to be done")
     }
   }
   private def AB2Roomlayout(buffer: ArrayBuffer[ArrayBuffer[Int]]): Seq[String] = {
