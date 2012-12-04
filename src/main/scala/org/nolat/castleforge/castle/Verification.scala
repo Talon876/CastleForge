@@ -2,11 +2,37 @@ package org.nolat.castleforge.castle
 
 import org.nolat.castleforge.castle.items.Teleporter
 import org.nolat.castleforge.castle.items.attributes.IDColor
+import org.nolat.castleforge.castle.items.SpawnPoint
 
 object Verification {
   def verify(castle: Castle): (Boolean, List[String]) = {
-    var results: List[String] = verifyTeleporters(castle: Castle)
+    var results: List[String] = verifyTeleporters(castle)
+    results = verifyStartPosition(castle) ::: results
     (results.isEmpty, results)
+  }
+
+  def verifyStartPosition(castle: Castle): List[String] = {
+    var results: List[String] = List()
+    val spawnPoint = castle.map.flatten.toList.filter {
+      floor =>
+        floor.item match {
+          case Some(itm) => itm match {
+            case st: SpawnPoint => true
+            case _ => false
+          }
+          case None => false
+        }
+    }
+    var error: String = ""
+    if (spawnPoint.length == 0) {
+      error = "Add a spawn point"
+      results = error :: results //prepend error only if there is one
+
+    } else if (spawnPoint.length > 1) {
+      error = "Only one spawn point can be placed"
+      results = error :: results
+    }
+    results
   }
   def verifyTeleporters(castle: Castle): List[String] = {
     var results: List[String] = List()
@@ -34,30 +60,30 @@ object Verification {
       }
       if (bidirectionalClr.length > 0) {
         if (sendersClr.length > 0 || recieverClr.length > 0) { //If there is any bidirectional teles there cannot be senders/receivers of that color
-          val error = "Bidirectional teleporter(s) and a sender and/or receiver of color" + IDColor.toString(clr)
+          val error = "(" + IDColor.toString(clr) + ") Bidirectional and sender/receiver teleporters placed"
           results = error :: results
         } else if (bidirectionalClr.length == 1) {
-          val error = "Only one bidirectional teleporter of " + IDColor.toString(clr)
+          val error = "(" + IDColor.toString(clr) + ") Only one bidirectional teleporter."
           results = error :: results
         } else if (bidirectionalClr.length > 2) {
-          val error = "Too many bidirectional teleporters of color " + IDColor.toString(clr)
+          val error = "(" + IDColor.toString(clr) + ") Too many bidirectional teleporters."
           results = error :: results
         }
       } else {
         if (sendersClr.length == 1) {
           if (recieverClr.length == 0) {
-            val error = "No receiver teleporter of color " + IDColor.toString(clr)
+            val error = "(" + IDColor.toString(clr) + ") No receiver teleporter."
             results = error :: results
           } else if (recieverClr.length > 1) {
-            val error = "Too many receiver teleporters of color " + IDColor.toString(clr)
+            val error = "(" + IDColor.toString(clr) + ") Too many receiver teleporters."
             results = error :: results
           }
         } else if (sendersClr.length > 1) {
-          val error = "Too many sender teleporters of color " + IDColor.toString(clr)
+          val error = "(" + IDColor.toString(clr) + ") Too many sender teleporters."
           results = error :: results
         } else {
           if (recieverClr.length > 0) {
-            val error = "Receiver teleporter(s) without sender of color " + IDColor.toString(clr)
+            val error = "(" + IDColor.toString(clr) + ") Receiver teleporter without a sender."
             results = error :: results
           }
         }
