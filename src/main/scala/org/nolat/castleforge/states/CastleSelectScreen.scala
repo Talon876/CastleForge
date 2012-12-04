@@ -15,6 +15,7 @@ import org.newdawn.slick.Input
 import java.io.File
 import org.newdawn.slick.state.transition.EmptyTransition
 import org.nolat.castleforge.ui.HUD
+import org.nolat.castleforge.castle.CastleUtil
 
 object CastleSelectScreen {
   val ID = 9
@@ -33,9 +34,7 @@ class CastleSelectScreen extends BasicGameState {
   }
 
   override def enter(container: GameContainer, game: StateBasedGame) {
-    val mapsFolderStr: String = Config.WorkingDirectory + "/maps"
-    val mapsFolder: File = new File(mapsFolderStr)
-    mapsFolder.mkdirs()
+	val mapsFolder = CastleUtil.getMapsFolder
     castleMenu = new CastleSelectMenu(castleMenuPosition)
     val files = mapsFolder.listFiles().filter(f => f.getName().substring(f.getName().length - 3) == "map")
     files.foreach { f =>

@@ -6,6 +6,10 @@ import java.lang.Class
 import scala.collection.mutable.ArrayBuffer
 import org.nolat.castleforge.castle.ExpansionDirection._
 import org.nolat.castleforge.Config
+import java.io.File
+import java.io.InputStream
+import org.apache.commons.io.FileUtils
+import org.apache.commons.io.IOUtils
 
 object CastleUtil {
 
@@ -396,5 +400,21 @@ object CastleUtil {
     }
   }
 
+  def getMapsFolder(): File = {
+    val tutorialMap = "Talon-Tutorial Castle.map"
+    val mapsFolderStr: String = Config.WorkingDirectory + "/maps"
+    val mapsFolder: File = new File(mapsFolderStr)
+    val existed = mapsFolder.exists()
+    mapsFolder.mkdirs()
+    if (!existed) {
+      val mapIS: InputStream = getClass().getResourceAsStream("/maps/" + tutorialMap)
+      val mapOutFile = new File(mapsFolder.getAbsolutePath() + "/" + tutorialMap)
+      val out = FileUtils.openOutputStream(mapOutFile)
+      IOUtils.copy(mapIS, out)
+      mapIS.close()
+      out.close()
+    }
+    mapsFolder
+  }
 }
 

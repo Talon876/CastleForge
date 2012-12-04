@@ -1,0 +1,3108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<castle version="1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<meta>
+		<name>Tutorial Castle</name>
+		<author>Talon</author>
+		<description>A castle with 1512 tiles.</description>
+	</meta>
+	<state id="0">
+		<map>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="20,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="20,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,20,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,12,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="12,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="12,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="12,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="12,13,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="13,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="13,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="13,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="13,16,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="16,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="16,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="16,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="16,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="20,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="20"/>
+				<tile roomids="9,20">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9,12">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="12"/>
+				<tile roomids="12"/>
+				<tile roomids="12">
+					<item type="key">
+						<param>green</param>
+						<param>triangle</param>
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="12,13">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="13"/>
+				<tile roomids="13"/>
+				<tile roomids="13"/>
+				<tile roomids="13,16">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="16"/>
+				<tile roomids="16"/>
+				<tile roomids="16"/>
+				<tile roomids="16,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="20,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="20"/>
+				<tile roomids="9,20">
+					<item type="door">
+						<param>0</param>
+						<param>white</param>
+						<param>diamond</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9,12">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="12"/>
+				<tile roomids="12"/>
+				<tile roomids="12"/>
+				<tile roomids="12,13">
+					<item type="door">
+						<param>0</param>
+						<param>white</param>
+						<param>diamond</param>
+					</item>
+				</tile>
+				<tile roomids="13"/>
+				<tile roomids="13"/>
+				<tile roomids="13"/>
+				<tile roomids="13,16">
+					<item type="door">
+						<param>1</param>
+						<param>purple</param>
+						<param>triangle</param>
+					</item>
+				</tile>
+				<tile roomids="16"/>
+				<tile roomids="16"/>
+				<tile roomids="16"/>
+				<tile roomids="16,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="20,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="20">
+					<item type="key">
+						<param>white</param>
+						<param>diamond</param>
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="9,20">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9,12">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="12"/>
+				<tile roomids="12"/>
+				<tile roomids="12"/>
+				<tile roomids="12,13">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="13"/>
+				<tile roomids="13"/>
+				<tile roomids="13"/>
+				<tile roomids="13,16">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="16"/>
+				<tile roomids="16"/>
+				<tile roomids="16"/>
+				<tile roomids="16,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="20,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="20"/>
+				<tile roomids="9,20">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="key">
+						<param>blue</param>
+						<param>star</param>
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9,12,14">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="12,14">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="12,14">
+					<item type="door">
+						<param>1</param>
+						<param>blue</param>
+						<param>star</param>
+					</item>
+				</tile>
+				<tile roomids="12,14">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="12,13,14,15">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="13,15">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="13,15">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="13,15">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="13,15,16,17">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="16,17">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="16,17">
+					<item type="door">
+						<param>0</param>
+						<param>purple</param>
+						<param>triangle</param>
+					</item>
+				</tile>
+				<tile roomids="16,17">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="16,17,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="20,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="20"/>
+				<tile roomids="9,20">
+					<item type="door">
+						<param>1</param>
+						<param>green</param>
+						<param>star</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>270</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>270</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>270</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>270</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9,14">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="14"/>
+				<tile roomids="14"/>
+				<tile roomids="14"/>
+				<tile roomids="14,15">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="15"/>
+				<tile roomids="15">
+					<item type="key">
+						<param>purple</param>
+						<param>triangle</param>
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="15">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="15,17">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="17"/>
+				<tile roomids="17"/>
+				<tile roomids="17"/>
+				<tile roomids="17,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="20,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="20,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,20">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>180</param>
+					</item>
+				</tile>
+				<tile roomids="9"/>
+				<tile roomids="9"/>
+				<tile roomids="9"/>
+				<tile roomids="9"/>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>0</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9,14">
+					<item type="door">
+						<param>1</param>
+						<param>white</param>
+						<param>diamond</param>
+					</item>
+				</tile>
+				<tile roomids="14"/>
+				<tile roomids="14"/>
+				<tile roomids="14"/>
+				<tile roomids="14,15">
+					<item type="door">
+						<param>0</param>
+						<param>yellow</param>
+						<param>pentagon</param>
+					</item>
+				</tile>
+				<tile roomids="15"/>
+				<tile roomids="15">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="15"/>
+				<tile roomids="15,17">
+					<item type="door">
+						<param>0</param>
+						<param>purple</param>
+						<param>triangle</param>
+					</item>
+				</tile>
+				<tile roomids="17"/>
+				<tile roomids="17"/>
+				<tile roomids="17"/>
+				<tile roomids="17,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>180</param>
+					</item>
+				</tile>
+				<tile roomids="9"/>
+				<tile roomids="9"/>
+				<tile roomids="9">
+					<item type="teleporter">
+						<param>receiver</param>
+						<param>purple</param>
+					</item>
+				</tile>
+				<tile roomids="9"/>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>0</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9,14">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="14"/>
+				<tile roomids="14"/>
+				<tile roomids="14"/>
+				<tile roomids="14,15">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="15">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="15"/>
+				<tile roomids="15"/>
+				<tile roomids="15,17">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="17"/>
+				<tile roomids="17"/>
+				<tile roomids="17"/>
+				<tile roomids="17,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>180</param>
+					</item>
+				</tile>
+				<tile roomids="9"/>
+				<tile roomids="9"/>
+				<tile roomids="9">
+					<item type="endpoint">
+						<param>Congratulations, You have beat the tutorial!</param>
+					</item>
+				</tile>
+				<tile roomids="9"/>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>0</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9,14">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="14">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="14">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="14">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="14,15,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="15,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="15,19">
+					<item type="door">
+						<param>2</param>
+						<param>blue</param>
+						<param>star</param>
+					</item>
+				</tile>
+				<tile roomids="15,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="15,17,18,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="17,18">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="17,18">
+					<item type="door">
+						<param>1</param>
+						<param>yellow</param>
+						<param>pentagon</param>
+					</item>
+				</tile>
+				<tile roomids="17,18">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="17,18,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>180</param>
+					</item>
+				</tile>
+				<tile roomids="9"/>
+				<tile roomids="9"/>
+				<tile roomids="9"/>
+				<tile roomids="9"/>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>0</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="key">
+						<param>green</param>
+						<param>star</param>
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9,11">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="11,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="11,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="11,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="19"/>
+				<tile roomids="19"/>
+				<tile roomids="19"/>
+				<tile roomids="18,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="18"/>
+				<tile roomids="18"/>
+				<tile roomids="18"/>
+				<tile roomids="18,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>90</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>90</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>90</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="pusher">
+						<param>90</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9,11">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="11"/>
+				<tile roomids="11"/>
+				<tile roomids="11,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="19"/>
+				<tile roomids="19">
+					<item type="key">
+						<param>yellow</param>
+						<param>pentagon</param>
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="19"/>
+				<tile roomids="18,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="18"/>
+				<tile roomids="18"/>
+				<tile roomids="18"/>
+				<tile roomids="18,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9,11">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="11"/>
+				<tile roomids="11"/>
+				<tile roomids="11,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="19"/>
+				<tile roomids="19"/>
+				<tile roomids="19"/>
+				<tile roomids="18,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="18">
+					<item type="pusher">
+						<param>180</param>
+					</item>
+				</tile>
+				<tile roomids="18"/>
+				<tile roomids="18"/>
+				<tile roomids="18,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="3,9,11">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="3,11">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="3,11">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="3,11">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="3,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="3,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="3,4,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="4,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="4,18,19">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="4,18">
+					<item type="door">
+						<param>1</param>
+						<param>green</param>
+						<param>triangle</param>
+					</item>
+				</tile>
+				<tile roomids="4,18">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="18,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="18,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="9,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="9">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="3,9">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="3">
+					<item type="spawnpoint">
+						<param>true</param>
+					</item>
+				</tile>
+				<tile roomids="3">
+					<item type="sign">
+						<param>Welcome! Walk over keys/items to pick them up</param>
+					</item>
+				</tile>
+				<tile roomids="3"/>
+				<tile roomids="3"/>
+				<tile roomids="3"/>
+				<tile roomids="3,4">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="4">
+					<item type="match">
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="4">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="4">
+					<item type="checkpoint">
+						<param>0</param>
+					</item>
+				</tile>
+				<tile roomids="4,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,10">
+					<item type="door">
+						<param>2</param>
+						<param>blue</param>
+						<param>triangle</param>
+					</item>
+				</tile>
+				<tile roomids="9,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="9,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7,9,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7,9">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7,9">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7,9">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7,9">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7,9">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7,9">
+					<item type="door">
+						<param>1</param>
+						<param>blue</param>
+						<param>triangle</param>
+					</item>
+				</tile>
+				<tile roomids="7,9">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="3,7,9">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="3"/>
+				<tile roomids="3"/>
+				<tile roomids="3">
+					<item type="key">
+						<param>green</param>
+						<param>diamond</param>
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="3"/>
+				<tile roomids="3"/>
+				<tile roomids="3,4">
+					<item type="door">
+						<param>2</param>
+						<param>orange</param>
+						<param>pentagon</param>
+					</item>
+				</tile>
+				<tile roomids="4">
+					<item type="sign">
+						<param>Some rooms are dark. This can be fixed if you prepared!</param>
+					</item>
+				</tile>
+				<tile roomids="4">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="4">
+					<item type="teleporter">
+						<param>sender</param>
+						<param>purple</param>
+					</item>
+				</tile>
+				<tile roomids="4,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="match">
+						<param>20</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="7,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7"/>
+				<tile roomids="7"/>
+				<tile roomids="7">
+					<item type="pusher">
+						<param>270</param>
+					</item>
+				</tile>
+				<tile roomids="7">
+					<item type="pusher">
+						<param>270</param>
+					</item>
+				</tile>
+				<tile roomids="7">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="7"/>
+				<tile roomids="7">
+					<item type="teleporter">
+						<param>receiver</param>
+						<param>green</param>
+					</item>
+				</tile>
+				<tile roomids="2,3,7">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2,3">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2,3">
+					<item type="door">
+						<param>0</param>
+						<param>orange</param>
+						<param>star</param>
+					</item>
+				</tile>
+				<tile roomids="2,3">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2,3">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2,3">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2,3,4">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="4"/>
+				<tile roomids="4">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="4">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="4,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="7,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7"/>
+				<tile roomids="7"/>
+				<tile roomids="7">
+					<item type="pusher">
+						<param>180</param>
+					</item>
+				</tile>
+				<tile roomids="7">
+					<item type="teleporter">
+						<param>bidirectional</param>
+						<param>yellow</param>
+					</item>
+				</tile>
+				<tile roomids="7">
+					<item type="sign">
+						<param>You can restart to your most recent checkpoint by pressing &lt;Escape&gt;</param>
+					</item>
+				</tile>
+				<tile roomids="7">
+					<item type="checkpoint">
+						<param>0</param>
+					</item>
+				</tile>
+				<tile roomids="7">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="2,7">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2">
+					<item type="teleporter">
+						<param>receiver</param>
+						<param>orange</param>
+					</item>
+				</tile>
+				<tile roomids="2,4">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="4">
+					<item type="torch">
+						<param>true</param>
+						<param>medium</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="4"/>
+				<tile roomids="4"/>
+				<tile roomids="4,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="7,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7">
+					<item type="key">
+						<param>yellow</param>
+						<param>diamond</param>
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="7"/>
+				<tile roomids="7">
+					<item type="pusher">
+						<param>180</param>
+					</item>
+				</tile>
+				<tile roomids="7">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="7">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="7"/>
+				<tile roomids="7">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="2,7">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2,4">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="4">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="4">
+					<item type="pusher">
+						<param>0</param>
+					</item>
+				</tile>
+				<tile roomids="4">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="4,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>high</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="10">
+					<item type="torch">
+						<param>false</param>
+						<param>low</param>
+						<param>white</param>
+					</item>
+				</tile>
+				<tile roomids="7,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7"/>
+				<tile roomids="7"/>
+				<tile roomids="7">
+					<item type="pusher">
+						<param>90</param>
+					</item>
+				</tile>
+				<tile roomids="7">
+					<item type="teleporter">
+						<param>sender</param>
+						<param>green</param>
+					</item>
+				</tile>
+				<tile roomids="7"/>
+				<tile roomids="7"/>
+				<tile roomids="7">
+					<item type="pusher">
+						<param>180</param>
+					</item>
+				</tile>
+				<tile roomids="2,7">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2,4">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="4"/>
+				<tile roomids="4"/>
+				<tile roomids="4">
+					<item type="teleporter">
+						<param>bidirectional</param>
+						<param>yellow</param>
+					</item>
+				</tile>
+				<tile roomids="4,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="10,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="7,8,10">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="6,7,8">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="6,7">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="6,7">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="1,6,7">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="1,7">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="1,7">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="1,7">
+					<item type="door">
+						<param>0</param>
+						<param>orange</param>
+						<param>pentagon</param>
+					</item>
+				</tile>
+				<tile roomids="1,2,7">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="2">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="2">
+					<item type="sign">
+						<param>Holes are merely obstacles, you can't fall in them</param>
+					</item>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2,4,5">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="4,5">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="4,5">
+					<item type="door">
+						<param>1</param>
+						<param>orange</param>
+						<param>pentagon</param>
+					</item>
+				</tile>
+				<tile roomids="4,5">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="4,5,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="8,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8">
+					<item type="match">
+						<param>20</param>
+					</item>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="8">
+					<item type="pusher">
+						<param>270</param>
+					</item>
+				</tile>
+				<tile roomids="6,8">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="6"/>
+				<tile roomids="6"/>
+				<tile roomids="1,6">
+					<item type="door">
+						<param>2</param>
+						<param>orange</param>
+						<param>pentagon</param>
+					</item>
+				</tile>
+				<tile roomids="1"/>
+				<tile roomids="1"/>
+				<tile roomids="1"/>
+				<tile roomids="1,2">
+					<item type="door">
+						<param>1</param>
+						<param>red</param>
+						<param>star</param>
+					</item>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2">
+					<item type="obstacle">
+						<param>hole</param>
+					</item>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2,5">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="5"/>
+				<tile roomids="5"/>
+				<tile roomids="5">
+					<item type="match">
+						<param>5</param>
+					</item>
+				</tile>
+				<tile roomids="5,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="8,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="8">
+					<item type="pusher">
+						<param>90</param>
+					</item>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="6,8">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="6">
+					<item type="key">
+						<param>orange</param>
+						<param>pentagon</param>
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="6"/>
+				<tile roomids="1,6">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="1">
+					<item type="crystal_ball"/>
+				</tile>
+				<tile roomids="1">
+					<item type="sign">
+						<param>Certain items let you see things differently</param>
+					</item>
+				</tile>
+				<tile roomids="1"/>
+				<tile roomids="1,2">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2,5">
+					<item type="door">
+						<param>1</param>
+						<param>green</param>
+						<param>diamond</param>
+					</item>
+				</tile>
+				<tile roomids="5"/>
+				<tile roomids="5">
+					<item type="sign">
+						<param>It's a good idea to take note of where locked doors are at.</param>
+					</item>
+				</tile>
+				<tile roomids="5"/>
+				<tile roomids="5,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="8,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="8">
+					<item type="key">
+						<param>blue</param>
+						<param>triangle</param>
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="8">
+					<item type="pusher">
+						<param>0</param>
+					</item>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="8">
+					<item type="ice"/>
+				</tile>
+				<tile roomids="6,8">
+					<item type="door">
+						<param>1</param>
+						<param>yellow</param>
+						<param>diamond</param>
+					</item>
+				</tile>
+				<tile roomids="6"/>
+				<tile roomids="6"/>
+				<tile roomids="1,6">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="1"/>
+				<tile roomids="1"/>
+				<tile roomids="1"/>
+				<tile roomids="1,2">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2"/>
+				<tile roomids="2">
+					<item type="sign">
+						<param>Press escape to restart if you get stuck</param>
+					</item>
+				</tile>
+				<tile roomids="2"/>
+				<tile roomids="2,5">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="5">
+					<item type="key">
+						<param>red</param>
+						<param>star</param>
+						<param>1</param>
+					</item>
+				</tile>
+				<tile roomids="5"/>
+				<tile roomids="5">
+					<item type="teleporter">
+						<param>sender</param>
+						<param>orange</param>
+					</item>
+				</tile>
+				<tile roomids="5,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile roomids="8,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="8,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="6,8,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="6,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="6,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="1,6,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="0,1">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="0,1">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="0,1">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="1,2,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="2,5,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="5,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="5,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="5,0">
+					<item type="wall"/>
+				</tile>
+				<tile roomids="5,0">
+					<item type="wall"/>
+				</tile>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+			<row>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+				<tile/>
+			</row>
+		</map>
+	</state>
+</castle>

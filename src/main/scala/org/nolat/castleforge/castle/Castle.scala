@@ -22,9 +22,7 @@ object Castle {
     castle
   }
   def getSaveLocation(authorNam: String, castleName: String): File = {
-    val mapsFolderStr: String = Config.WorkingDirectory + "/maps"
-    val mapsFolder: File = new File(mapsFolderStr)
-    mapsFolder.mkdirs()
+    val mapsFolderStr = CastleUtil.getMapsFolder.getAbsolutePath()
     new File(mapsFolderStr + "/" + authorNam + "-" + castleName + ".map") //now a .map file
   }
 }
