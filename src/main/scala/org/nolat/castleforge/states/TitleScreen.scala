@@ -18,6 +18,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition
 import org.newdawn.slick.state.transition.FadeInTransition
 import java.io.File
 import org.nolat.castleforge.ui.HUD
+import org.nolat.castleforge.xml.MapSave
 
 object TitleScreen {
   val ID = 1
@@ -34,6 +35,7 @@ class TitleScreen extends BasicGameState {
   override def init(container: GameContainer, game: StateBasedGame) {
     this.game = game
     Config.init()
+    MapSave.dummyInit //Making sure the MapSave singleton is initialized before the game loop runs
     CodeTimer.finish()
   }
 

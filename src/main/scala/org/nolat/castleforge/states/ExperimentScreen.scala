@@ -284,8 +284,8 @@ class ExperimentScreen extends BasicGameState {
 
   override def keyReleased(key: Int, c: Char) {
     if (key == Input.KEY_F9) {
-      val saveLocation: File = MapSave.save(Castle(ExperimentScreen.list2Floors(ExperimentScreen.allCombinations()), mapName, authorName, "This is a test Map"), true)
-      SharedStateData.mapFile = saveLocation
+      MapSave.save(Castle(ExperimentScreen.list2Floors(ExperimentScreen.allCombinations()), mapName, authorName, "This is a test Map"), true)
+      //SharedStateData.mapFile = saveLocation
       SharedStateData.loadOriginal = false
       game.enterState(ExperimentScreen.ID, new FadeOutTransition(), new FadeInTransition())
     } else if (key == Input.KEY_F10) {
