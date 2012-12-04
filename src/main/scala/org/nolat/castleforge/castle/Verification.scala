@@ -10,9 +10,9 @@ object Verification {
   }
   def verifyTeleporters(castle: Castle): List[String] = {
     var results: List[String] = List()
-    val senders: List[Floor] = findAllSenderTeleporters(castle)
-    val receivers: List[Floor] = findAllReceiverTeleporters(castle)
-    val bidirectionals: List[Floor] = findAllBidirectionalTeleporters(castle)
+    val senders: List[Floor] = findAllTeleportersOfType(castle, "sender")
+    val receivers: List[Floor] = findAllTeleportersOfType(castle, "receiver")
+    val bidirectionals: List[Floor] = findAllTeleportersOfType(castle, "bidirectional")
     IDColor.values.foreach { clr =>
       val sendersClr: List[Floor] = senders.filter { flr =>
         flr.item match {
@@ -65,26 +65,14 @@ object Verification {
     }
     results
   }
-  private def findAllSenderTeleporters(castle: Castle): List[Floor] = {
+
+  private def findAllTeleportersOfType(castle: Castle, typ: String): List[Floor] = {
     castle.map.flatten.toList.filter { floor =>
       floor.item match {
-        case Some(i: Teleporter) => if (i.teleType == "sender") { true } else { false }
-        case None => false
-      }
-    }
-  }
-  private def findAllReceiverTeleporters(castle: Castle): List[Floor] = {
-    castle.map.flatten.toList.filter { floor =>
-      floor.item match {
-        case Some(i: Teleporter) => if (i.teleType == "receiver") { true } else { false }
-        case None => false
-      }
-    }
-  }
-  private def findAllBidirectionalTeleporters(castle: Castle): List[Floor] = {
-    castle.map.flatten.toList.filter { floor =>
-      floor.item match {
-        case Some(i: Teleporter) => if (i.teleType == "bidirectional") { true } else { false }
+        case Some(itm) => itm match {
+          case t: Teleporter => if (t.teleType == typ) true else false
+          case _ => false
+        }
         case None => false
       }
     }

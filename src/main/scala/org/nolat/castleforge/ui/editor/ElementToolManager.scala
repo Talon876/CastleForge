@@ -10,7 +10,7 @@ class ElementToolManager(castle: Castle, toolSelector: ElementToolSelector) exte
   def currentTool = toolSelector.selected
 
   def toolReleased(region: List[List[(Int, Int)]]) {
-    println("tool released")
+    //println("tool released")
     val floorRegion = region.map { row =>
       row.map { coord =>
         CastleUtil.floorAt(castle, coord)
