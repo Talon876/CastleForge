@@ -1,13 +1,20 @@
 ![logo](http://i.imgur.com/XcbuF.png)
+[[DOWNLOAD]](https://github.com/downloads/Talon876/CastleForge/CastleForge-1.0.jar)
 
 A castle building game with an emphasis on creating puzzles.
 
 This was a project for an independent study at MSU, worked on with a [partner](https://github.com/Septarius).
 It will likely no longer receive any updates as eventually it, or a similar game, will be ported to libGDX.
 
+#Video
+[Gameplay Video](http://www.youtube.com/watch?v=zzYT_vjrmCE)
+
 #Screenshots
 
+In-Game
 ![ingame](http://i.imgur.com/y7Ifa.jpg)
+
+Create custom maps
 ![editor](http://i.imgur.com/d9zvq.jpg)
 
 #Download
