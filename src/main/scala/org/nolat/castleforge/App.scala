@@ -6,7 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.nolat.castleforge.tools.CodeTimer
 object App {
 
-  val VERSION = "1.0-SNAPSHOT"
+  val VERSION = "1.0"
   val APPNAME = "CastleForge"
 
   def main(args: Array[String]) = {
