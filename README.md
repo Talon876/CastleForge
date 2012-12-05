@@ -8,7 +8,7 @@ This was a project for an independent study at MSU, worked on with a [partner](h
 It will likely no longer receive any updates as eventually it, or a similar game, will be ported to libGDX.
 
 #Video
-[Gameplay Video](http://www.youtube.com/watch?v=zzYT_vjrmCE)
+[Gameplay Video](http://www.youtube.com/watch?v=sP44eRHJgTE)
 
 #Screenshots
 
